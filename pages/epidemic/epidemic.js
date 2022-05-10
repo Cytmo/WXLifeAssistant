@@ -1,4 +1,4 @@
-// pages/TVSeries/TVSeries.js
+// pages/epidemic/epidemic.js
 Page({
 
   /**

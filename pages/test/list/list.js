@@ -1,11 +1,11 @@
-// pages/talk/talk.js
+// pages/list/list.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    info:'dsdsds'
   },
 
   /**

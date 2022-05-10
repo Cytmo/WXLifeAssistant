@@ -1,58 +1,54 @@
 {
-  "pages":[
-    "pages/recs/recs",
-    "pages/index/index",
+  "pages": [
+    "pages/recommends/recs",
+    "pages/expands/expands",
+    "pages/epidemic/epidemic",
+    "pages/user/user",
     "pages/logs/logs",
-    "pages/list/list",
-    "pages/movie/movie",
-    "pages/talk/talk",
-    "pages/map/map",
-    "pages/me/me",
-    "pages/group/group",
-    "pages/TVSeries/TVSeries",
-    "pages/novel/novel"
+    "pages/test/list/list",
+    "pages/recommendspages/group/group",
+    "pages/recommendspages/TVSeries/TVSeries",
+    "pages/recommendspages/movies/movies",
+    "pages/recommendspages/novel/novel"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "Weixin",
-    "navigationBarTextStyle":"black"
+    "navigationBarTextStyle": "black"
   },
   "tabBar": {
     "color": "#999",
-        "selectedColor": "#3D98FF",
-        "backgroundColor": "#fff",
-        "borderStyle": "white",
+    "selectedColor": "#3D98FF",
+    "backgroundColor": "#fff",
+    "borderStyle": "white",
     "list": [
       {
-        "selectedIconPath": "images/tabbar_rec_selected.png",
-        "iconPath": "images/tabbar_rec.png",
-        "pagePath": "pages/recs/recs",
+        "selectedIconPath": "images/icon/tabbar_rec_selected.png",
+        "iconPath": "images/icon/tabbar_rec.png",
+        "pagePath": "pages/recommends/recs",
         "text": "推荐"
       },
       {
-        "selectedIconPath": "images/tabbar_talk_selected.png",
-        "iconPath": "images/tabbar_talk.png",
-        "pagePath": "pages/talk/talk",
-        "text": "依赖"
+        "selectedIconPath": "images/icon/tabbar_talk_selected.png",
+        "iconPath": "images/icon/tabbar_talk.png",
+        "pagePath": "pages/expands/expands",
+        "text": "拓展"
       },
       {
-        "selectedIconPath": "images/tabbar_map_selected.png",
-        "iconPath": "images/tabbar_map.png",
-        "pagePath": "pages/map/map",
+        "selectedIconPath": "images/icon/tabbar_map_selected.png",
+        "iconPath": "images/icon/tabbar_map.png",
+        "pagePath": "pages/epidemic/epidemic",
         "text": "疫区"
       },
       {
-        "selectedIconPath": "images/tarbar_me_selected.png",
-        "iconPath": "images/tabbar_me.png",
-        "pagePath": "pages/index/index",
+        "selectedIconPath": "images/icon/tarbar_me_selected.png",
+        "iconPath": "images/icon/tabbar_me.png",
+        "pagePath": "pages/user/user",
         "text": "我"
       }
     ]
   },
   "style": "v2",
   "sitemapLocation": "sitemap.json"
-  
-
-
 }
