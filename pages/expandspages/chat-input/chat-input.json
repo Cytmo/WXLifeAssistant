@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "chat-input": "../../../modules/chat-input/chat-input"
+  }
+}

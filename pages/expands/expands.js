@@ -56,7 +56,11 @@ Page({
   onReachBottom() {
 
   },
-
+  goToChatList:function(){
+    wx.navigateTo({
+      url: '../expandspages/chat-list/chat-list',
+    })
+  },
   /**
    * 用户点击右上角分享
    */

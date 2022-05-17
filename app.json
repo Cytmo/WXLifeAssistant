@@ -9,7 +9,11 @@
     "pages/recommendspages/group/group",
     "pages/recommendspages/TVSeries/TVSeries",
     "pages/recommendspages/movies/movies",
-    "pages/recommendspages/novel/novel"
+    "pages/recommendspages/novel/novel",
+    "pages/recommendspages/detail",
+    "pages/recommendspages/novel/novel-index/novel-index",
+    "pages/expandspages/chat/chat",
+    "pages/expandspages/chat-list/chat-list"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -1,0 +1,19 @@
+
+<import src="../stars/stars-template.wxml" />
+ 
+<template name="movieTemplate">
+  <view class='movie-container'>
+    <image class='movie-img' src='{{coverageUrl}}'></image>
+    <view class='text-info'>
+    <text class='movie-title'>{{title}}\n</text>
+    <text class='movie-director'>{{director}}\n</text>
+    <text class='movie-length'>{{length}}\n</text>
+    <text class='reccomendNum'>{{rec}}\n</text>
+    <text class='notrecomNum'>{{notrec}}\n</text>
+    </view>
+    <view class='star'>
+    <template is="starsTempalte" data="{{stars:stars,score:average}}" />
+    </view>
+  </view>
+</template>
+

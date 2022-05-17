@@ -1,0 +1,39 @@
+<view class="detail-container">
+  <view class="img-container">
+    <image mode="aspectFit" src="{{detail.images.large}}"/> 
+  </view>
+  <view class="info-container">
+      <view class="info-row">
+          <text>{{detail.title}}</text>
+          <br/>
+      </view>
+      <view class="info-row">
+          {{detail.genres}} | {{detail.durations[0]}}
+      </view>
+      <view class="info-row">
+          {{detail.mainland_pubdate}} 在中国大陆上映
+      </view>
+    </view>
+</view>
+<view class="movie-intr">
+    {{detail.summary}}
+</view>
+<view class="person-container">
+  <view class="act-info">演员</view>
+  <scroll-view scroll-x class="scroll-header" >
+      <view class="act-img" wx:for="{{detail.casts}}"  wx:key="{{item.id}}">
+      <view>
+          <image mode="aspectFill" src="{{item.avatars.large}}">
+          </image>
+          <text class="actor-name">  
+              {{item.name}}
+          </text>
+      </view>
+      </view>
+</scroll-view>
+</view>
+<view>
+    <button class="btn-like" type="primary" bindtap="addToLikes" 
+    data-id="{{detail.id}}">
+    </button>
+</view>

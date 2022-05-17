@@ -16,7 +16,7 @@ Page({
   },
   gotoNovel:function(){
     wx.navigateTo({
-      url: '/pages/recommendspages/novel/novel',
+      url: '/pages/recommendspages/novel/novel-index/novel-index',
     })
   },
   gotoTVSeries:function(){
