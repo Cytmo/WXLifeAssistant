@@ -5,7 +5,7 @@
         <image style="width: 70rpx;height: 70rpx;border-radius: 50%;margin-left: 15rpx;margin-right: 15rpx;"
                src="{{headUrl}}"/>
         <image wx:if="{{type==='text'||type==='voice'}}" class="chat-list-arrow-style"
-               src="./../../image/chat/popu_{{isMy?'blue':'white'}}.png"/>
+               src="../../../image/chat/popu_{{isMy?'blue':'white'}}.png"/>
 
         <block wx:if="{{type==='text'}}">
             <view wx:if="{{type==='text'}}" class="{{isMy?'isMyWordStyle':'isOtherWordStyle'}}"

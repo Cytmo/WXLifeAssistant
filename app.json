@@ -13,7 +13,11 @@
     "pages/recommendspages/detail",
     "pages/recommendspages/novel/novel-index/novel-index",
     "pages/expandspages/chat/chat",
-    "pages/expandspages/chat-list/chat-list"
+    "pages/expandspages/chat-list/chat-list",
+    "pages/expandspages/treehole/welcome/welcome",
+    "pages/expandspages/treehole/index/index",
+   "pages/expandspages/treehole/publishTopics/publishTopics",
+   "pages/expandspages/treehole/message/message" 
   ],
   "window": {
     "backgroundTextStyle": "light",

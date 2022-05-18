@@ -10,7 +10,7 @@ export default class AppIMDelegate {
     }
 
     onShow(options) {
-        this.iIMHandler.createConnection({options: {url: 'ws://10.131.134.159:8001'}});
+        this.iIMHandler.createConnection({options: {url: 'ws://10.131.162.4:8001'}});
     }
 
     onHide() {

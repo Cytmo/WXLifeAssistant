@@ -15,5 +15,25 @@ const formatNumber = n => {
 }
 
 module.exports = {
-  formatTime
+  formatTime: formatTime,
+  showTip: showTip,
+  getFileId: getFileId
 }
+
+
+
+const showTip = title => {
+  wx.showToast({
+    title: title,
+    icon: 'none',
+    duration: 1500,
+    mask: true
+  })
+}
+
+const getFileId = imageUrl => {
+  let s1 = imageUrl.toString().substring(0, 32);
+  let s2 = imageUrl.toString().substring(43);
+  return s1.concat(s2);
+}
+
