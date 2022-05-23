@@ -25,6 +25,11 @@
     "navigationBarTitleText": "Weixin",
     "navigationBarTextStyle": "black"
   },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于推荐和疫区"
+    }
+  },
   "tabBar": {
     "color": "#999",
     "selectedColor": "#3D98FF",

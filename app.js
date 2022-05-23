@@ -3,12 +3,7 @@ App(
   
   {
   globalData: {
-          // 指代音乐是否被播放
-          g_isPlayingMusic:false,
-          // 哪一个音乐正在被播放
-          g_currentMusicPostId:null,
-          // 豆瓣接口的全局变量
-          doubanBase:"https://api.wmdb.tv/api/v1/top?type=Imdb&skip=0&limit=20&lang=Cn",
+    userInterfaceUrl:null,
     userInfo: {}
   },
   getIMHandler() {
@@ -21,6 +16,11 @@ App(
     // this.getUserInfo()
     // //初始化缓存
     // this.initStorage()
+    wx.login({
+      success: res => {
+        // 发送 res.code 到后台换取 openId, sessionKey, unionId
+      }
+    })
     this.appIMDelegate = new AppIMDelegate(this);
     this.appIMDelegate.onLaunch(options);
   },
