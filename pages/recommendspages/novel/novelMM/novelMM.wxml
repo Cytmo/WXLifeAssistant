@@ -1,0 +1,10 @@
+<block wx:for="{{objects}}"  wx:key="index">
+    <text class='type'>{{item.type}}\n</text>
+    <text class='type'>{{item.title}}\n</text>
+    <text class='novel-writer'>{{item.writer}}\n</text>
+    <text class='novel-word-count'>{{item.word-count}}\n</text>
+    <text class='novel-intro'>{{item.intro}}\n</text>
+    <text class='reccomendNum'>{{item.rec}}\n</text>
+    <text class='notrecomNum'>{{item.notrec}}\n</text>
+    <image src="{{item.coverageUrl}}"></image>
+  </block>

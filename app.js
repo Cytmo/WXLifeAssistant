@@ -4,7 +4,10 @@ App(
   {
   globalData: {
     userInterfaceUrl:null,
-    userInfo: {}
+    userInfo: {},
+    //userID应由相关微信接口获得，开发时暂时使用1
+    userID:1,
+    url: "http://10.131.141.128:8081"
   },
   getIMHandler() {
     return this.appIMDelegate.getIMHandlerDelegate();

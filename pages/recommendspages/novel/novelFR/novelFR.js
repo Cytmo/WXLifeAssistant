@@ -1,4 +1,4 @@
-// pages/recommendspages/novel/novel-index/novel-index.js
+// pages/recommendspages/novel/novelFR/novelFR.js
 Page({
 
   /**
@@ -62,25 +62,5 @@ Page({
    */
   onShareAppMessage() {
 
-  },
-  goToMM(){
-    wx.navigateTo({
-      url: '/pages/recommendspages/novel/novelMM/novelMM',
-    })
-  },
-  goToFM(){
-    wx.navigateTo({
-      url: '/pages/recommendspages/novel/novelFM/novelFM',
-    })
-  },
-  goToFR(){
-    wx.navigateTo({
-      url: '/pages/recommendspages/novel/novelFR/novelFR',
-    })
-  },
-  goToMR(){
-    wx.navigateTo({
-      url: '/pages/recommendspages/novel/novelMR/novelMR',
-    })
   }
 })

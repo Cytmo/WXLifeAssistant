@@ -1,4 +1,4 @@
-<button> 男频月榜</button>
-<button> 男频推荐</button>
-<button> 女频月榜</button>
-<button> 女频推荐</button>
+<button bindtap="goToMM"> 男频月榜</button>
+<button bindtap="goToMR"> 男频推荐</button>
+<button bindtap="goToFM"> 女频月榜</button>
+<button bindtap="goToFR"> 女频推荐</button>

@@ -1,5 +1,5 @@
 
-var util = require('../../../util.js')
+var util = require('../../utils/utils.js')
 // 获取全局的app
 var app = getApp();
  
@@ -12,10 +12,10 @@ Page({
    * 页面的初始数据
    */
   data: {
+    // 下面三个必须写！！！
     inTheaters: {},
     comingSoon: {},
-    top250: {},
-    loading: false
+    top250: {}
   },
  
   /**
@@ -23,12 +23,11 @@ Page({
    */
   onLoad: function(event) {
     // 正在热映
-    var inTheatersUrl = "https://movie.douban.com/j/search_subjects?type=movie&tag=%E7%83%AD%E9%97%A8&sort=time&page_limit=${event.count}&page_start=${event.start}";
+    var inTheatersUrl = app.globaData.doubanBase + "/v2/movie/in_theaters" + "?start=0&count=3";
     // 即将上映
-    var comingSoonUrl = "https://movie.douban.com/j/search_subjects?type=movie&tag=%E7%83%AD%E9%97%A8&sort=time&page_limit=${event.count}&page_start=${event.start}";
+    var comingSoonUrl = app.globaData.doubanBase + "/v2/movie/coming_soon" + "?start=0&count=3";
     // 前250
-    var top250Url = "https://movie.douban.com/j/search_subjects?type=movie&tag=%E7%83%AD%E9%97%A8&sort=time&page_limit=${event.count}&page_start=${event.start}";
-
+    var top250Url = app.globaData.doubanBase + "/v2/movie/top250" + "?start=0&count=3";
     this.getMovieListData(inTheatersUrl, "inTheaters","正在热映");
     this.getMovieListData(comingSoonUrl, "comingSoon","即将上映");
     this.getMovieListData(top250Url, "top250","豆瓣Top250");
@@ -55,31 +54,19 @@ Page({
   // 处理数据函数
   procseeDoubanData: function(moviesDouban, settedKey,cagetoryTitle) {
     var movies = [];
-    //var cnt=0;
     for (var idx in moviesDouban.subjects) {
-      //cnt++;
-      //if(cnt>3) continue;
       var subject = moviesDouban.subjects[idx];
       var title = subject.title;
-      var recNum = "1000";
-      var notrecNum = "100";
       if (title.length >= 6) {
         title = title.substring(0, 6) + "···";
       }
       // [1,1,1,1,1]  [1,1,1,0,0]
-      // 导演等信息等待后续修改，暂时为占位
-      var dir = "导演："+"11"
-      var length = "片长："+"11分钟"
       var temp = {
-        stars: util.converToStarsArray(subject.rate), // 评分，星星
+        stars: util.converToStarsArray(subject.rating.stars), // 评分，星星
         title: title, // 电影名称
-        average: subject.rate, // 评分
-        coverageUrl: subject.cover, // 海报
-        movieId: subject.id, // id
-        director: dir,
-        length:length,
-        rec:recNum,
-        notrec:notrecNum
+        average: subject.rating.average, // 评分
+        coverageUrl: subject.images.large, // 海报
+        movieId: subject.id // id
       }
       movies.push(temp);
       var readyData = {};
@@ -89,9 +76,7 @@ Page({
       }
       // 数据绑定
       this.setData(readyData);
-      console.log(readyData);
     }
-    loading: false;
   },
  
 })
