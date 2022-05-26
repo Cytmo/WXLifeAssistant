@@ -1,0 +1,18 @@
+<view class="container" >
+  <view class="meta">
+    <image class="poster" src="{{novel.image}}" mode="heightFix"></image>
+    <text class="title">{{novel.name}}</text>
+  </view>
+
+  <view class="summery">
+    <text class="label">排行: {{novel.ranks}}</text>
+    <text class="label">作者: {{novel.author}}</text>
+    <view class="artists" >类型: {{novel.category}}  {{novel.subcategory}}</view>
+    <text class="label">最新章节：</text>
+    <text class="content">{{novel.updatedchapter}}</text>
+
+    <text class="label">小说简介：</text>
+    <text class="content">{{novel.introduction}}</text>
+
+  </view>
+</view>

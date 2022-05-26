@@ -1,0 +1,101 @@
+<!--movie/moviemain/movie.wxml-->
+<view class="containerrecom">
+  <view class="slide">
+    <swiper catchtap="onItemClick" indicator-dots="true" autoplay="true" interval="5000" duration="1000">
+     <swiper-item >
+      <image src="{{novelsyuepiao[0].image}}" mode="widthFix" data-type="yuepiao"></image>
+    </swiper-item> 
+    <swiper-item >
+      <image src="{{novelsrecom[0].image}}" mode="widthFix" data-type="recom"></image>
+    </swiper-item> 
+    <swiper-item >
+      <image src="{{novelsmmyuepiao[0].image}}" mode="widthFix" data-type="mmyuepiao"></image>
+    </swiper-item>
+    <swiper-item >
+      <image src="{{novelsmmrecom[0].image}}" mode="widthFix" data-type="mmrecom"></image>
+    </swiper-item> 
+    </swiper>
+  </view>
+
+    <view class="board" scroll-y="true">
+
+    <block >
+      <view class="board-item">
+          <view class="title" bindtap="gotoyuepiao">
+            <text>{{boardItems[0].title}}</text>
+            <image src="../images/arrowright.png" mode="aspectFill"></image>
+          </view>
+        <scroll-view class="content" scroll-x="true">
+          <view class="inner">
+            <view wx:for="{{ novelsyuepiao }}" wx:key="id" >
+              <view class="movie-item">
+                <image src="{{item.image}}" mode="aspectFill"></image>
+                <text>{{item.name}}</text>
+              </view>
+            </view>
+          </view>
+        </scroll-view>
+      </view>
+    </block>
+
+    <block >
+      <view class="board-item">
+          <view class="title" bindtap="gotorecom">
+            <text>{{boardItems[1].title}}</text>
+            <image src="../images/arrowright.png" mode="aspectFill"></image>
+          </view>
+        <scroll-view class="content" scroll-x="true">
+          <view class="inner">
+            <navigator wx:for="{{ novelsrecom}}" wx:key="id" url="../item/item">
+              <view class="movie-item">
+                <image src="{{item.image}}" mode="aspectFill"></image>
+                <text>{{item.name}}</text>
+              </view>
+            </navigator>
+          </view>
+        </scroll-view>
+      </view>
+    </block>
+
+    <block >
+      <view class="board-item">
+          <view class="title" bindtap="gotommyuepiao">
+            <text>{{boardItems[2].title}}</text>
+            <image src="../images/arrowright.png" mode="aspectFill"></image>
+          </view>
+        <scroll-view class="content" scroll-x="true">
+          <view class="inner">
+            <navigator wx:for="{{ novelsmmyuepiao }}" wx:key="id" url="../item/item">
+              <view class="movie-item">
+                <image src="{{item.image}}" mode="aspectFill"></image>
+                <text>{{item.name}}</text>
+              </view>
+            </navigator>
+          </view>
+        </scroll-view>
+      </view>
+    </block>
+
+    <block >
+      <view class="board-item">
+          <view class="title" bindtap="gotommrecom">
+            <text>{{boardItems[3].title}}</text>
+            <image src="../images/arrowright.png" mode="aspectFill"></image>
+          </view>
+        <scroll-view class="content" scroll-x="true">
+          <view class="inner">
+            <navigator wx:for="{{ novelsmmrecom }}" wx:key="id" url="../item/item">
+              <view class="movie-item">
+                <image src="{{item.image}}" mode="aspectFill"></image>
+                <text>{{item.name}}</text>
+              </view>
+            </navigator>
+          </view>
+        </scroll-view>
+      </view>
+    </block>
+
+
+  </view>
+
+</view>

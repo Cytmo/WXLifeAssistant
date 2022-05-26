@@ -8,8 +8,17 @@ App(
     moviesHighRanks:{},
     userInterfaceUrl:null,
     userInfo: {},
+    novelsyuepiao: {},
+    // 小说推荐榜
+    novelsrecom:{},
+    // 小说女频月票榜
+    novelsmmyuepiao:{},
+    // 小说月票榜
+    novelsmmrecom: {},
+    tvHot:{},
     //userID应由相关微信接口获得，开发时暂时使用1
     userID:1,
+    openId:'',
     url: "http://10.131.148.225:8081"
   },
   getIMHandler() {

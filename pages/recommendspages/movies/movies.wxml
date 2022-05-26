@@ -1,16 +1,2 @@
-<loading hidden="{{!loading}}">
-  加载中，请稍等
-</loading>
-<import src="/pages/recommendspages/movies/movie-list/movie-list.wxml" />
- 
-<view class='container'>
-  <view class=" movies-template">
-    <template is="movieListTemplate" data="{{...inTheaters}}" />
-  </view>
-  <!-- <view class=" movies-template">
-    <template is="movieListTemplate" data="{{...comingSoon}}" />
-  </view>
-  <view class=" movies-template ">
-    <template is="movieListTemplate" data="{{...top250}}" />
-  </view> -->
-</view>
+<!--pages/recommendspages/movies/movies.wxml-->
+<text>pages/recommendspages/movies/movies.wxml</text>

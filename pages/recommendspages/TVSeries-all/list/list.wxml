@@ -1,0 +1,21 @@
+<view wx:for="{{tvs }}" wx:key="index" >
+  <view class="movie-item" bindtap="gotodetail" data-index="{{index}}">
+    <image class="poster" src="{{item.image}}"></image>
+    <view class="meta">
+      <text class="title">{{item.name}}</text>
+      <view >我的态度: {{item.myattitude}}</view>
+      <view class="artists" >推荐人数: {{item.recommendtotal}}</view>
+      <view  class="artists">不推荐人数: {{item.unrecommendtotal}}</view>
+    </view>
+    <view class="rating">
+          <text>{{item.ranks}}</text>
+      </view>      
+  </view>
+</view>
+
+
+<!-- loading部分 -->
+<view class="bottom-view">
+  <view class="loading" hidden="{{!hasMore}}">正在载入更多...</view>
+  <view class="loading-complete" hidden="{{hasMore}}">没有更多了...</view>
+</view>

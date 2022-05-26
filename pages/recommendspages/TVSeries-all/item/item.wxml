@@ -1,0 +1,14 @@
+<view class="container" >
+  <view class="meta">
+    <image class="poster" src="{{tv.image}}" mode="heightFix"></image>
+    <text class="title">{{tv.title}}</text>
+  </view>
+
+  <view class="summery">
+    <text class="label">电视剧评分: {{tv.ranks}}</text>
+    <text class="label">电视剧简介：</text>
+    <text class="content">{{tv.description}}</text>
+    <text class="label">详细信息：</text>
+    <text class="content">{{tv.info}}</text>
+  </view>
+</view>

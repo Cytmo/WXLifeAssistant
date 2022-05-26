@@ -16,12 +16,12 @@ Page({
   },
   gotoNovel:function(){
     wx.navigateTo({
-      url: '/pages/recommendspages/novel/novel-index/novel-index',
+      url: '/pages/recommendspages/novel-all/novelmain/novel',
     })
   },
   gotoTVSeries:function(){
     wx.navigateTo({
-      url: '/pages/recommendspages/TVSeries/TVSeries',
+      url: '/pages/recommendspages/TVSeries-all/tvmain/tv',
     })
   },
   gotoGroup:function(){
