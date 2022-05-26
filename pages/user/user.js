@@ -4,59 +4,12 @@ const app = getApp()
 var openid = wx.getStorageSync("openid");
 Page({
   data: {
-    hasUserInfo: openid == "",
-    alreadyGetUserInfo : false
+    hasUserInfo: [],
+    alreadyGetUserInfo : false,
+    userInfo:[],
   },
   doAuthorization: function(e) {
-    if(false){
-      //todo 已获得用户信息后不再弹出授权
-      console.log(alreadyGetUserInfo)
-    }else{
-    var that = this;
-    console.log("调用了 doAuthorization 授权");
-    // console.log(e);
-    if (e.detail.userInfo == null) { //为null  用户拒绝了授权
-      console.log("用户拒绝授权");
-    } else {
-      //授权
-      wx.login({
-        success: function(res) {
-          console.log('login:code', res.code)
-    
-          //发送请求
-          // wx.request({
-          //   url: app.globalData.userInterfaceUrl + 'record/' + res.code, //接口地址
-          //   method: 'GET',
-          //   header: {
-          //     'content-type': 'application/json' //默认值
-          //   },
-          //   success: function(res) {
-          //     console.log("record  成功", res.data)
-          //     var res = res.data;
-          //     if (res.error) { //发生错误
-          //       console.log("错误：", res.msg);
-          //     } else { //返回成功
-          //       try {
-          //         wx.setStorageSync('openid', res.data.openid)
-          //         openid = wx.getStorageSync("openid");
-          //       } catch (e) {
-          //         console.log("wx.login 错误", e);
-          //       }
-          //       //加载用户信息
-          //       that.loadUserInfo();
-          //       that.setData({ //设置变量
-          //         hasUserInfo: false
-          //       });
-          //     }
-          //   },
-          //   fail: function(err) {
-          //     console.log("record  失败", err);
-          //   }
-          // })
-          }
 
-      })
-    }}
     wx.getUserProfile({
       desc: '展示用户信息', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
       success: (res) => {
@@ -71,6 +24,35 @@ Page({
         console.log("record  失败", err);
       }
     })
+    if(false){
+      //todo 已获得用户信息后不再弹出授权
+      console.log(alreadyGetUserInfo)
+    }else{
+    var that = this;
+    console.log("调用了 doAuthorization 授权");
+    // console.log(e);
+   
+      //授权
+      wx.login({
+        success: function(res) {
+          console.log('login:code', res.code)
+          wx.request({
+            url: `https://api.weixin.qq.com/sns/jscode2session?appid=wxcf9a5cc5ed4abadb&secret=bbf59871d44cc7a980fcb9f6d382d6a0&js_code=${res.code}&grant_type=authorization_code`,
+            success:(res)=>{
+              console.log(res);
+              // userInfo.openid= res.openid;
+              // //获取到你的openid
+              // console.log(userInfo.openid);
+              app.globalData.userID=res.data.openid;
+              console.log(app.globalData.userID)
+            }
+          })
+          }
+
+      })
+      
+    }
+    
 
   },
   loadUserInfo: function() {
