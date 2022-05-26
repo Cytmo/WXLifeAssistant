@@ -1,0 +1,16 @@
+<view class="container" >
+  <view class="meta">
+    <image class="poster" src="{{movie.image}}" mode="heightFix"></image>
+    <text class="title">{{movie.title}}</text>
+  </view>
+
+
+
+  <view class="summery">
+    <text class="label">影片评分: {{movie.ranks}}</text>
+    <text class="label">影片简介：</text>
+    <text class="content">{{movie.description}}</text>
+    <text class="label">详细信息：</text>
+    <text class="content">{{movie.info}}</text>
+  </view>
+</view>

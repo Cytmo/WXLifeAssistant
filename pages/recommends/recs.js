@@ -11,7 +11,7 @@ Page({
   },
   gotoMovie:function(){
     wx.navigateTo({
-      url: '/pages/recommendspages/movies/movies',
+      url: '/pages/recommendspages/movie-all/moviemain/movie',
     })
   },
   gotoNovel:function(){

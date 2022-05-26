@@ -1,0 +1,19 @@
+diff a/movie/list/list.wxml b/movie/list/list.wxml	(rejected hunks)
+@@ -0,6 +0,17 @@
+       </view>      
+     </view>
+ 
++    <view class="movie-item">
++      <image class="poster" src="https://bookcover.yuewen.com/qdbimg/349573/1021617576/150"></image>
++      <view class="meta">
++        <text class="title">夜的命令术</text>
++        <text class="sub-title">玄幻</text>
++        <view class="artists">作者: 会说话的肘子</view>
++      </view>
++      <view class="rating">
++          <text>9.0</text>
++      </view>      
++    </view>
+ 
+   </navigator>
+ 

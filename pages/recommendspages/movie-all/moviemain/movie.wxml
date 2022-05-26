@@ -1,0 +1,57 @@
+<!--movie/moviemain/movie.wxml-->
+<view class="containerrecom">
+  <view class="slide">
+    <swiper catchtap="onItemClick" indicator-dots="true" autoplay="true" interval="5000" duration="1000">
+     <swiper-item>
+      <image src="{{movies[0].image}}" mode="widthFix" data-type="1"></image>
+    </swiper-item> 
+    <swiper-item >
+      <image src="{{moviesHighRanks[0].image}}" mode="widthFix" data-type="0"></image>
+    </swiper-item>
+    </swiper>
+  </view>
+
+    <view class="board" scroll-y="true">
+    <block >
+      <view class="board-item">
+          <view class="title" bindtap="gotoHotList">
+            <text>{{boardItems[0].title}}</text>
+            <image src="../images/arrowright.png" mode="aspectFill"></image>
+          </view>
+        <scroll-view class="content" scroll-x="true">
+          <view class="inner">
+            <navigator wx:for="{{ movies }}" wx:key="id" url="../item/item">
+              <view class="movie-item">
+                <image src="{{item.image}}" mode="aspectFill"></image>
+                <text>{{item.name}}</text>
+              </view>
+            </navigator>
+          </view>
+        </scroll-view>
+      </view>
+    </block>
+
+
+    <block >
+      <view class="board-item">
+          <view class="title" bindtap="gotoHighRanksList">
+            <text>{{boardItems[1].title}}</text>
+            <image src="../images/arrowright.png" mode="aspectFill"></image>
+          </view>
+        <scroll-view class="content" scroll-x="true">
+          <view class="inner">
+            <navigator wx:for="{{ moviesHighRanks }}" wx:key="id" url="../item/item">
+              <view class="movie-item">
+                <image src="{{item.image}}" mode="aspectFill"></image>
+                <text>{{item.name}}</text>
+              </view>
+            </navigator>
+          </view>
+        </scroll-view>
+      </view>
+    </block>
+  </view>
+
+
+
+</view>
