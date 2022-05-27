@@ -26,7 +26,7 @@ Page({
   },
   gotoGroup:function(){
     wx.navigateTo({
-      url: '/pages/recommendspages/group/group',
+      url: '/pages/recommendspages/group/group?&pageid=' + 0,
     })
   },
   /**

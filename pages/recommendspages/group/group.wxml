@@ -1,2 +1,113 @@
 <!--pages/recommendspages/group/group.wxml-->
-<text>pages/recommendspages/group/group.wxml</text>
+<view>
+
+  <view class="drawer_screen" bindtap="closeShow" wx:if="{{showGroupTag === true}}">
+    <view class="drawer_box" bindtap="closeShow" >
+      <view class="meta" bindtap="closeShow">
+        <!-- <image class="poster" src="{{movie.image}}" mode="heightFix"></image> -->
+        <text class="title" >{{showGroup.name}}</text>
+      </view>
+      <view class="summery" bindtap="closeShow">
+        <text class="label">群号 ： {{showGroup.number}}</text>
+        <text class="label">群简介 ：{{showGroup.introduction}}</text>
+        <text class="label">群二维码 ：</text>
+        <text class="content">{{showGroup.qrCode}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="nav">
+    <scroll-view scroll-x>
+      <view bindtap="switchPage" data-index="{{index}}" class="nav_item {{index===currentIndexNav?'active':''}}" wx:for="{{navList}}" wx:key="{{index}}">
+      {{item.text}}
+      </view>
+    </scroll-view>
+  </view>
+
+  <view class="mainview" wx:if="{{currentIndexNav===0 && canshow}}" >
+
+    <scroll-view scroll-y refresher-enabled="true" refresher-triggered="{{triggered}}" bindrefresherrefresh="onScrollRefresh1">
+      <view class="blank" wx:if="{{randomList.length == 0}}"><image src="../../images/blank.png"></image></view>
+
+      <view class="information" wx:for="{{randomList}}" wx:key="groupId">
+        <view class="useravatar" catchtap='showDetailsR' data-recordid='{{item.groupId}}'>
+        </view>
+        <view class="userinformation"  catchtap='showDetailsR' data-recordid='{{item.groupId}}'>
+          <view class="information_top" catchtap='showDetailsR' data-recordid='{{item.groupId}}'>
+            <view class="username" catchtap='showDetailsR' data-recordid='{{item.groupId}}'>{{item.name}}</view>
+          </view>
+          <view class="information_text" catchtap='showDetailsR' data-recordid='{{item.groupId}}'>{{item.number}}
+          </view>
+        </view>
+      </view>
+
+    </scroll-view>
+
+  </view>
+
+  <view class="mainview" wx:if="{{currentIndexNav===1 && canshow}}" >
+    <form catchsubmit="groupSearch">
+      <view class = "xblock">
+        <view class="texteare">
+          <textarea name="content" placeholder="请输入想搜的群名" placeholder-class="placeholderclass"></textarea>
+        </view>
+        <button class="btn" form-type="submit">查询</button>
+      </view>
+    </form>
+    
+    <scroll-view scroll-y>
+
+      <view class="information" wx:for="{{searchList}}" wx:key="groupId">
+        <view class="useravatar" catchtap='showDetailsS' data-recordid='{{item.groupId}}'>
+        </view>
+        <view class="userinformation" catchtap='showDetailsS' data-recordid='{{item.groupId}}'>
+          <view class="information_top" catchtap='showDetailsS' data-recordid='{{item.groupId}}'>
+            <view class="username" catchtap='showDetailsS' data-recordid='{{item.groupId}}'>{{item.name}}</view>
+          </view>
+          <view class="information_text" catchtap='showDetailsS' data-recordid='{{item.groupId}}'>{{item.number}}
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <view class="mainview2" wx:if="{{currentIndexNav===2 && canshow}}" >
+    <scroll-view scroll-y bindscrolltolower = "addAll">
+      <view class="information" wx:for="{{allList}}" wx:key="groupId">
+        <view class="useravatar" catchtap='showDetailsA' data-recordid='{{item.groupId}}'>
+        </view>
+        <view class="userinformation" catchtap='showDetailsA' data-recordid='{{item.groupId}}'>
+          <view class="information_top" catchtap='showDetailsA' data-recordid='{{item.groupId}}'>
+            <view class="username" catchtap='showDetailsA' data-recordid='{{item.groupId}}'>{{item.name}}</view>
+          </view>
+          <view class="information_text" catchtap='showDetailsA' data-recordid='{{item.groupId}}'>{{item.number}}
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <view class="mainview" wx:if="{{currentIndexNav===3 && canshow}}" >
+    <view class = "xblock">
+      <text class= "textmy">已发布的群</text>
+      <button class="btn" bindtap="addNew">+</button>
+    </view>
+    
+    <scroll-view scroll-y>
+      <view class="information" wx:for="{{myList}}" wx:key="groupId">
+        <view class="useravatar" catchtap='showDetailsM' data-recordid='{{item.groupId}}'>
+        </view>
+        <view class="userinformation" catchtap='showDetailsM' data-recordid='{{item.groupId}}'>
+          <view class="information_top" catchtap='showDetailsM' data-recordid='{{item.groupId}}'>
+            <view class="username" catchtap='showDetailsM' data-recordid='{{item.groupId}}'>{{item.name}}</view>
+          </view>
+          <view class="information_text" catchtap='showDetailsM' data-recordid='{{item.groupId}}'>{{item.number}}
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  
+
+</view>
