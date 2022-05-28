@@ -4,6 +4,7 @@
     "pages/expands/expands",
     "pages/epidemic/epidemic",
     "pages/user/user",
+    "pages/epidemicpages/map/map",
     "pages/recommendspages/movie-all/moviemain/movie", 
     "pages/recommendspages/movie-all/item/item",
     "pages/recommendspages/movie-all/list/list",
@@ -63,7 +64,7 @@
       {
         "selectedIconPath": "images/icon/tabbar_map_selected.png",
         "iconPath": "images/icon/tabbar_map.png",
-        "pagePath": "pages/epidemic/epidemic",
+        "pagePath": "pages/epidemicpages/map/map",
         "text": "疫区"
       },
       {

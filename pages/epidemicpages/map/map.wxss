@@ -1,0 +1,148 @@
+/* map/map/map.wxss */
+page {
+  height: 100%;
+  width: 100%;
+}
+.mymap{
+  pointer-events: auto;
+}
+.restimg {
+  pointer-events: auto;
+  position: absolute;
+  width: 70rpx;
+  height: 70rpx;
+  margin-left: 650rpx;
+  margin-top: 950rpx;
+}
+
+
+.swiper-tab {
+  display: flex;
+  flex-direction: row;
+  line-height: 80rpx;
+  border-bottom: 2rpx solid #777;
+}
+
+.tab-item {
+  width: 50%;
+  text-align: center;
+  font-size: 15px;
+  color: #777;
+}
+
+.swiper {
+  height: 1100px;
+  background: #dfdfdf;
+}
+
+.on {
+  color: blue;
+  border-bottom: 5rpx solid blue;
+}
+
+
+
+page {
+  background-color: #fbf9fe;
+  height: 100%;
+}
+.page__hd{
+    padding: 50rpx 50rpx 100rpx 50rpx;
+    text-align: center;
+}
+.page__title{
+    display: inline-block;
+    padding: 20rpx 40rpx;
+    font-size: 32rpx;
+    color: #AAAAAA;
+    border-bottom: 1px solid #CCCCCC;
+}
+.page__desc{
+    display: none;
+    margin-top: 20rpx;
+    font-size: 26rpx;
+    color: #BBBBBB;
+}
+.section{
+  pointer-events: auto;
+  width: 250rpx;
+  padding: 5rpx;
+  opacity: 0.9;
+  position: relative;
+  margin-left: 530rpx;
+  margin-top: 10rpx;
+}
+
+.picker{
+  pointer-events: auto;
+  padding: 20rpx;
+  background-color: #FFFFFF;
+
+}
+
+
+.movie-item {
+  display: flex;
+  flex-direction: row;
+  padding: 20rpx;
+  border-bottom: 1rpx solid #eee;
+  cursor: pointer;
+} 
+
+.movie-item .poster {
+  margin-top: 20rpx;
+  margin-left: 20rpx;
+  width: 80rpx;
+  height: 120rpx;
+}
+.movie-item .meta {
+  flex: 1;
+}
+.movie-item .meta .title ,
+.movie-item .meta .sub-title{
+   display: block; 
+   margin-bottom: 15rpx;
+}
+.movie-item .meta .title {
+  font-size: 40rpx;
+  position: relative;
+  margin-top: 20rpx;
+  margin-left: 60rpx;
+}
+.movie-item .meta .sub-title {
+  font-size: 28rpx;
+  color: #999;
+}
+.movie-item .meta .artists {
+  font-size: 30rpx;
+  color: #666;
+}
+.movie-item .rating text {
+  flex: 1;
+  display: inline-block;
+  width: 200rpx;
+  font-size: 28rpx;
+  font-weight: bold;
+  text-align: center;
+  background-color: red;
+  color: #fff;
+  border-radius: 20rpx;
+  padding: 10rpx;
+  position: relative;
+  margin-top: 10rpx;
+  margin-left: 80rpx;
+}
+
+.bottom-view .loading {
+  text-align: center;
+  margin: 40rpx 0;
+  color: #999
+}
+.bottom-view .loading-complete {
+  text-align: center;
+  margin: 40rpx 0;
+  color: #999
+}
+
+
+

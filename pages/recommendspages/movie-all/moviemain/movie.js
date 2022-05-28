@@ -210,7 +210,6 @@ getData: function (url,userID) {
    * 页面上拉触底事件的处理函数
    */
   onReachBottom() {
-
   },
 
   /**

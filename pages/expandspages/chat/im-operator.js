@@ -27,6 +27,7 @@ export default class IMOperator {
         });
         getApp().getIMHandler().setOnReceiveMessageListener({
             listener: (msg) => {
+
                 if (!msg) {
                     return;
                 }

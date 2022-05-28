@@ -3,6 +3,10 @@ App(
   
   {
   globalData: {
+    mapPosition:{},
+    circles:{},
+    mapPosition1:{},
+    circles1:{},
     movies: {},
     // 高分电影数据
     moviesHighRanks:{},
@@ -16,7 +20,7 @@ App(
     // 小说月票榜
     novelsmmrecom: {},
     tvHot:{},
-    //userID应由相关微信接口获得，开发时暂时使用1
+    //userID在用户未登录时为1，登陆后为openid
     userID:1,
     openId:'',
     url: "http://10.131.148.225:8081"
