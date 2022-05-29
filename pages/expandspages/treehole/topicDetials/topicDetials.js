@@ -3,15 +3,16 @@ var th = require('../../../../utils/throttle/throttle.js');
 
 const app = getApp()
 
+var ipv4 = "http://localhost:80"
 
 Page({
   data: {
     userId : 0,
     commentList: [],
-
+    contentdetail: Object,
 
     openId: null,
-    contentdetail: Object,
+    
     recordId: '',
     jumpflag: false,
     byRevInfo: {},
@@ -30,6 +31,7 @@ Page({
 
   onLoad: function(options) {
     console.log(options)
+    var hollowId = options.recordid
     if(app.globalData.userID){
       // showMessage(app.globalData.userID);
       this.setData({
@@ -39,15 +41,49 @@ Page({
       // 跳转登录
       app.openIdReadyCallback = res => {
         //开启未读消息自动刷新
-        showMessage(res.result.openid);
+        // showMessage(res.result.openid);
         this.setData({
           openId: res.result.openid
         });
       }
     }
+    this.showHollow(hollowId)
 
   },
 
+  showHollow:function(hollowId){
+    var urlin = ipv4 + "/hollow/getHollowById"
+    var that = this
+    wx.request({
+      url: urlin,
+      method: 'post',
+      header: {
+        'content-type': 'application/json' // 豆瓣一定不能是json
+      },
+      data:{
+        hollowId : hollowId,
+        userId : that.data.userId
+      },
+      success: function(res) {
+        console.log(res.data)
+        var hollow = res.data.result
+        that.setData({
+          contentdetail : hollow
+        })
+        
+      },
+      fail: function(error) {
+        console.log(error)
+        loadFailed("无法加载")
+        wx.navigateBack({})
+      }
+    })
+  },
+
+  onComfortPublic:function(){},
+
+  onAgainstPublic:function(){},
+  
   onShow: function() {
     if (avoidPreviewImageOnShow){
       avoidPreviewImageOnShow = false;
@@ -541,6 +577,24 @@ Page({
     wx.previewImage({
       current: current,
       urls: urls
+    })
+  },
+
+  loadSuccess:function(){
+    wx.showToast({
+      title: '操作成功',
+      mask : true,
+      icon: 'none',
+      duration: 1000//持续的时间
+    })
+  },
+
+  loadFailed:function(msg){
+    wx.showToast({
+      title: msg,
+      mask : true,
+      icon: 'none',
+      duration: 2000//持续的时间
     })
   },
   
