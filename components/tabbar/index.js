@@ -43,8 +43,7 @@ Component({
         return false;
       } else {
         const url=e.currentTarget.dataset.path
-        //wx.switchTab({url})
-        wx.navigateTo({url})
+        wx.redirectTo({url})
       }
     },
     run() {

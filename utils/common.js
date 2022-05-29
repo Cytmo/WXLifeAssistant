@@ -21,6 +21,7 @@ const formatDate = (date) => {
   ].map(formatNumber).join('-')
 }
 
+
 const $init = (page) => {
   page.$data = objectUtil.$copy(page.data, true)
 }

@@ -3,17 +3,19 @@ var th = require('../../../../utils/throttle/throttle.js');
 
 const app = getApp()
 
-var avoidPreviewImageOnShow; //避免预览图片后，触发onShow函数
 
 Page({
   data: {
+    userId,
+    commentList: [],
+
+
     openId: null,
-    userInfo: null,
     contentdetail: Object,
     recordId: '',
     jumpflag: false,
     byRevInfo: {},
-    commentList: [],
+    
     mainTopicComm: Object, //对主题贴的评论
     replyComm: {}, //记录被回复评论的信息
     commnNum: 0,
@@ -27,26 +29,22 @@ Page({
   },
 
   onLoad: function(options) {
-    //获取用户的openid
-    this.data.userInfo = app.globalData.userInfo;
-    this.data.recordId = options.recordId;
-    if (app.globalData.openId) {
-      //全局应用已有openId
+    console.log(options)
+    if(app.globalData.userID){
+      // showMessage(app.globalData.userID);
       this.setData({
-        openId: app.globalData.openId
-      });
-    } else {
-      // 由于 login云函数 是网络请求，可能会在 Page.onLoad 之后才返回 
-      // 所以此处加入 callback 以防止这种情况 
+        userId:app.globalData.userID
+      })
+    }else{
+      // 跳转登录
       app.openIdReadyCallback = res => {
+        //开启未读消息自动刷新
+        showMessage(res.result.openid);
         this.setData({
           openId: res.result.openid
-        })
+        });
       }
     }
-    this.setData({
-      userInfo: app.globalData.userInfo
-    })
 
   },
 
