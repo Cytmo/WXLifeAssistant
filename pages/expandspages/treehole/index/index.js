@@ -240,9 +240,9 @@ Page({
   },
 
   gotoTopicDetials: function (event) {
-  let _id = event.currentTarget.dataset.recordid
+  let id = event.currentTarget.dataset.recordid
     wx.navigateTo({
-      url: "../topicDetials/topicDetials?&recordId="+_id
+      url: '/pages/expandspages/treehole/topicDetials/topicDetials?&recordid='+id
     });
   },
 

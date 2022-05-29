@@ -6,7 +6,7 @@ const app = getApp()
 
 Page({
   data: {
-    userId,
+    userId : 0,
     commentList: [],
 
 
