@@ -20,9 +20,17 @@
       </view>
     </view>
     <view class="bigxrow">
-      <text class="textbefore">群二维码</text>
-      <view class="texteare">
-        <textarea name = "qcCode" class="content" placeholder="在这里添加图片" placeholder-class="placeholderclass"></textarea>
+      <button type="default" size="mini" bindtap="chooseImage" 
+        wx:if="{{images.length < 1}}"
+      >添加二维码图片</button>
+      <!-- 图片缩略图  -->
+      <view class="question-images">
+        <block wx:for="{{images}}" wx:key="*this">
+          <view class="q-image-wrap">
+            <image class="q-image" src="{{item}}" mode="aspectFill" data-idx="{{index}}" bindtap="handleImagePreview"></image>
+            <view class="q-image-remover" data-idx="{{index}}" bindtap="removeImage">删除</view>
+          </view>
+        </block>
       </view>
     </view>
   </view>

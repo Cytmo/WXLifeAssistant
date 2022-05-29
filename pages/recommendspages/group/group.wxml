@@ -11,7 +11,7 @@
         <text class="label">群号 ： {{showGroup.number}}</text>
         <text class="label">群简介 ：{{showGroup.introduction}}</text>
         <text class="label">群二维码 ：</text>
-        <text class="content">{{showGroup.qrCode}}</text>
+        <image class="image_box"src="{{showGroup.qrCode}}"></image>
       </view>
     </view>
   </view>
@@ -27,7 +27,7 @@
   <view class="mainview" wx:if="{{currentIndexNav===0 && canshow}}" >
 
     <scroll-view scroll-y refresher-enabled="true" refresher-triggered="{{triggered}}" bindrefresherrefresh="onScrollRefresh1">
-      <view class="blank" wx:if="{{randomList.length == 0}}"><image src="../../images/blank.png"></image></view>
+      <view class="blank" wx:if="{{randomList.length == 0}}"><image src="../../../images/blank.png"></image></view>
 
       <view class="information" wx:for="{{randomList}}" wx:key="groupId">
         <view class="useravatar" catchtap='showDetailsR' data-recordid='{{item.groupId}}'>
@@ -72,7 +72,7 @@
   </view>
 
   <view class="mainview2" wx:if="{{currentIndexNav===2 && canshow}}" >
-    <scroll-view scroll-y bindscrolltolower = "addAll">
+    <scroll-view scroll-y="true" bindscrolltolower="addAll"  lower-threshold='30' style="height:{{scrollHeight}}px">
       <view class="information" wx:for="{{allList}}" wx:key="groupId">
         <view class="useravatar" catchtap='showDetailsA' data-recordid='{{item.groupId}}'>
         </view>
@@ -103,6 +103,7 @@
           </view>
           <view class="information_text" catchtap='showDetailsM' data-recordid='{{item.groupId}}'>{{item.number}}
           </view>
+          <button class="btnDeny" bindtap="deleteGroup" data-recordid='{{item.groupId}}'>删除</button>
         </view>
       </view>
     </scroll-view>
