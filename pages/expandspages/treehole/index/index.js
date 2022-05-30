@@ -186,10 +186,16 @@ Page({
       canshow: false
     })
     if (this.data.currentIndexNav == 0) {
-      this.setData({currentTime :formatTime(new Date())})
+      this.setData({
+        currentTime :formatTime(new Date()),
+        hollowList : []
+      })
       this.getHollowList(this.data.currentTime)
     } else {
-      this.setData({mycurrentTime :formatTime(new Date())})
+      this.setData({
+        mycurrentTime :formatTime(new Date()),
+        hollowList : []
+      })
       console.log(this.data.mycurrentTime)
       this.getMyList(this.data.mycurrentTime)
     }

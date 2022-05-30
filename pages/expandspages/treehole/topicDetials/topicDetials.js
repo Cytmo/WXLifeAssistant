@@ -1,5 +1,6 @@
 var util = require('../../../../utils/util.js');
 var th = require('../../../../utils/throttle/throttle.js');
+import { formatTime,formatDate } from '../../../../utils/common'
 
 const app = getApp()
 
@@ -10,6 +11,7 @@ Page({
     userId : 0,
     commentList: [],
     contentdetail: Object,
+    currentTime:null,
 
     openId: null,
     
@@ -47,11 +49,12 @@ Page({
         });
       }
     }
-    this.showHollow(hollowId)
+    this.showHollow(hollowId,true)
+    
 
   },
 
-  showHollow:function(hollowId){
+  showHollow:function(hollowId,ifLoad){
     var urlin = ipv4 + "/hollow/getHollowById"
     var that = this
     wx.request({
@@ -70,7 +73,12 @@ Page({
         that.setData({
           contentdetail : hollow
         })
-        
+        if(ifLoad){
+          that.setData({
+            currentTime :formatTime(new Date())
+          })
+          that.getCommentList()
+        }
       },
       fail: function(error) {
         console.log(error)
@@ -80,33 +88,48 @@ Page({
     })
   },
 
+  getCommentList:function(){
+    var time = this.data.currentTime
+    console.log("time:" + time)
+    var userId = this.data.userId
+    console.log("userId:" + userId)
+    var under_post_id = this.data.contentdetail.hollowId
+    console.log("hollowId:" + under_post_id)
+    var urlin = ipv4 + "/hollow/getHollowList/below"
+    var that = this
+    wx.request({
+      url: urlin,
+      method: 'post',
+      header: {
+        'content-type': 'application/json' // 豆瓣一定不能是json
+      },
+      data:{
+        time:time,
+        userId:userId,
+        under_post_id:under_post_id
+      },
+      success: function(res) {
+        console.log(res.data)
+        var tempList = res.data.data
+        that.setData({
+          commentList:tempList
+        })
+      },
+      fail: function(error) {
+        console.log(error)
+        loadFailed("无法加载")
+        wx.navigateBack({})
+      }
+    })
+
+
+  },
+
   onComfortPublic:function(){},
 
   onAgainstPublic:function(){},
   
   onShow: function() {
-    if (avoidPreviewImageOnShow){
-      avoidPreviewImageOnShow = false;
-      return;
-    }
-    wx.showLoading({
-      title: '刷新中',
-      mask: true
-    })
-    //请求数据库获取指定id的数据详情
-    const db = wx.cloud.database()
-    //先获取话语记录
-    db.collection('utteranceDoc').doc(this.data.recordId).get().then(res1 => {
-      this.setData({
-        contentdetail: res1.data,
-        commNum: res1.data.commentNum //绑定评论数
-      });
-      //获取话语点赞状态
-      this.getOnLikePublic(0, res1.data);
-      //分页加载评论
-      this.data.pageIndex = 1;
-      this.fetchCommentList();
-    });
   },
   fetchCommentList: function() {
     //当前页数，页面记录数大小
