@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "i-notice-bar": "/components/iview/dist/notice-bar/index"
+  }
+}

@@ -1,7 +1,6 @@
 {
   "pages": [
-    "pages/recommends/recs",
-    "pages/expands/expands",
+    "pages/homepage/recs",
     "pages/epidemicpages/map/map",
     "pages/user/user",
 
@@ -45,14 +44,8 @@
       {
         "selectedIconPath": "images/icon/tabbar_rec_selected.png",
         "iconPath": "images/icon/tabbar_rec.png",
-        "pagePath": "pages/recommends/recs",
+        "pagePath": "pages/homepage/recs",
         "text": "推荐"
-      },
-      {
-        "selectedIconPath": "images/icon/tabbar_talk_selected.png",
-        "iconPath": "images/icon/tabbar_talk.png",
-        "pagePath": "pages/expands/expands",
-        "text": "拓展"
       },
       {
         "selectedIconPath": "images/icon/tabbar_map_selected.png",
