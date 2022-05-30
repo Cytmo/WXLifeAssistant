@@ -103,7 +103,7 @@ Page({
   },
   goToTreehole:function(){
     wx.navigateTo({
-      url: '../expandspages/treehole/welcome/welcome',
+      url: '../expandspages/treehole/index/index',
     })
   },
   /**

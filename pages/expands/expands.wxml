@@ -1,5 +1,5 @@
 <!--pages/expands/expands.wxml-->
 <button class="loginbtn" open-type="getUserInfo" 
-type="primary"  bindgetuserinfo="getUserInfo">小小树洞</button>
+type="primary"  bindtap="goToTreehole">小小树洞</button>
 <view><button bindtap='goToChatList'>诉说之窗
 </button></view>
