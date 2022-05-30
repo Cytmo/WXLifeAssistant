@@ -4,7 +4,7 @@ const app = getApp()
 var openid = wx.getStorageSync("openid");
 Page({
   data: {
-    hasUserInfo: [],
+    hasUserInfo: false,
     userInfo: [],
     userID: ""
   },
@@ -113,7 +113,7 @@ Page({
   // 事件处理函数
   onShow: function () {
     var that = this;
-    if (app.globalData.userInfo != null) {
+    if (app.globalData.userInfo.avatarUrl != null) {
       console.log("已获取到本地信息，隐藏登录按钮");
       this.setData({
         hasUserInfo:true
