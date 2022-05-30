@@ -23,8 +23,13 @@ Page({
   //改变地图展示的中心点,不改变数据
   reLocate:function(){
     this.setData({ flag: 0})
-    this.setData({ flag: 1})
+    this.setData({ 
+      markers:this.selectMapPositionDaysMapPosition( '近7天'),
+      circles:this.selectMapPositionDaysCircle( '近7天'),
+      flag: 1
+    })
   },
+
  showList:function(){
    this.setData({showlist:1})
    this.setData({showmap:0})
