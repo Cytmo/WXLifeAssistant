@@ -1,10 +1,7 @@
 <!--pages/recs/recs.wxml-->
 <swiper class="banner" indicator-dots="true" indicator-color="white" autoplay interval="5000" circular>
-  <swiper-item>
-  <image src="{{image1}}" mode="scaleToFill">11</image></swiper-item>
-  <swiper-item><image src="{{image2}}" mode="scaleToFill">11</image></swiper-item>
-  <swiper-item><image src="{{image3}}" mode="scaleToFill">11</image></swiper-item>
-
+  <swiper-item><image src="/images/homepagephoto/homepage1.png" mode="widthFix"></image></swiper-item>
+  <swiper-item><image src="/images/homepagephoto/homepage2.png" mode="widthFix"></image></swiper-item>
 </swiper>
 <view>
 <button type="primary" class="container1" bindtap="gotoMovie">影视推荐</button>
