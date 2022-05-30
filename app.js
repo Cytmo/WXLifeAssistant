@@ -3,6 +3,7 @@ App(
 
   {
     globalData: {
+      notification:{},
       mapPosition: {},
       circles: {},
       mapPosition1: {},

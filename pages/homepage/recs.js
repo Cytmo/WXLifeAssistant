@@ -6,6 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    notification: []
   },
   gotoMovie: function () {
     wx.navigateTo({
@@ -32,7 +33,7 @@ Page({
       url: '../expandspages/chat-list/chat-list',
     })
   },
-  goToTreehole:function(){
+  goToTreehole: function () {
     wx.navigateTo({
       url: '../expandspages/treehole/index/index',
     })
@@ -46,15 +47,17 @@ Page({
     })
 
   },
-  
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
     var url = app.globalData.url + "/map/all";
-    var userID = app.globalData.userID;
+    var url1 = app.globalData.url + "/notice/all";
+    var userID = app.globalData.openId;
 
     this.getData(url, userID);
+    this.getNotification(url1, userID);
   },
   getData: function (url, userID) {
     var that = this;
@@ -100,8 +103,7 @@ Page({
         longitude: subject.longitude,
         primarykey: subject.primarykey
       }
-      var temp1 =
-      {
+      var temp1 = {
         latitude: temp.latitude,
         longitude: temp.longitude,
         color: "#00000000",
@@ -110,8 +112,7 @@ Page({
         strokeWidth: 0,
         radius: 120
       }
-      var temp2 =
-      {
+      var temp2 = {
         latitude: temp.latitude,
         longitude: temp.longitude,
         color: "#00000000",
@@ -140,9 +141,56 @@ Page({
     // console.log(readyData);
 
 
-  }
-  ,
+  },
 
+
+  getNotification: function (url, userID) {
+    var that = this;
+    wx.request({
+      url: url,
+      data: {
+        //数据urlencode方式编码，变量间用&连接，再post
+        msg: 'get all notice',
+        wechatid: userID
+      },
+      method: 'POST',
+      header: {
+        'content-type': 'application/json'
+      },
+      success: function (res) {
+        that.procseeNotificationData(res.data)
+      },
+      fail: function (error) {
+        console.log(error)
+      }
+    })
+  },
+
+  // 处理数据函数
+  procseeNotificationData: function (datas) {
+    var objects = [];
+
+    for (var idx in datas.data) {
+      var subject = datas.data[idx];
+      var temp = {
+        date:subject.date,
+        kind:subject.kind,
+        publisher:subject.publisher,
+        wechatid:subject.wechatid,
+        title:subject.title,
+        type:subject.type,
+        content:subject.content
+      }
+      
+      objects.push(temp);
+    }
+    this.setData({
+      notification: objects,
+    });
+    app.globalData.notification = objects;
+
+
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

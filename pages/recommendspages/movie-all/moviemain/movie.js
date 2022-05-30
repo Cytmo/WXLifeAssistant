@@ -145,6 +145,7 @@ getData: function (url,userID) {
           //   attitude="暂无"
       }
       var temp = {
+        
       description: subject.description,
       unrecommendtotal: subject.unrecommendtotal,
       type: subject.type,
