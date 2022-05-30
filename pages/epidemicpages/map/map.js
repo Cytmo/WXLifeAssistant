@@ -119,6 +119,7 @@ selectMapPositionOneDayMapPosition: function (date) {
       result.push(dates[i])
     }
   }
+  
   return result
 },
 selectMapPositionDaysMapPosition: function (date) {

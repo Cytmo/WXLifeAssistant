@@ -1,0 +1,30 @@
+<!--pages/recommendspages/add-group/addGroup.wxml-->
+<form catchsubmit="groupadd">
+  <view class = "block">
+    <view class="xrow">
+      <text class="textbefore">群名</text>
+      <view class="texteare">
+        <textarea name = "name" class="content" placeholder="群名不超过20个字" placeholder-class="placeholderclass"></textarea>
+      </view>
+    </view>
+    <view class="xrow">
+      <text class="textbefore">群号</text>
+      <view class="texteare">
+        <textarea name = "number" class="content" placeholder="在这里输入群号" placeholder-class="placeholderclass"></textarea>
+      </view>
+    </view>
+    <view class="bigxrow">
+      <text class="textbefore">群描述</text>
+      <view class="texteare">
+        <textarea name = "introduction" class="content" placeholder="在这里输入群描述，不超过255个字符" placeholder-class="placeholderclass"></textarea>
+      </view>
+    </view>
+    <view class="bigxrow">
+      <text class="textbefore">群二维码</text>
+      <view class="texteare">
+        <textarea name = "qcCode" class="content" placeholder="在这里添加图片" placeholder-class="placeholderclass"></textarea>
+      </view>
+    </view>
+  </view>
+  <button class="btn" form-type="submit">添加</button>
+</form>

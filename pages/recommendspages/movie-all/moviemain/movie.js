@@ -1,187 +1,334 @@
-// movie/moviemain/movie.js
-// 获取全局应用程序实例对象
+// map/map/map.js
 const app = getApp()
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    movies:{},
-    moviesHighRanks:{},
-    boardItems: [
-      {
-        key: 'new_movies',
-        title: '热门电影榜单'
-      },
-      {
-        key: 'highranks',
-        title: '高分电影榜单'
-      }
-    ]
-
+    mapPosition: {},
+    circles: {},
+    longitude: 114.363748,
+    latitude: 30.526617,
+    array: ['近3天', '近7天', '近14天'],
+    date: '2022-05-28',
+    markers: {},
+    circles: {},
+    flag: 0,
+    showmap: 1,
+    showlist: 0,
   },
 
-  // 轮播图点击事件
-  onItemClick: function (event) {
-    var kind = event.target.dataset.type==1?"hot":"old";
-
-    wx.navigateTo({
-      url: '../item/item?&id=0'+'&kind='+kind
+  //改变地图展示的中心点,不改变数据
+  reLocate: function () {
+    this.setData({
+      flag: 0
+    })
+    this.setData({
+      flag: 1
     })
   },
-
-
-  gotoHotList:function (){
-
-    wx.navigateTo({
-      url: '../list/list?type=hot',
+  showList: function () {
+    this.setData({
+      showlist: 1
     })
-    
-  },
-  gotoHighRanksList:function (){
-
-    wx.navigateTo({
-      url: '../list/list?type=old',
+    this.setData({
+      showmap: 0
     })
-    
   },
-
-
+  showMap: function () {
+    this.setData({
+      showlist: 0
+    })
+    this.setData({
+      showmap: 1
+    })
+  },
+  swichNav: function (e) {
+    var that = this;
+    console.log(e.target.dataset.current)
+    if (this.data.currentTab == e.target.dataset.current) {
+      return false;
+    } else {
+      that.setData({
+        currentTab: e.target.dataset.current
+      })
+    }
+  },
 
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    var url = app.globalData.url+"/recom/movie";
-    var userID = app.globalData.userID;
-    this.getData(url,userID);
-  },
-getData: function (url,userID) {
-    var that = this;
-    wx.request({
-      url:url,
-      data: {
-        //数据urlencode方式编码，变量间用&连接，再post
-        msg:'movie',
-        wechatid:userID
-      },
-      method: 'POST',
-      header: {
-        'content-type':'application/json'
-      },
-      success: function(res) {
-          that.procseeData(res.data)
-      },
-      fail: function(error) {
-        console.log(error)
-      }
+
+    console.log("初始化")
+    this.setData({
+      markers: this.selectMapPositionDaysMapPosition('近3天'),
+      circles: this.selectMapPositionDaysCircle('近3天'),
+      flag: 1
+
     })
   },
- 
-  // 处理数据函数
-  procseeData: function(datas) {
-    var objects = [];
-    var objectsHighRank=[];
-    var cnt = 0;
-    for (var idx in datas.data) {
-      cnt++;
-      if(cnt >10){
-        var subject = datas.data[idx];
-      var title = subject.name;
-      if (title.length >= 10) {
-        title = title.substring(0, 10) + "···";
-      }
-      var attitude;
-      switch(subject.myattitude){
-        case 1: 
-          attitude="推荐";
-          break;
-          case 0: 
-          attitude="暂无";
-          break;
-          case -1: 
-          attitude="不推荐";
-          break;
-          // default:
-          //   attitude="暂无"
-      }
-      var temp = {
-      description: subject.description,
-      unrecommendtotal: subject.unrecommendtotal,
-      type: subject.type,
-      info: subject.info,
-      image: subject.image,
-      attitude: subject.myattitude,
-      detailpage: subject.detailpage,
-      recommendtotal: subject.recommendtotal,
-      ranks: subject.ranks,
-      name: title
-      }
-      objectsHighRank.push(temp);
-      this.setData({moviesHighRanks:objectsHighRank});
-      app.globalData.moviesHighRanks=objectsHighRank;
-      // console.log(readyData);
-      }
-      else{
-      var subject = datas.data[idx];
-      var title = subject.name;
-      if (title.length >= 10) {
-        title = title.substring(0, 10) + "···";
-      }
-      var attitude;
-      switch(subject.myattitude){
-        case 1: 
-          attitude="推荐";
-          break;
-          case 0: 
-          attitude="暂无";
-          break;
-          case -1: 
-          attitude="不推荐";
-          break;
-          // default:
-          //   attitude="暂无"
-      }
-      var temp = {
-      description: subject.description,
-      unrecommendtotal: subject.unrecommendtotal,
-      type: subject.type,
-      info: subject.info,
-      image: subject.image,
-      myattitude: attitude,
-      detailpage: subject.detailpage,
-      recommendtotal: subject.recommendtotal,
-      ranks: subject.ranks,
-      name: title
-      }
-      objects.push(temp);
-      // var readyData = {};
-      // readyData = {
-      //   objects: objects,
-      // }
-      // 数据绑定
-      this.setData({movies:objects});
-      app.globalData.movies=objects;
-      // console.log(readyData);
-    }
-    //console.log(objects);
-  }
-    loading: false;
+
+
+  //TODO: 修改数据源为特定的时间点
+  bindDateChange: function (e) {
+    this.setData({
+      date: e.detail.value
+    })
+
+    this.setData({
+      flag: 0
+    })
+
+    var markersTmp = this.selectMapPositionOneDayMapPosition(e.detail.value)
+    var circlesTmp = this.selectMapPositionOneDayCircle(e.detail.value)
+    console.log(markersTmp)
+    console.log(circlesTmp)
+    this.setData({
+      markers: markersTmp,
+      circles: circlesTmp
+    })
+
+    this.setData({
+      flag: 1
+    })
   },
+
+  //TODO: 修改数据源为特定的时间段
+  bindPickerChange: function (e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    var id = e.detail.value
+    var array1 = ['近3天', '近7天', '近14天']
+    console.log(array1[id])
+    this.setData({
+      index: e.detail.value
+    })
+    this.setData({
+      flag: 0
+    })
+    this.setData({
+      markers: this.selectMapPositionDaysMapPosition(array1[id]),
+      circles: this.selectMapPositionDaysCircle(array1[id])
+    })
+    this.setData({
+      flag: 1
+    })
+
+  },
+
+  selectMapPositionOneDayMapPosition: function (date) {
+    console.log("选择后的日期" + date)
+    var dates = app.globalData.mapPosition
+    var result = []
+    for (var i = 0; i < dates.length; i++) {
+      var x = dates[i].date
+      if (x == date) {
+        result.push(dates[i])
+      }
+    }
+    // console.log(result)
+    return result
+  },
+
+  selectMapPositionOneDayCircle: function (date) {
+    var dates = app.globalData.circles
+    var result = []
+    for (var i = 0; i < dates.length; i++) {
+      var x = dates[i].date
+      if (x == date) {
+        result.push(dates[i])
+      }
+    }
+    return result
+  },
+
+
+  //通过测试
+  selectMapPositionDaysMapPosition: function (date) {
+    var dates = app.globalData.mapPosition
+    var result = []
+    var date1 = this.getFormatDate(0)
+    var date2
+    if (date == "近3天") {
+      date2 = this.getFormatDate(3)
+    } else if (date == "近7天") {
+      date2 = this.getFormatDate(7)
+    } else if (date == "近14天") {
+      date2 = this.getFormatDate(14)
+    }
+    for (var i = 0; i < dates.length; i++) {
+      var x = dates[i].date
+      if (x <= date1 && x >= date2) {
+        result.push(dates[i])
+      }
+    }
+    // console.log("位置:")
+    // console.log(result)
+    return result
+  },
+  selectMapPositionDaysCircle: function (date) {
+    var dates = app.globalData.circles
+    var result = []
+    var date1 = this.getFormatDate(0)
+    var date2
+    if (date == "近3天") {
+      date2 = this.getFormatDate(3)
+    } else if (date == "近7天") {
+      date2 = this.getFormatDate(7)
+    } else if (date == "近14天") {
+      date2 = this.getFormatDate(14)
+    }
+
+    for (var i = 0; i < dates.length; i++) {
+      var x = dates[i].date
+      if (x <= date1 && x >= date2) {
+        result.push(dates[i])
+      }
+    }
+    // console.log("圈:")
+    // console.log(result)
+    return result
+  },
+
+  getFormatDate: function (n) {
+    var now = new Date();
+    var date = new Date(now.getTime() - n * 24 * 3600 * 1000);
+    var month = date.getMonth() + 1;
+    var strDate = date.getDate();
+    if (month >= 1 && month <= 9) {
+      month = "0" + month;
+    }
+    if (strDate >= 0 && strDate <= 9) {
+      strDate = "0" + strDate;
+    }
+    var currentDate = date.getFullYear() + "-" + month + "-" + strDate;
+    return currentDate;
+  },
+
+  modify: function () {
+    this.setData({
+      flag: 0
+    })
+    var positions = app.globalData.mapPosition1
+    console.log(positions)
+    this.setData({
+      markers: positions
+    })
+    var circles = app.globalData.circles1
+    this.setData({
+      circles: circles
+    })
+    this.setData({
+      flag: 1
+    })
+  },
+
+
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady() {
+    this.mapCtx = wx.createMapContext('myMap')
 
   },
+
+  // getData: function (url,userID) {
+  //   var that = this;
+  //   wx.request({
+  //     url:url,
+  //     data: {
+  //       //数据urlencode方式编码，变量间用&连接，再post
+  //       msg:'get all position',
+  //       wechatid:userID
+  //     },
+  //     method: 'POST',
+  //     header: {
+  //       'content-type':'application/json'
+  //     },
+  //     success: function(res) {
+  //         that.procseeData(res.data)
+  //     },
+  //     fail: function(error) {
+  //       console.log(error)
+  //     }
+  //   })
+  // },
+
+  // // 处理数据函数
+  // procseeData: function(datas) {
+  //   var objects = [];
+  //   var objects1 = [];
+  //   var cnt = 0;
+
+  //   for (var idx in datas.data) {
+  //     cnt++;
+  //       var subject = datas.data[idx];
+  //     // var title = subject.name;
+  //     // if (title.length >= 10) {
+  //     //   title = title.substring(0, 10) + "···";
+  //     // }
+  //     var temp = {
+  //       id:cnt,
+  //       iconPath: '../images/location.png',
+  //       width: 25,
+  //       height: 48,
+  //       title:subject.address,
+  //       city:subject.city,
+  //       kind:subject.kind,
+  //       latitude:subject.latitude,
+  //       date:subject.dates,
+  //       longitude:subject.longitude,
+  //       primarykey:subject.primarykey
+  //           }
+  //       var temp1=
+  //           {
+  //             latitude: temp.latitude,
+  //             longitude: temp.longitude,
+  //             color: "#00000000",
+  //             fillColor: "#0000ff20",
+  //             strokeWidth: 0,
+  //             radius: 120
+  //           }
+  //      var temp2=
+  //           {
+  //             latitude: temp.latitude,
+  //             longitude: temp.longitude,
+  //             color: "#00000000",
+  //             fillColor: "#ff000040",
+  //             strokeWidth: 0,
+  //             radius: 60
+  //           }
+  //     objects.push(temp);
+  //     objects1.push(temp2);
+  //     objects1.push(temp1);
+
+
+  //     }
+  //     this.setData({
+  //       mapPosition:objects,
+  //       circles:objects1,
+  //       mapPosition1:objects,
+  //       circles1:objects1
+  //     });
+  //     app.globalData.mapPosition=objects;
+  //     app.globalData.circles=objects1;
+  //     app.globalData.mapPosition1=objects;
+  //     app.globalData.circles1=objects1;
+  //     //console.log(app.globalData.mapPosition1);
+  //     // console.log(readyData);
+
+
+  // }
+  // ,
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
 
   },
 
@@ -210,6 +357,7 @@ getData: function (url,userID) {
    * 页面上拉触底事件的处理函数
    */
   onReachBottom() {
+
   },
 
   /**
