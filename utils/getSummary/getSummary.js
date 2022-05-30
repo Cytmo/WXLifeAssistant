@@ -9,5 +9,4 @@ function getSummary(content) {
 
 module.exports = {
   getSummary: getSummary
-
 }
