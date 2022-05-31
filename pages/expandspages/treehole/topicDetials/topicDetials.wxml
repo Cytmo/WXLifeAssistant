@@ -4,31 +4,30 @@
     <scroll-view enable-back-to-top='true' scroll-y='true'>
       <view class="information">
         <view class="useravatar">
-          <image class="userimg" src='{{contentdetail.icon}}'></image>
+          <!-- <image class="userimg" src='{{contentdetail.image}}'></image> -->
         </view>
         <view class="userinformation">
           <view class="information_top">
-            <view class="username">{{contentdetail.publisher}}</view>
+            <view class="username">{{contentdetail.username}}</view>
             <view class="date">{{contentdetail.time}}</view>
           </view>
           <view class="information_text">{{contentdetail.content}}</view>
 
-          <!-- 图片循环 -->
-          <view class="information_images">
-            <block wx:for='{{contentdetail.imageUrls}}' wx:key='item'>
-              <image class="images_item" src='{{item}}' bindtap="previewimg" data-urls="{{contentdetail.imageUrls}}" data-current="{{item}}"></image>
-            </block>
-          </view>
-
           <!-- 评论与点赞个数 -->
           <view class="comments_thumbsup">
             <view class='comments'>
-              <image src="../../images/comments.png"></image>
-              <text>{{commNum}}</text>
+              <image src="../../../../images/comments.png"></image>
             </view>
             <view bindtap='onLikePublic'>
-              <image src="../../images/thumbup.png"></image>
-              <text>{{contentdetail.praiseNum}}</text>
+              <image src="../../../../images/thumbup.png"></image>
+              <text>{{contentdetail.support_num}}</text>
+            </view>
+            <view bindtap='onComfortPublic'>
+              <image src="../../../../images/comfort.png"></image>
+              <text>{{contentdetail.comfort_num}}</text>
+            </view>
+            <view bindtap='onAgainstPublic'>
+              <image src="../../../../images/against.png"></image>
             </view>
           </view>
         </view>
@@ -37,13 +36,34 @@
       <!-- <text>留言评论区</text> -->
       <view class='comments-container'>
 
-        <block wx:for='{{commentList}}' wx:key='{{_id}}' wx:for-item="one">
-          <v-comment bind:tap='jump' catch:myDelComment='myDelete' comment='{{one}}' localOpenId='{{openId}}' data-commid='{{one._id}}'/>
-          <!-- 二级评论循环 -->
-          <block wx:for='{{one.subCommentList}}' wx:key='{{_id}}' wx:for-item="second">
-            <v-reply bind:tap='jump' localOpenId='{{openId}}' catch:myDelComment='deleteSecondary' comment='{{second}}' data-childid='{{second._id}}' data-parentid='{{one._id}}' />
-          </block>
-        </block>
+        <view wx:for='{{commentList}}' wx:key='{{hollowId}}'>
+          <view class='comment-container'>
+            <view class='user-date-container'>
+              <view class='user'>
+                <!-- <image src='{{comment.reviewerIcon}}'></image> -->
+                <text>{{item.username}}</text>
+              </view>
+              <text class='date'>{{item.time}}</text>
+            </view>
+            <text class='content'>{{item.content}}</text>
+            <view class="comments_thumbsup">
+            <view class='comments'>
+              <image src="../../../../images/comments.png"></image>
+            </view>
+            <view bindtap='onLikePublic'>
+              <image src="../../../../images/thumbup.png"></image>
+              <text>{{contentdetail.support_num}}</text>
+            </view>
+            <view bindtap='onComfortPublic'>
+              <image src="../../../../images/comfort.png"></image>
+              <text>{{contentdetail.comfort_num}}</text>
+            </view>
+            <view bindtap='onAgainstPublic'>
+              <image src="../../../../images/against.png"></image>
+            </view>
+          </view>
+          </view>
+        </view>
       </view>
     </scroll-view>
   </view>

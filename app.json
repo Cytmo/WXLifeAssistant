@@ -22,7 +22,8 @@
     "pages/expandspages/treehole/comments/comments",
     "pages/expandspages/treehole/publishTopics/publishTopics",
     "pages/expandspages/treehole/message/message",
-    "pages/recommendspages/addGroup/addGroup"
+    "pages/recommendspages/addGroup/addGroup",
+    "pages/expandspages/treehole/topicDetials/topicDetials"
   ],
   "window": {
     "backgroundTextStyle": "light",

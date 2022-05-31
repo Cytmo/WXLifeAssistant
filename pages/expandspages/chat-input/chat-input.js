@@ -1,5 +1,5 @@
 // chat.js
-import Toast from "../../utils/toast";
+import Toast from "../../../utils/toast";
 
 /**
  * 聊天输入组件展示页面

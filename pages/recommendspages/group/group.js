@@ -1,6 +1,8 @@
 // pages/recommendspages/group/group.js
+import { $init, $digest } from '../../../utils/common'
 const app = getApp()
-var ipv4 = "http://10.131.148.225:8081"
+// var ipv4 = "http://10.131.148.225:8081"
+var ipv4 = "http://localhost:80"
 Page({
   data: {
     openId: null,
@@ -22,12 +24,18 @@ Page({
     triggered: false,
 
     showGroup:{},
-    showGroupTag:false
+    showGroupTag:false,
+    scrollHeight : 200
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(params) {
+    $init(this)
+    let  scrollHeight = wx.getSystemInfoSync().windowHeight;
+    this.setData({
+      scrollHeight: scrollHeight
+    });
     if(params.pageid == 0){
       var sendUrl = ipv4 + "/group/randomList"
       this.getRandomListData(sendUrl)
@@ -38,6 +46,7 @@ Page({
       })
       this.getMyList()
     }
+    
     
   },
 
@@ -149,14 +158,38 @@ Page({
   showDetailsM:function(event){
     console.log(event.target.dataset.recordid)
     var idShow = event.target.dataset.recordid
+    var urln = ipv4 + "/group/image?groupId=" + idShow
+    var that = this
+    
     this.data.myList.forEach(element => {
       if(element.groupId == idShow){
-        this.setData({
-          showGroup : element,
-          showGroupTag : true
-        })
+        if(element.qrCode.split(":")[0]!="http"){
+          wx.downloadFile({
+            url: urln, //仅为示例，并非真实的资源
+            header: {
+              'content-type': 'application/json' 
+            },
+            success (res) {
+              // 只要服务器有响应数据，就会把响应内容写入文件并进入 success 回调，业务需要自行判断是否下载到了想要的内容
+              console.log(res);
+              element.qrCode = res.tempFilePath
+              that.setData({
+                showGroup : element,
+                showGroupTag : true
+              })
+            }
+            
+          })
+        }else{
+          that.setData({
+            showGroup : element,
+            showGroupTag : true
+          })
+        }
       }
     });
+    $digest(this)
+    
   },
 
   closeShow:function(){
@@ -175,6 +208,10 @@ Page({
     var name = e.detail.value.content
     var that = this;
     var searchUrl = ipv4 + "/group/find"
+    wx.showLoading({
+      title: '正在查询...',
+      mask: true
+    })
     wx.request({
       url: searchUrl,
       method: 'post',
@@ -189,12 +226,17 @@ Page({
           searchList : res.data.data,
           canshow : true,
         })
+        wx.hideLoading()
+        loadSuccess()
+        
       },
       fail: function(error) {
         console.log(error)
         that.setData({
           canshow : false,
         })
+        wx.hideLoading()
+        
       }
     })
   },
@@ -202,6 +244,7 @@ Page({
   addAll:function(){
     var sendUrl = ipv4 + "/group/list"
     var that = this;
+    console.log(that.data.nowId)
 
     wx.request({
       url: sendUrl,
@@ -215,11 +258,13 @@ Page({
       success: function(res) {
         let tempList = that.data.allList
         tempList = tempList.concat(res.data.data)
-        that.setData({
-          allList : tempList,
-          canshow : true,
-          nowId : tempList[tempList.length - 1].groupId
-        })
+        if(tempList.length !=0 ){
+          that.setData({
+            allList : tempList,
+            canshow : true,
+            nowId : tempList[tempList.length - 1].groupId
+          })
+        }
       },
       fail: function(error) {
         console.log(error)
@@ -260,6 +305,58 @@ Page({
   addNew:function(){
     wx.navigateTo({
       url: '../addGroup/addGroup'
+    })
+  },
+
+  loadSuccess:function(){
+    wx.showToast({
+      title: '操作成功',
+      mask : true,
+      icon: 'none',
+      duration: 1000//持续的时间
+    })
+  },
+
+  loadFailed:function(msg){
+    wx.showToast({
+      title: msg,
+      mask : true,
+      icon: 'none',
+      duration: 2000//持续的时间
+    })
+  },
+
+  deleteGroup:function(event){
+    var id = event.target.dataset.recordid
+    console.log(event)
+    var that = this;
+    var searchUrl = ipv4 + "/group/deletebyid"
+    wx.showLoading({
+      title: '正在删除...',
+      mask: true
+    })
+    wx.request({
+      url: searchUrl,
+      method: 'post',
+      header: {
+        'content-type': 'application/json'
+      },
+      data:{
+        groupId:id
+      },
+      success: function(res) {
+        wx.hideLoading()
+        that.loadSuccess()
+        that.getMyList()
+      },
+      fail: function(error) {
+        console.log(error)
+        that.setData({
+          canshow : false,
+        })
+        wx.hideLoading()
+        
+      }
     })
   },
   

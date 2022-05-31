@@ -1,19 +1,24 @@
 var util = require('../../../../utils/util.js');
 var th = require('../../../../utils/throttle/throttle.js');
+import { formatTime,formatDate } from '../../../../utils/common'
 
 const app = getApp()
 
-var avoidPreviewImageOnShow; //避免预览图片后，触发onShow函数
+var ipv4 = "http://localhost:80"
 
 Page({
   data: {
-    openId: null,
-    userInfo: null,
+    userId : 0,
+    commentList: [],
     contentdetail: Object,
+    currentTime:null,
+
+    openId: null,
+    
     recordId: '',
     jumpflag: false,
     byRevInfo: {},
-    commentList: [],
+    
     mainTopicComm: Object, //对主题贴的评论
     replyComm: {}, //记录被回复评论的信息
     commnNum: 0,
@@ -27,52 +32,104 @@ Page({
   },
 
   onLoad: function(options) {
-    //获取用户的openid
-    this.data.userInfo = app.globalData.userInfo;
-    this.data.recordId = options.recordId;
-    if (app.globalData.openId) {
-      //全局应用已有openId
+    console.log(options)
+    var hollowId = options.recordid
+    if(app.globalData.userID){
+      // showMessage(app.globalData.userID);
       this.setData({
-        openId: app.globalData.openId
-      });
-    } else {
-      // 由于 login云函数 是网络请求，可能会在 Page.onLoad 之后才返回 
-      // 所以此处加入 callback 以防止这种情况 
+        userId:app.globalData.userID
+      })
+    }else{
+      // 跳转登录
       app.openIdReadyCallback = res => {
+        //开启未读消息自动刷新
+        // showMessage(res.result.openid);
         this.setData({
           openId: res.result.openid
-        })
+        });
       }
     }
-    this.setData({
-      userInfo: app.globalData.userInfo
-    })
+    this.showHollow(hollowId,true)
+    
 
   },
 
-  onShow: function() {
-    if (avoidPreviewImageOnShow){
-      avoidPreviewImageOnShow = false;
-      return;
-    }
-    wx.showLoading({
-      title: '刷新中',
-      mask: true
+  showHollow:function(hollowId,ifLoad){
+    var urlin = ipv4 + "/hollow/getHollowById"
+    var that = this
+    wx.request({
+      url: urlin,
+      method: 'post',
+      header: {
+        'content-type': 'application/json' // 豆瓣一定不能是json
+      },
+      data:{
+        hollowId : hollowId,
+        userId : that.data.userId
+      },
+      success: function(res) {
+        console.log(res.data)
+        var hollow = res.data.result
+        that.setData({
+          contentdetail : hollow
+        })
+        if(ifLoad){
+          that.setData({
+            currentTime :formatTime(new Date())
+          })
+          that.getCommentList()
+        }
+      },
+      fail: function(error) {
+        console.log(error)
+        loadFailed("无法加载")
+        wx.navigateBack({})
+      }
     })
-    //请求数据库获取指定id的数据详情
-    const db = wx.cloud.database()
-    //先获取话语记录
-    db.collection('utteranceDoc').doc(this.data.recordId).get().then(res1 => {
-      this.setData({
-        contentdetail: res1.data,
-        commNum: res1.data.commentNum //绑定评论数
-      });
-      //获取话语点赞状态
-      this.getOnLikePublic(0, res1.data);
-      //分页加载评论
-      this.data.pageIndex = 1;
-      this.fetchCommentList();
-    });
+  },
+
+  getCommentList:function(){
+    var time = this.data.currentTime
+    console.log("time:" + time)
+    var userId = this.data.userId
+    console.log("userId:" + userId)
+    var under_post_id = this.data.contentdetail.hollowId
+    console.log("hollowId:" + under_post_id)
+    var urlin = ipv4 + "/hollow/getHollowList/below"
+    var that = this
+    wx.request({
+      url: urlin,
+      method: 'post',
+      header: {
+        'content-type': 'application/json' // 豆瓣一定不能是json
+      },
+      data:{
+        time:time,
+        userId:userId,
+        under_post_id:under_post_id
+      },
+      success: function(res) {
+        console.log(res.data)
+        var tempList = res.data.data
+        that.setData({
+          commentList:tempList
+        })
+      },
+      fail: function(error) {
+        console.log(error)
+        loadFailed("无法加载")
+        wx.navigateBack({})
+      }
+    })
+
+
+  },
+
+  onComfortPublic:function(){},
+
+  onAgainstPublic:function(){},
+  
+  onShow: function() {
   },
   fetchCommentList: function() {
     //当前页数，页面记录数大小
@@ -543,6 +600,24 @@ Page({
     wx.previewImage({
       current: current,
       urls: urls
+    })
+  },
+
+  loadSuccess:function(){
+    wx.showToast({
+      title: '操作成功',
+      mask : true,
+      icon: 'none',
+      duration: 1000//持续的时间
+    })
+  },
+
+  loadFailed:function(msg){
+    wx.showToast({
+      title: msg,
+      mask : true,
+      icon: 'none',
+      duration: 2000//持续的时间
     })
   },
   

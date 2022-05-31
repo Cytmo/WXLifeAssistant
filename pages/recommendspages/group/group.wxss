@@ -243,6 +243,19 @@
   border-radius:10px;
 }
 
+.btnDeny{
+  width:100rpx;
+  height:50rpx;
+  font-size:32rpx;
+  font-family:SourceHanSansCN-Medium;
+  font-weight:500;
+  color:rgba(255,255,255,1);
+  background:#cf1121;
+  border-radius:5px;
+  padding: 4rpx 4rpx 4rpx 4rpx;
+}
+
+
 .placeholderclass{
   font-size:35rpx;
   font-family:SourceHanSansCN-Regular;
@@ -336,3 +349,12 @@ margin-bottom: 30rpx;
   opacity:   1;
 
 } 
+
+.image_box{
+  width: 400rpx;
+  height: 400rpx;
+}
+.blank{
+  height: 60rpx;
+  width: 100%;
+}
