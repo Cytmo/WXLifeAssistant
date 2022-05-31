@@ -1,0 +1,38 @@
+<!-- pages/recs/recs.wxml -->
+<swiper class="banner" indicator-dots="true" indicator-color="white" autoplay interval="5000" circular>
+  <swiper-item>
+    <image src="/images/homepagephoto/homepage2.png" mode="widthFix"></image>
+  </swiper-item>
+  <swiper-item>
+    <image src="/images/homepagephoto/homepage2.png" mode="widthFix"></image>
+  </swiper-item>
+</swiper>
+<i-notice-bar icon="systemprompt" closable loop>
+核酸检测:接学校通知，将于5月29-30日开展一轮扩面核酸检测，具体时间安排为：
+5月29日15:00-20:00，
+5月30日7:00-12:00
+（按照上级卫健委要求，12:00 为采样截止时间，请各学院组织全体师生务必在 12：00 之前完成采样，并在【核酸检测登记】小程序上完成登记）。采样地点没有变化，请各班组织学生应检尽检，不落一人。
+</i-notice-bar>
+<view class="subtitle">
+  <text>常用应用</text>
+</view>
+<view class="container2">
+    <image src='/images/homepagephoto/whu_logo.png' class='restimg' bindtap="gotoOther1"></image>
+  </view>
+<view class="container2"></view>
+<view class="subtitle">
+  <text>兴趣应用</text>
+</view>
+<view class="container2">
+  <image src='/images/homepagephoto/movie_icon.png' class='restimg' bindtap="gotoMovie"></image>
+  <image src='/images/homepagephoto/novel_icon.png' class='restimg' bindtap="gotoNovel"></image>
+  <image src='/images/homepagephoto/tv_icon.png' class='restimg' bindtap="gotoTVSeries"></image>
+  <image src='/images/homepagephoto/group_icon.png' class='restimg' bindtap="gotoGroup"></image>
+</view>
+<view class="subtitle">
+  <text>特色应用</text>
+</view>
+<view class="container2">
+  <image src='/images/homepagephoto/treehole_icon.png' class='restimg' bindtap="goToTreehole"></image>
+  <image src='/images/homepagephoto/talk_icon.png' class='restimg' bindtap="goToChatList"></image>
+</view>

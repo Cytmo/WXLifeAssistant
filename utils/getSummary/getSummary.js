@@ -8,6 +8,10 @@ function getSummary(content) {
 }
 
 module.exports = {
+<<<<<<< HEAD
   getSummary
 
+=======
+  getSummary: getSummary
+>>>>>>> origin/master
 }

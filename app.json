@@ -1,28 +1,20 @@
 {
   "pages": [
-    "pages/recommends/recs",
-    "pages/expands/expands",
-    "pages/epidemic/epidemic",
+    "pages/homepage/recs",
+    "pages/epidemicpages/map/map",
     "pages/user/user",
-    "pages/recommendspages/movie-all/moviemain/movie",
+
+    "pages/recommendspages/movie-all/moviemain/movie", 
     "pages/recommendspages/movie-all/item/item",
     "pages/recommendspages/movie-all/list/list",
-    "pages/recommendspages/group/group",
-    "pages/recommendspages/TVSeries/TVSeries",
-    "pages/recommendspages/movies/movies",
     "pages/recommendspages/novel-all/novelmain/novel",
     "pages/recommendspages/novel-all/item/item",
     "pages/recommendspages/novel-all/list/list",
     "pages/recommendspages/TVSeries-all/tvmain/tv",
     "pages/recommendspages/TVSeries-all/item/item",
     "pages/recommendspages/TVSeries-all/list/list",
-    "pages/recommendspages/novel/novel",
-    "pages/recommendspages/novel/novelMM/novelMM",
-    "pages/recommendspages/novel/novelMR/novelMR",
-    "pages/recommendspages/novel/novelFM/novelFM",
-    "pages/recommendspages/novel/novelFR/novelFR",
-    "pages/recommendspages/detail",
-    "pages/recommendspages/novel/novel-index/novel-index",
+    "pages/recommendspages/group/group",
+
     "pages/expandspages/chat/chat",
     "pages/expandspages/chat-list/chat-list",
     "pages/expandspages/treehole/index/index",
@@ -53,19 +45,13 @@
       {
         "selectedIconPath": "images/icon/tabbar_rec_selected.png",
         "iconPath": "images/icon/tabbar_rec.png",
-        "pagePath": "pages/recommends/recs",
+        "pagePath": "pages/homepage/recs",
         "text": "推荐"
-      },
-      {
-        "selectedIconPath": "images/icon/tabbar_talk_selected.png",
-        "iconPath": "images/icon/tabbar_talk.png",
-        "pagePath": "pages/expands/expands",
-        "text": "拓展"
       },
       {
         "selectedIconPath": "images/icon/tabbar_map_selected.png",
         "iconPath": "images/icon/tabbar_map.png",
-        "pagePath": "pages/epidemic/epidemic",
+        "pagePath": "pages/epidemicpages/map/map",
         "text": "疫区"
       },
       {

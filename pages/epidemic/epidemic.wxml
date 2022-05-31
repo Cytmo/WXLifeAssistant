@@ -1,7 +1,0 @@
-<view class ="posite03" bindtap="_BtnMap" data-name="{{ item.store_name }}" data-lng="{{ item.lng }}" data-lat="{{ item.lat }}">
-
-<image class="img_01d0" src="http://www.xxx.com/projects/images/u5006.png" width="30px"></image>
-
-<p>到这去</p>
-
-</view>

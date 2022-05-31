@@ -22,7 +22,10 @@ export default class WebSocketHandlerImp extends IIMHandler {
             header: {
                 'content-type': 'application/json'
             },
-            method: 'GET'
+            method: 'GET',
+            success(res){
+              console.log(res)
+            }
         });
     }
 
@@ -62,6 +65,7 @@ export default class WebSocketHandlerImp extends IIMHandler {
     _onSocketOpen() {
         wx.onSocketOpen((res) => {
             console.log('WebSocket连接已打开！');
+
         });
     }
 

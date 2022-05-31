@@ -1,0 +1,56 @@
+<!--map/map/map.wxml-->
+
+<view class="page">
+
+  <!--顶部导航栏-->
+  <view class="swiper-tab" >
+    <view class="tab-item {{currentTab==0 ? 'on' : ''}}" data-current="0" bindtap="swichNav">疫情地图</view>
+    <view class="tab-item {{currentTab==1 ? 'on' : ''}}" data-current="1" bindtap="swichNav">疫情地点</view>
+  </view>
+
+  <!--内容主体-->
+  <swiper class="swiper" current="{{currentTab}}" duration="200" bindchange="swiperChange">
+    <swiper-item  >
+      <map id="myMap" longitude="{{longitude}}" latitude="{{latitude}}" scale="15" markers="{{markers}}" circles="{{circles}}" style="height: 100%;width:100%" class="mymap" wx:if="{{flag}}" subkey="Y5TBZ-35YK6-RNXSP-ERMIF-ZRVIQ-GVF3Z">
+
+        <view bindtap="reLocate">
+          <image src='../images/rest.png' class='restimg'></image>
+        </view>
+
+        <view class="section">
+          <picker mode="date" value="{{date}}" bindchange="bindDateChange">
+            <view class="picker">
+              时间点选择
+            </view>
+          </picker>
+        </view>
+
+        <view class="section">
+          <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+            <view class="picker">
+              时间段选择
+            </view>
+          </picker>
+        </view>
+
+      </map>
+
+    </swiper-item>
+    <swiper-item  >
+      <view wx:for="{{ markers }}">
+        <view class="movie-item">
+          <image class="poster" src="../images/location.png"></image>
+          <view class="meta">
+            <text class="title">{{item.title}}</text>
+            <view class="rating">
+              <text>{{item.date}}</text>
+            </view>
+          </view>
+
+        </view>
+      </view>
+
+
+    </swiper-item>
+  </swiper>
+</view>

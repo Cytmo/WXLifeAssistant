@@ -145,6 +145,7 @@ getData: function (url,userID) {
           //   attitude="暂无"
       }
       var temp = {
+        
       description: subject.description,
       unrecommendtotal: subject.unrecommendtotal,
       type: subject.type,
@@ -210,7 +211,6 @@ getData: function (url,userID) {
    * 页面上拉触底事件的处理函数
    */
   onReachBottom() {
-
   },
 
   /**
