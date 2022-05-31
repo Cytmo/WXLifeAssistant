@@ -2,8 +2,9 @@
 import { $init, $digest } from '../../../utils/common'
 import { promisify } from '../../../utils/promise.util'
 // var ipv4 = "http://10.131.148.225:8081"
-var ipv4 = "http://localhost:80"
+
 const app = getApp()
+var ipv4 =app.globalData.url
 Page({
 
   /**

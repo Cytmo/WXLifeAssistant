@@ -1,8 +1,8 @@
 // pages/recommendspages/group/group.js
 import { $init, $digest } from '../../../utils/common'
 const app = getApp()
-// var ipv4 = "http://10.131.148.225:8081"
-var ipv4 = "http://localhost:80"
+//直接在app.js中修改!!
+var ipv4 = app.globalData.url
 Page({
   data: {
     openId: null,
@@ -31,6 +31,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(params) {
+
     $init(this)
     let  scrollHeight = wx.getSystemInfoSync().windowHeight;
     this.setData({

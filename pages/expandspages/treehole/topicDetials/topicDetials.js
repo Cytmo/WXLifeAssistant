@@ -4,7 +4,7 @@ import { formatTime,formatDate } from '../../../../utils/common'
 
 const app = getApp()
 
-var ipv4 = "http://localhost:80"
+var ipv4 = app.globalData.url
 
 Page({
   data: {
