@@ -1,16 +1,17 @@
-<view wx:for="{{ novels }}" wx:key="index" >
-  <view class="movie-item" bindtap="gotodetail" data-index="{{index}}" data-kind="{{kind}}" >
+<view wx:for="{{ novels }}" wx:key="index" class="border">
+  <view class="movie-item" bindtap="gotodetail" data-index="{{index}}" data-kind="{{kind}}">
     <image class="poster" src="{{item.image}}"></image>
     <view class="meta">
-      <text class="title">{{item.name}}</text>
-      <view class="artists" >作者: {{item.author}}</view>
-      <view class="artists" >类型: {{item.category}}</view>
-      <view class="artists" >状态: {{item.completionstatus}}</view>
-      <view  class="artists">最新章节: {{item.updatedchapter}}</view>
+      <text class="title"style="font-size:35rpx;">{{item.name}}</text>
+      <view class="artists">作者: {{item.author}}</view>
+      <view class="artists">类型: {{item.category}}   {{item.subcategory}}</view>
+      <view class="tag1">状态:  <view class="cu-tag line-red">{{item.completionstatus}}</view></view>
+      <view class="artists">最新章节: {{item.updatedchapter}}</view>
+     
     </view>
     <view class="rating">
-          <text>{{item.ranks}}</text>
-      </view>      
+      <text>{{item.ranks}}</text>
+    </view>
   </view>
 </view>
 

@@ -105,7 +105,11 @@ Page({
             // default:
             //   attitude="暂无"
         }
+        var recommendrate = this.toPercent(subject.recommendtotal,subject.unrecommendtotal);
+        var unrecommendrate = this.toPercent(subject.unrecommendtotal,subject.recommendtotal);
         var temp = {
+          recommendrate: recommendrate,
+          unrecommendrate: unrecommendrate,
           description: subject.description,
           unrecommendtotal: subject.unrecommendtotal,
           info: subject.info,
@@ -114,7 +118,38 @@ Page({
           detailpage: subject.detailpage,
           recommendtotal: subject.recommendtotal,
           ranks: subject.ranks,
-          name: title
+          name: title,
+          intp   :subject.intp,
+          entj   :subject.entj,
+          entp   :subject.entp,
+          infj   :subject.infj,
+          infp   :subject.infp,
+          enfj   :subject.enfj,
+          enfp   :subject.enfp,
+          istj   :subject.istj,
+          isfj   :subject.isfj,
+          estj   :subject.estj,
+          esfj   :subject.esfj,
+          istp   :subject.istp,
+          isfp   :subject.isfp,
+          estp   :subject.estp,
+          esfp   :subject.esfp,
+          unintj :subject.unintj,
+          unintp :subject.unintp,
+          unentj :subject.unentj,
+          unentp :subject.unentp,
+          uninfj :subject.uninfj,
+          uninfp :subject.uninfp,
+          unenfj :subject.unenfj,
+          unenfp :subject.unenfp,
+          unistj :subject.unistj,
+          unisfj :subject.unisfj,
+          unestj :subject.unestj,
+          unesfj :subject.unesfj,
+          unistp :subject.unistp,
+          unisfp :subject.unisfp,
+          unestp :subject.unestp,
+          unesfp :subject.unesfp
         }
         objects.push(temp);
         var tmp2 = {
@@ -123,7 +158,6 @@ Page({
           url: subject.image
         }
         if (ID < 4) {
-          console.log(subject.name)
           object1.push(tmp2)
           ID++;
         }
@@ -148,7 +182,11 @@ Page({
             // default:
             //   attitude="暂无"
         }
+        var recommendrate = this.toPercent(subject.recommendtotal,subject.unrecommendtotal);
+        var unrecommendrate = this.toPercent(subject.unrecommendtotal,subject.recommendtotal);
         var temp = {
+          recommendrate: recommendrate,
+          unrecommendrate: unrecommendrate,
           description: subject.description,
           unrecommendtotal: subject.unrecommendtotal,
           info: subject.info,
@@ -157,7 +195,38 @@ Page({
           detailpage: subject.detailpage,
           recommendtotal: subject.recommendtotal,
           ranks: subject.ranks,
-          name: title
+          name: title,
+          intp   :subject.intp,
+          entj   :subject.entj,
+          entp   :subject.entp,
+          infj   :subject.infj,
+          infp   :subject.infp,
+          enfj   :subject.enfj,
+          enfp   :subject.enfp,
+          istj   :subject.istj,
+          isfj   :subject.isfj,
+          estj   :subject.estj,
+          esfj   :subject.esfj,
+          istp   :subject.istp,
+          isfp   :subject.isfp,
+          estp   :subject.estp,
+          esfp   :subject.esfp,
+          unintj :subject.unintj,
+          unintp :subject.unintp,
+          unentj :subject.unentj,
+          unentp :subject.unentp,
+          uninfj :subject.uninfj,
+          uninfp :subject.uninfp,
+          unenfj :subject.unenfj,
+          unenfp :subject.unenfp,
+          unistj :subject.unistj,
+          unisfj :subject.unisfj,
+          unestj :subject.unestj,
+          unesfj :subject.unesfj,
+          unistp :subject.unistp,
+          unisfp :subject.unisfp,
+          unestp :subject.unestp,
+          unesfp :subject.unesfp
         }
         objectsHighRank.push(temp);
         var tmp2 = {
@@ -166,7 +235,6 @@ Page({
           url: subject.image
         }
         if (ID < 8) {
-          console.log(subject.name)
           object2.push(tmp2)
           ID++;
         }
@@ -182,7 +250,6 @@ Page({
     app.globalData.tvsHighRanks = objectsHighRank;
 
     object2.push.apply(object2, object1);
-    console.log(object1);
     this.setData({
       swiperList: object2,
     }, () => {})
@@ -252,7 +319,6 @@ Page({
   // towerSwiper
   // 初始化towerSwiper
   towerSwiper(name) {
-    console.log("towerSwiper: " + name)
     let list = this.data[name];
     for (let i = 0; i < list.length; i++) {
       list[i].zIndex = parseInt(list.length / 2) + 1 - Math.abs(i - parseInt(list.length / 2))
@@ -303,5 +369,9 @@ Page({
         swiperList: list
       })
     }
-  }
+  },
+  toPercent:function(num1, num2) { 
+    return (Math.round(((num1+1)/ (num1+num2+2)) * 100)  + "%");// 小数点后两位百分比
+}
+
 })

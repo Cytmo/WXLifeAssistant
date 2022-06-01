@@ -10,7 +10,9 @@
         <view class="bookName">{{novel.name}}</view>
         <view class="author">作者：{{novel.author}}</view>
         <view class="wordsNum">状态：{{novel.completionstatus}}</view>
-        <view class="updatetime">类型：{{novel.category}}  {{novel.subcategory}}</view>
+        <view class="updatetime">类型： <view class="cu-tag line-red" style="padding: 3rpx; height: 40rpx; font-size: 28rpx;">{{novel.category}}</view>
+        <view class="cu-tag line-blue"  style="padding: 3rpx; height: 40rpx; font-size: 28rpx;"> {{novel.subcategory}}</view>
+        </view>
         <view class="updatetime">排行：{{novel.ranks}}</view>
       </view>
     </view>

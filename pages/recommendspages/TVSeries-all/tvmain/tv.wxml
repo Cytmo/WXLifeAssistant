@@ -14,7 +14,7 @@
       <view class="board-item">
         <view class="title" bindtap="gotoHotList">
           <text>{{boardItems[0].title}}</text>
-          <image src="../images/arrowright.png" mode="aspectFill"></image>
+          <image src="/images/arrowright.png" mode="aspectFill"></image>
         </view>
         <scroll-view class="content" scroll-x="true">
           <view class="inner">
@@ -34,7 +34,7 @@
       <view class="board-item">
         <view class="title" bindtap="gotoHighRanksList">
           <text>{{boardItems[0].title}}</text>
-          <image src="../images/arrowright.png" mode="aspectFill"></image>
+          <image src="/images/arrowright.png" mode="aspectFill"></image>
         </view>
         <scroll-view class="content" scroll-x="true">
           <view class="inner">

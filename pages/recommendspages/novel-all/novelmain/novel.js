@@ -93,7 +93,6 @@ Page({
   // towerSwiper
   // 初始化towerSwiper
   towerSwiper(name) {
-    console.log("towerSwiper: " + name)
     let list = this.data[name];
     for (let i = 0; i < list.length; i++) {
       list[i].zIndex = parseInt(list.length / 2) + 1 - Math.abs(i - parseInt(list.length / 2))
@@ -162,7 +161,6 @@ Page({
         that.procseeData(res.data)
       },
       fail: function (error) {
-        console.log(error)
       }
     })
   },
@@ -217,7 +215,38 @@ Page({
           name: subject.name,
           category: subject.category,
           subcategory: subject.subcategory,
-          completionstatus: subject.completionstatus
+          completionstatus: subject.completionstatus,
+          intp   :subject.intp,
+          entj   :subject.entj,
+          entp   :subject.entp,
+          infj   :subject.infj,
+          infp   :subject.infp,
+          enfj   :subject.enfj,
+          enfp   :subject.enfp,
+          istj   :subject.istj,
+          isfj   :subject.isfj,
+          estj   :subject.estj,
+          esfj   :subject.esfj,
+          istp   :subject.istp,
+          isfp   :subject.isfp,
+          estp   :subject.estp,
+          esfp   :subject.esfp,
+          unintj :subject.unintj,
+          unintp :subject.unintp,
+          unentj :subject.unentj,
+          unentp :subject.unentp,
+          uninfj :subject.uninfj,
+          uninfp :subject.uninfp,
+          unenfj :subject.unenfj,
+          unenfp :subject.unenfp,
+          unistj :subject.unistj,
+          unisfj :subject.unisfj,
+          unestj :subject.unestj,
+          unesfj :subject.unesfj,
+          unistp :subject.unistp,
+          unisfp :subject.unisfp,
+          unestp :subject.unestp,
+          unesfp :subject.unesfp
         }
 
         var tmp2 = {
@@ -226,7 +255,6 @@ Page({
           url: subject.image
         }
         if (ID <3) {
-          console.log(subject.name)
           object1.push(tmp2)
           ID++;
         }
@@ -277,7 +305,38 @@ Page({
           name: subject.name,
           category: subject.category,
           subcategory: subject.subcategory,
-          completionstatus: subject.completionstatus
+          completionstatus: subject.completionstatus,
+          intp   :subject.intp,
+          entj   :subject.entj,
+          entp   :subject.entp,
+          infj   :subject.infj,
+          infp   :subject.infp,
+          enfj   :subject.enfj,
+          enfp   :subject.enfp,
+          istj   :subject.istj,
+          isfj   :subject.isfj,
+          estj   :subject.estj,
+          esfj   :subject.esfj,
+          istp   :subject.istp,
+          isfp   :subject.isfp,
+          estp   :subject.estp,
+          esfp   :subject.esfp,
+          unintj :subject.unintj,
+          unintp :subject.unintp,
+          unentj :subject.unentj,
+          unentp :subject.unentp,
+          uninfj :subject.uninfj,
+          uninfp :subject.uninfp,
+          unenfj :subject.unenfj,
+          unenfp :subject.unenfp,
+          unistj :subject.unistj,
+          unisfj :subject.unisfj,
+          unestj :subject.unestj,
+          unesfj :subject.unesfj,
+          unistp :subject.unistp,
+          unisfp :subject.unisfp,
+          unestp :subject.unestp,
+          unesfp :subject.unesfp
         }
         objects2.push(temp);
 
@@ -287,7 +346,6 @@ Page({
           url: subject.image
         }
         if (ID < 5) {
-          console.log(subject.name)
           object2.push(tmp2)
           ID++;
         }
@@ -338,7 +396,38 @@ Page({
           name: subject.name,
           category: subject.category,
           subcategory: subject.subcategory,
-          completionstatus: subject.completionstatus
+          completionstatus: subject.completionstatus,
+          intp   :subject.intp,
+          entj   :subject.entj,
+          entp   :subject.entp,
+          infj   :subject.infj,
+          infp   :subject.infp,
+          enfj   :subject.enfj,
+          enfp   :subject.enfp,
+          istj   :subject.istj,
+          isfj   :subject.isfj,
+          estj   :subject.estj,
+          esfj   :subject.esfj,
+          istp   :subject.istp,
+          isfp   :subject.isfp,
+          estp   :subject.estp,
+          esfp   :subject.esfp,
+          unintj :subject.unintj,
+          unintp :subject.unintp,
+          unentj :subject.unentj,
+          unentp :subject.unentp,
+          uninfj :subject.uninfj,
+          uninfp :subject.uninfp,
+          unenfj :subject.unenfj,
+          unenfp :subject.unenfp,
+          unistj :subject.unistj,
+          unisfj :subject.unisfj,
+          unestj :subject.unestj,
+          unesfj :subject.unesfj,
+          unistp :subject.unistp,
+          unisfp :subject.unisfp,
+          unestp :subject.unestp,
+          unesfp :subject.unesfp
         }
         objects3.push(temp);
 
@@ -348,12 +437,9 @@ Page({
           url: subject.image
         }
         if (ID < 8) {
-          console.log(subject.name)
           object3.push(tmp2)
           ID++;
         }
-
-        // console.log(readyData);
       } else if (cnt <= 40) {
         var subject = datas.data[idx];
         var title = subject.name;
@@ -400,7 +486,38 @@ Page({
           name: subject.name,
           category: subject.category,
           subcategory: subject.subcategory,
-          completionstatus: subject.completionstatus
+          completionstatus: subject.completionstatus,
+          intp   :subject.intp,
+          entj   :subject.entj,
+          entp   :subject.entp,
+          infj   :subject.infj,
+          infp   :subject.infp,
+          enfj   :subject.enfj,
+          enfp   :subject.enfp,
+          istj   :subject.istj,
+          isfj   :subject.isfj,
+          estj   :subject.estj,
+          esfj   :subject.esfj,
+          istp   :subject.istp,
+          isfp   :subject.isfp,
+          estp   :subject.estp,
+          esfp   :subject.esfp,
+          unintj :subject.unintj,
+          unintp :subject.unintp,
+          unentj :subject.unentj,
+          unentp :subject.unentp,
+          uninfj :subject.uninfj,
+          uninfp :subject.uninfp,
+          unenfj :subject.unenfj,
+          unenfp :subject.unenfp,
+          unistj :subject.unistj,
+          unisfj :subject.unisfj,
+          unestj :subject.unestj,
+          unesfj :subject.unesfj,
+          unistp :subject.unistp,
+          unisfp :subject.unisfp,
+          unestp :subject.unestp,
+          unesfp :subject.unesfp
         }
         objects4.push(temp);
 
@@ -411,7 +528,6 @@ Page({
         }
        
         if (ID <10) {
-          console.log(subject.name)
           object4.push(tmp2);
           ID++;
         }
@@ -443,7 +559,6 @@ Page({
     object2.push.apply(object2,object1);
     object2.push.apply(object2,object3);
 
-    console.log(object2);
     this.setData({
       swiperList: object2,
     }, () => {})

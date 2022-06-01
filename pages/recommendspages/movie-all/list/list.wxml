@@ -1,15 +1,19 @@
-<view wx:for="{{ movies }}" wx:key="index" >
-  <view class="movie-item" bindtap="gotodetail" data-index="{{index}}" data-kind="{{kind}}" >
+<view wx:for="{{ movies }}" wx:key="index" class="border">
+  <view class="movie-item" bindtap="gotodetail" data-index="{{index}}" data-kind="{{kind}}">
     <image class="poster" src="{{item.image}}"></image>
     <view class="meta">
-      <text class="title">{{item.name}}</text>
-      <view >我的态度: {{item.myattitude}}</view>
-      <view class="artists" >推荐人数: {{item.recommendtotal}}</view>
-      <view  class="artists">不推荐人数: {{item.unrecommendtotal}}</view>
+      <text class="title" style="font-size: 35rpx;">{{item.name}}</text>
+      <text class="artists">推荐比率 : </text>
+      <view class="padding bg-white">
+        <view class="cu-progress radius striped active">
+          <view class="bg-red" style="width:{{loading?item.recommendrate:''}};">{{item.recommendrate}}</view>
+          <view class="bg-olive" style="width:{{loading?item.unrecommendrate:''}};">{{item.unrecommendrate}}</view>
+        </view>
+      </view>
     </view>
     <view class="rating">
-          <text>{{item.ranks}}</text>
-      </view>      
+      <text>{{item.ranks}}</text>
+    </view>
   </view>
 </view>
 

@@ -14,7 +14,7 @@
       <view class="board-item">
           <view class="title" bindtap="gotoyuepiao">
             <text>{{boardItems[0].title}}</text>
-            <image src="../images/arrowright.png" mode="aspectFill"></image>
+            <image src="/images/arrowright.png" mode="aspectFill"></image>
           </view>
         <scroll-view class="content" scroll-x="true">
           <view class="inner">
@@ -33,7 +33,7 @@
       <view class="board-item">
           <view class="title" bindtap="gotorecom">
             <text>{{boardItems[1].title}}</text>
-            <image src="../images/arrowright.png" mode="aspectFill"></image>
+            <image src="/images/arrowright.png" mode="aspectFill"></image>
           </view>
         <scroll-view class="content" scroll-x="true">
           <view class="inner">
@@ -52,7 +52,7 @@
       <view class="board-item">
           <view class="title" bindtap="gotommyuepiao">
             <text>{{boardItems[2].title}}</text>
-            <image src="../images/arrowright.png" mode="aspectFill"></image>
+            <image src="/images/arrowright.png" mode="aspectFill"></image>
           </view>
         <scroll-view class="content" scroll-x="true">
           <view class="inner">
@@ -71,7 +71,7 @@
       <view class="board-item">
           <view class="title" bindtap="gotommrecom">
             <text>{{boardItems[3].title}}</text>
-            <image src="../images/arrowright.png" mode="aspectFill"></image>
+            <image src="/images/arrowright.png" mode="aspectFill"></image>
           </view>
         <scroll-view class="content" scroll-x="true">
           <view class="inner">

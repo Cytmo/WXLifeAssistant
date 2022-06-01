@@ -31,8 +31,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (params) {
+    let that = this;
+    setTimeout(function() {
+      that.setData({
+        loading: true
+      })
+    }, 500)
     console.log(params)
-
     this.setData({kind:params.type})    
     if(params.type=="hot"){
       var movies=app.globalData.movies
@@ -41,8 +46,6 @@ Page({
       var movies=app.globalData.moviesHighRanks
       this.setData({movies:movies})
     }
-
-  
   },
 
   /**

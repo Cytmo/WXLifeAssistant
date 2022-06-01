@@ -796,6 +796,19 @@ button.icon.lg {
  ==================== */
 
 .cu-tag {
+  font-size: 30rpx;
+  align-items: center;
+  vertical-align: middle;
+  box-sizing: 40rpx;
+	position: relative;
+  display: inline-flex;
+  margin-left: 10rpx;
+  padding: 2rpx;
+  justify-content: center;
+  font-family: Helvetica Neue, Helvetica, sans-serif;
+
+}
+.cu-tag1 {
 	font-size: 24rpx;
 	vertical-align: middle;
 	position: relative;
@@ -808,6 +821,7 @@ button.icon.lg {
 	font-family: Helvetica Neue, Helvetica, sans-serif;
 	white-space: nowrap;
 }
+
 
 .cu-tag:not([class*="bg"]):not([class*="line"]) {
 	background-color: var(--ghostWhite);

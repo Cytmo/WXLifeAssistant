@@ -27,6 +27,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (params) {
+
+    let that = this;
+    setTimeout(function() {
+      that.setData({
+        loading: true
+      })
+    }, 500)
+
+
     this.setData({kind:params.type})    
     if(params.type=="hot"){
      var tvs=app.globalData.tvHot

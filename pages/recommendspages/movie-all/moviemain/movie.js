@@ -68,9 +68,7 @@ Page({
       success: function (res) {
         that.procseeData(res.data)
       },
-      fail: function (error) {
-        console.log(error)
-      }
+      fail: function (error) {}
     })
   },
 
@@ -81,8 +79,8 @@ Page({
     var objects = [];
     var objectsHighRank = [];
     var cnt = 0;
-    var ID=0;
-    var Image="image";
+    var ID = 0;
+    var Image = "image";
     for (var idx in datas.data) {
       cnt++;
       if (cnt > 10) {
@@ -105,7 +103,11 @@ Page({
             // default:
             //   attitude="暂无"
         }
+        var recommendrate = this.toPercent(subject.recommendtotal,subject.unrecommendtotal);
+        var unrecommendrate = this.toPercent(subject.unrecommendtotal,subject.recommendtotal);
         var temp = {
+          recommendrate: recommendrate,
+          unrecommendrate: unrecommendrate,
           description: subject.description,
           unrecommendtotal: subject.unrecommendtotal,
           type: subject.type,
@@ -115,7 +117,38 @@ Page({
           detailpage: subject.detailpage,
           recommendtotal: subject.recommendtotal,
           ranks: subject.ranks,
-          name: title
+          name: title,
+          intp: subject.intp,
+          entj: subject.entj,
+          entp: subject.entp,
+          infj: subject.infj,
+          infp: subject.infp,
+          enfj: subject.enfj,
+          enfp: subject.enfp,
+          istj: subject.istj,
+          isfj: subject.isfj,
+          estj: subject.estj,
+          esfj: subject.esfj,
+          istp: subject.istp,
+          isfp: subject.isfp,
+          estp: subject.estp,
+          esfp: subject.esfp,
+          unintj: subject.unintj,
+          unintp: subject.unintp,
+          unentj: subject.unentj,
+          unentp: subject.unentp,
+          uninfj: subject.uninfj,
+          uninfp: subject.uninfp,
+          unenfj: subject.unenfj,
+          unenfp: subject.unenfp,
+          unistj: subject.unistj,
+          unisfj: subject.unisfj,
+          unestj: subject.unestj,
+          unesfj: subject.unesfj,
+          unistp: subject.unistp,
+          unisfp: subject.unisfp,
+          unestp: subject.unestp,
+          unesfp: subject.unesfp
         }
         objectsHighRank.push(temp);
 
@@ -124,14 +157,10 @@ Page({
           type: Image,
           url: subject.image
         }
-        if (ID <8) {
-          console.log(subject.name)
+        if (ID < 8) {
           object1.push(tmp2)
           ID++;
         }
-
- 
-        // console.log(readyData);
       } else {
         var subject = datas.data[idx];
         var title = subject.name;
@@ -150,7 +179,11 @@ Page({
             attitude = "不推荐";
             break;
         }
+        var recommendrate = this.toPercent(subject.recommendtotal,subject.unrecommendtotal);
+        var unrecommendrate = this.toPercent(subject.unrecommendtotal,subject.recommendtotal);
         var temp = {
+          recommendrate: recommendrate,
+          unrecommendrate: unrecommendrate,
           description: subject.description,
           unrecommendtotal: subject.unrecommendtotal,
           type: subject.type,
@@ -160,17 +193,47 @@ Page({
           detailpage: subject.detailpage,
           recommendtotal: subject.recommendtotal,
           ranks: subject.ranks,
-          name: title
+          name: title,
+          intp: subject.intp,
+          entj: subject.entj,
+          entp: subject.entp,
+          infj: subject.infj,
+          infp: subject.infp,
+          enfj: subject.enfj,
+          enfp: subject.enfp,
+          istj: subject.istj,
+          isfj: subject.isfj,
+          estj: subject.estj,
+          esfj: subject.esfj,
+          istp: subject.istp,
+          isfp: subject.isfp,
+          estp: subject.estp,
+          esfp: subject.esfp,
+          unintj: subject.unintj,
+          unintp: subject.unintp,
+          unentj: subject.unentj,
+          unentp: subject.unentp,
+          uninfj: subject.uninfj,
+          uninfp: subject.uninfp,
+          unenfj: subject.unenfj,
+          unenfp: subject.unenfp,
+          unistj: subject.unistj,
+          unisfj: subject.unisfj,
+          unestj: subject.unestj,
+          unesfj: subject.unesfj,
+          unistp: subject.unistp,
+          unisfp: subject.unisfp,
+          unestp: subject.unestp,
+          unesfp: subject.unesfp
         }
         objects.push(temp);
- 
+
         var tmp2 = {
           id: ID,
           type: Image,
           url: subject.image
         }
-        if (ID <4) {
-          console.log(subject.name)
+        if (ID < 4) {
           object2.push(tmp2)
           ID++;
         }
@@ -181,23 +244,21 @@ Page({
       moviesHighRanks: objectsHighRank
     });
     app.globalData.moviesHighRanks = objectsHighRank;
-    
+
     this.setData({
       movies: objects
     });
     app.globalData.movies = objects;
-    // console.log(readyData);
 
 
-    object1.push.apply(object1,object2);
-    console.log(object1);
+    object1.push.apply(object1, object2);
     this.setData({
       swiperList: object1,
     }, () => {})
     this.towerSwiper('swiperList');
 
     loading: false;
- 
+
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -260,7 +321,6 @@ Page({
   // towerSwiper
   // 初始化towerSwiper
   towerSwiper(name) {
-    console.log("towerSwiper: " + name)
     let list = this.data[name];
     for (let i = 0; i < list.length; i++) {
       list[i].zIndex = parseInt(list.length / 2) + 1 - Math.abs(i - parseInt(list.length / 2))
@@ -311,6 +371,9 @@ Page({
         swiperList: list
       })
     }
-  }
-  
+  },
+  toPercent:function(num1, num2) { 
+    return (Math.round(((num1+1)/ (num1+num2+2)) * 100)  + "%");// 小数点后两位百分比
+}
+
 })

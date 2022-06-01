@@ -75,7 +75,7 @@
 	display: inline-block;
 }
 .head .bookInfo .left-text .bookName{
-	font-size: 32rpx;
+	font-size: 40rpx;
 	color:#ffffff;
 	margin-bottom: 24rpx;
 }

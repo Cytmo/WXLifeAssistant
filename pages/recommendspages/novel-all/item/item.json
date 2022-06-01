@@ -1,5 +1,4 @@
 {
   "usingComponents": { 
-    "i-tag": "/components/iview/dist/tag/index"
   }
 }
