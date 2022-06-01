@@ -1,6 +1,6 @@
 <view wx:for="{{tvs }}" wx:key="index" >
-  <view class="movie-item" bindtap="gotodetail" data-index="{{index}}">
-    <image class="poster" src="{{item.image}}"></image>
+  <view class="movie-item" bindtap="gotodetail" data-index="{{index}}"data-kind="{{kind}}">
+    <image class="poster" src="{{item.image}}" ></image>
     <view class="meta">
       <text class="title">{{item.name}}</text>
       <view >我的态度: {{item.myattitude}}</view>

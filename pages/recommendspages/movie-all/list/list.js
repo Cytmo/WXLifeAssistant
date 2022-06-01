@@ -42,11 +42,7 @@ Page({
       this.setData({movies:movies})
     }
 
-    
-    // this.data.movies=JSON.parse(params.movies)
-    
-    // // 网络API调用
-    // this.fetchLoadMoreItemList();
+  
   },
 
   /**

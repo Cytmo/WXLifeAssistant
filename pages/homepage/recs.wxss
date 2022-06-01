@@ -1,35 +1,15 @@
 /* pages/recs/recs.wxss */
-.container1 {
-  position: relative;
+
+.tower-swiper .tower-item {
+  transform: scale(calc(0.5 + var(--index) / 10));
+  margin-left: calc(var(--left) * 100rpx - 150rpx);
+  z-index: var(--index);
 }
 
-.subtitle {
-  position: relative;
-  margin-top: 40rpx;
-  margin-left: 40rpx;
 
+.notice{
+  margin-top: 10rpx;
 }
-
-.container2 {
-  position: relative;
-  margin-top: 40rpx;
-  margin-left: 40rpx;
-
-}
-
-/* pages/index/swiper.wxss */
-.banner {
-  width: 100%;
-  height: 350rpx;
-}
-
-.banner image {
-  width: 100%;
-  height: 100%;
-}
-
-.restimg {
-  width: 100rpx;
-  height: 100rpx;
-  margin-right: 20rpx;
+.notice2{
+  margin-top: 30rpx;
 }

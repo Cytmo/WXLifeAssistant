@@ -1,5 +1,9 @@
 {
   "usingComponents": {
-    "i-notice-bar": "/components/iview/dist/notice-bar/index"
+    "i-notice-bar": "/components/iview/dist/notice-bar/index",
+    "basics": "/pages/tools/basics/home/home",
+    "component": "/pages/tools/component/home/home",
+    "plugin": "/pages/tools/plugin/home/home",
+    "about": "/pages/tools/about/home/home"
   }
 }

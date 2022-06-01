@@ -1,18 +1,43 @@
-<view class="container" >
-  <view class="meta">
-    <image class="poster" src="{{novel.image}}" mode="heightFix"></image>
-    <text class="title">{{novel.name}}</text>
+<view class="book-detail-container">
+  <view class="headBackgroundContainer">
+    <view class="headBackground" style="background:url('{{novel.image}}') no-repeat center;background-size:200%;">
+    </view>
   </view>
-
-  <view class="summery">
-    <text class="label">排行: {{novel.ranks}}</text>
-    <text class="label">作者: {{novel.author}}</text>
-    <view class="artists" >类型: {{novel.category}}  {{novel.subcategory}}</view>
-    <text class="label">最新章节：</text>
-    <text class="content">{{novel.updatedchapter}}</text>
-
-    <text class="label">小说简介：</text>
-    <text class="content">{{novel.introduction}}</text>
-
+  <view class="head">
+    <view class="bookInfo">
+      <image class="headImg" src="{{novel.image}}" mode="aspectFill"></image>
+      <view class="left-text">
+        <view class="bookName">{{novel.name}}</view>
+        <view class="author">作者：{{novel.author}}</view>
+        <view class="wordsNum">状态：{{novel.completionstatus}}</view>
+        <view class="updatetime">类型：{{novel.category}}  {{novel.subcategory}}</view>
+        <view class="updatetime">排行：{{novel.ranks}}</view>
+      </view>
+    </view>
+    <view class="clearfix"></view>
+    <view class="btn-group">
+      <view class="addToList" bindtap="addOrRemove">
+        <view class="true">
+          <icon class="addList-icon" />推荐指数
+        </view>
+      </view>
+      <view class="read" bindtap="goToReader">
+        <image src=""></image>我的态度
+      </view>
+    </view>
+  </view>
+  <view style="margin-top: 20rpx;"></view>
+  <view class="comments">
+    <view class="title">最新章节
+    </view>
+    <text class="info-content" style=" height: auto;"> {{novel.updatedchapter}}</text>
+  </view>
+  <view class="comments">
+    <view class="title">小说简介
+      <text class="add-comment" bind:tap="showDescFullWords" wx:if="{{!flag&&!showDescFull}}">展开</text>
+      <text class="add-comment" bind:tap="unshowDescFullWords" wx:if="{{flag}}">收起</text>
+    </view>
+    <text class="info-content" style=" height: auto;" wx:if="{{!showDescFull}}">{{show}}</text>
+    <text class="info-content" style=" height: auto;" wx:if="{{showDescFull}}">{{novel.introduction}}</text>
   </view>
 </view>

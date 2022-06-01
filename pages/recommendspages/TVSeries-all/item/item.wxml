@@ -1,14 +1,56 @@
-<view class="container" >
-  <view class="meta">
-    <image class="poster" src="{{tv.image}}" mode="heightFix"></image>
-    <text class="title">{{tv.title}}</text>
+<view class="movie-detail">
+  <view class="movie-header">
+    <view class="main-content">
+      <view class="movie-top">
+        <view class="movie-img {{isLoading && 'loading-block loading-shink'}}">
+          <image src="{{tv.image}}" mode="aspectFit" />
+        </view>
+        <view class="movie-content">
+          <view class="movie-title {{isLoading && 'loading-block loading-shink'}}">{{tv.name}}</view>
+          <view class="{{isLoading && 'loading-block loading-shink'}}">{{detailInfo.otherName}}</view>
+          <view class="desc {{isLoading && 'loading-block loading-shink'}}" style="margin:6px 0 12px;">
+            {{detailInfo.TVCountry}}/
+            {{detailInfo.TVType}} /
+            {{detailInfo.firstTime}} /
+            {{detailInfo.oneSeason}}/
+            {{detailInfo.episodeTime}}
+          </view>
+        </view>
+      </view>
+      <view class="movie-score">
+        <view>豆瓣评分 TM</view>
+        <view class="score-wrapper">
+          <text class="score">{{ tv.ranks||'0.0' }}</text>
+          <view>
+            <star score="{{tv.ranks}}" />
+          </view>
+          <view class="add-score">
+            <i class="iconfont icon-edit-outline" />
+            我的态度
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="movie-info main-content">
+    <view class="block-title">剧情简介</view>
+    <text class="info-content" style=" height: auto;"wx:if="{{!showDescFull}}">{{show}}</text>
+    <text class="info-content" style=" height: auto;"wx:if="{{showDescFull}}">{{tv.description}}</text>
+
+    <text class="more1" bind:tap="showDescFullWords" wx:if="{{!flag&&!showDescFull}}">展开</text>
+    <text class="more1" bind:tap="unshowDescFullWords" wx:if="{{flag}}">收起</text>
   </view>
 
-  <view class="summery">
-    <text class="label">电视剧评分: {{tv.ranks}}</text>
-    <text class="label">电视剧简介：</text>
-    <text class="content">{{tv.description}}</text>
-    <text class="label">详细信息：</text>
-    <text class="content">{{tv.info}}</text>
-  </view>
+  <view class="movie-actor main-content">
+    <view class="block-title">演职员</view>
+        <text class="desc">导演</text>
+     <view>{{detailInfo.director}}</view>
+     <text class="desc" wx:if="{{detailInfo.screenWriter}}">编剧</text>
+     <view>{{detailInfo.screenWriter}}</view>
+     <text class="desc">主演</text>
+     <view style="word-wrap:break-word ">{{detailInfo.actors}}</view>
+
+      </view>
+
+
 </view>

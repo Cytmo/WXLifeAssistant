@@ -1,18 +1,26 @@
 <!-- pages/recs/recs.wxml -->
-<swiper class="banner" indicator-dots="true" indicator-color="white" autoplay interval="5000" circular>
-  <swiper-item>
-    <image src="/images/homepagephoto/homepage2.png" mode="widthFix"></image>
-  </swiper-item>
-  <swiper-item>
-    <image src="/images/homepagephoto/homepage2.png" mode="widthFix"></image>
+<swiper class="card-swiper {{DotStyle?'square-dot':'round-dot'}}" indicator-dots="true" circular="true" autoplay="true" interval="5000" duration="500" bindchange="cardSwiper" indicator-color="#8799a3" indicator-active-color="#0081ff">
+  <swiper-item wx:for="{{swiperList}}" wx:key class="{{cardCur==index?'cur':''}}">
+    <view class="swiper-item">
+      <image src="{{item.url}}" mode="aspectFill" wx:if="{{item.type=='image'}}"></image>
+      <video src="{{item.url}}" autoplay loop muted show-play-btn="{{false}}" controls="{{false}}" objectFit="cover" wx:if="{{item.type=='video'}}"></video>
+    </view>
   </swiper-item>
 </swiper>
-<i-notice-bar icon="systemprompt" closable loop>
-核酸检测:接学校通知，将于5月29-30日开展一轮扩面核酸检测，具体时间安排为：
-5月29日15:00-20:00，
-5月30日7:00-12:00
-（按照上级卫健委要求，12:00 为采样截止时间，请各学院组织全体师生务必在 12：00 之前完成采样，并在【核酸检测登记】小程序上完成登记）。采样地点没有变化，请各班组织学生应检尽检，不落一人。
+<view class="notice">
+</view>
+<i-notice-bar icon="systemprompt" closable loop >
+核酸检测:接学校通知，将于5月29-30日开展一轮扩面核酸检测
 </i-notice-bar>
+<view class="notice2">
+</view>
+<basics wx:if="{{PageCur=='basics'}}"></basics>
+<component wx:if="{{PageCur=='component'}}"></component>
+<plugin wx:if="{{PageCur=='plugin'}}"></plugin>
+<about wx:if="{{PageCur=='about'}}"></about>
+
+
+<!-- 
 <view class="subtitle">
   <text>常用应用</text>
 </view>
@@ -35,4 +43,4 @@
 <view class="container2">
   <image src='/images/homepagephoto/treehole_icon.png' class='restimg' bindtap="goToTreehole"></image>
   <image src='/images/homepagephoto/talk_icon.png' class='restimg' bindtap="goToChatList"></image>
-</view>
+</view> -->

@@ -21,15 +21,15 @@ App(
       // 小说月票榜
       novelsmmrecom: {},
       tvHot: {},
+      tvsHighRanks:{},
       //userID在用户未登录时为1，登陆后为openid
       userID: 1,
       openId: '',
-      url: "http://10.131.150.190:8081"
+      url: "http://10.131.150.190:8081",
     },
     getIMHandler() {
       return this.appIMDelegate.getIMHandlerDelegate();
     },
-
 
     onLaunch: function (options) {
       var that=this;
@@ -53,7 +53,10 @@ App(
 
       this.appIMDelegate = new AppIMDelegate(this);
       this.appIMDelegate.onLaunch(options);
+
     },
+
+
 
     onHide() {
       this.appIMDelegate.onHide();

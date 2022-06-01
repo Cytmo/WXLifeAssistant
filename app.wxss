@@ -1,4 +1,8 @@
 /**app.wxss**/
+@import "/components/colorui/main.wxss";
+@import "/components/colorui/icon.wxss";
+@import "/assets/iconfont/iconfont.wxss";
+
 .container {
   height: 100%;
   display: flex;
@@ -8,3 +12,165 @@
   padding: 200rpx 0;
   box-sizing: border-box;
 } 
+.scrollPage {
+  height: 100vh;
+}
+
+.nav-list {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0px 40rpx 0px;
+  justify-content: space-between;
+}
+
+.nav-li {
+  padding: 30rpx;
+  border-radius: 12rpx;
+  width: 45%;
+  margin: 0 2.5% 40rpx;
+  background-image: url(https://www.yuque.com/colorui/images/733771?artboard_type=artboard&view=&from=);
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  z-index: 1;
+}
+
+.nav-li::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  background-color: inherit;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  bottom: -10%;
+  border-radius: 10rpx;
+  opacity: 0.2;
+  transform: scale(0.9, 0.9);
+}
+
+.nav-li.cur {
+  color: #fff;
+  background: rgb(94, 185, 94);
+  box-shadow: 4rpx 4rpx 6rpx rgba(94, 185, 94, 0.4);
+}
+
+.nav-title {
+  font-size: 32rpx;
+  font-weight: 300;
+}
+
+.nav-title::first-letter {
+  font-size: 40rpx;
+  margin-right: 4rpx;
+}
+
+.nav-name {
+  font-size: 28rpx;
+  text-transform: Capitalize;
+  margin-top: 20rpx;
+  position: relative;
+}
+
+.nav-name::before {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 40rpx;
+  height: 6rpx;
+  background: #fff;
+  bottom: 0;
+  right: 0;
+  opacity: 0.5;
+}
+
+.nav-name::after {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 100rpx;
+  height: 1px;
+  background: #fff;
+  bottom: 0;
+  right: 40rpx;
+  opacity: 0.3;
+}
+
+.nav-name::first-letter {
+  font-weight: bold;
+  font-size: 36rpx;
+  margin-right: 1px;
+}
+
+.nav-li text {
+  position: absolute;
+  right: 30rpx;
+  top: 30rpx;
+  font-size: 52rpx;
+  width: 60rpx;
+  height: 60rpx;
+  text-align: center;
+  line-height: 60rpx;
+}
+
+.text-light {
+  font-weight: 300;
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.main-content {
+  padding: 20rpx 30rpx;
+  box-sizing: border-box;
+}
+.desc {
+  color: #999;
+  font-size: 12px;
+}
+.m-btn {
+  display: inline-block;
+  padding: 4px 10px;
+  margin: 0;
+  line-height: 1;
+}
+/* 加载占位 */
+.loading-block {
+  width: 100%;
+  height: 100%;
+  margin-bottom: 4px;
+}
+.loading-shink {
+  position: relative;
+  overflow: hidden;
+  color: #f1f1f1 !important;
+  background: #f1f1f1 !important;
+}
+.loading-shink::after {
+  content: '';
+  width: 20px;
+  height: 400px;
+  position: absolute;
+  top: -50%;
+  left: 0;
+  transform: rotate(-15deg);
+  background: #f6f6f6;
+  filter: blur(5px);
+  animation: loading 1s ease infinite;
+}
+
+@keyframes loading {
+  from {
+    margin-left: 0;
+  }
+  to {
+    margin-left: 150%;
+  }
+}
+

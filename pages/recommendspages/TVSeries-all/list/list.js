@@ -1,7 +1,6 @@
 
 const app = getApp()
 // var util = require('../../utils/list_common.js')
-
 Page({
 
   /**
@@ -11,28 +10,31 @@ Page({
     title:'',
     type:'in_theaters',
     tvs:{}, // 接收返回的数组
+    kind:'',
     hasMore: false,
     // 分页加载
     page: 1,
-    size: 20
+    size: 20,
   },
 
-
   gotodetail:function (param){
-
     wx.navigateTo({
-      url: '../item/item?&id='+param.currentTarget.dataset.index,
+      url: '../item/item?&id='+param.currentTarget.dataset.index+'&kind='+param.currentTarget.dataset.kind,
     })
-    
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (params) {
-
-    var tvs=app.globalData.tvHot
+    this.setData({kind:params.type})    
+    if(params.type=="hot"){
+     var tvs=app.globalData.tvHot
     this.setData({tvs:tvs})
+    }else if(params.type=="old"){
+      var tvs=app.globalData.tvsHighRanks
+      this.setData({tvs:tvs})
+    }
  
 
   },

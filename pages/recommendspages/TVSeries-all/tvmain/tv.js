@@ -7,103 +7,186 @@ Page({
    * 页面的初始数据
    */
   data: {
-    tvs:{},
-  
-    boardItems: [
-      {
+    tvs: {},
+    tvsHighRanks: {},
+    boardItems: [{
         key: 'Hot TVs',
-        title: '热门电视剧榜单'
+        title: '热门电视榜单'
+      },
+      {
+        key: 'highranks',
+        title: '高分电视榜单'
       }
-    ]
+    ],
+    swiperList: []
 
   },
 
-  // 轮播图点击事件
-  onItemClick: function (event) {
-    var kind = event.target.dataset.type==1?"hot":"old";
+  // // 轮播图点击事件
+  // onItemClick: function (event) {
+  //   var kind = event.target.dataset.type == 1 ? "hot" : "old";
+
+  //   wx.navigateTo({
+  //     url: '../item/item?&id=0'
+  //   })
+  // },
+
+
+  gotoHotList: function () {
 
     wx.navigateTo({
-      url: '../item/item?&id=0'
+      url: '../list/list?type=hot',
     })
   },
-
-
-  gotoHotList:function (){
+  gotoHighRanksList: function () {
     wx.navigateTo({
-      url: '../list/list',
+      url: '../list/list?type=old',
     })
   },
-
 
 
 
   onLoad(options) {
-    var url = app.globalData.url+"/recom/tv";
+    var url = app.globalData.url + "/recom/tv";
     var userID = app.globalData.userID;
-    this.getData(url,userID);
+    this.getData(url, userID);
   },
-getData: function (url,userID) {
+
+  getData: function (url, userID) {
     var that = this;
     wx.request({
-      url:url,
+      url: url,
       data: {
         //数据urlencode方式编码，变量间用&连接，再post
-        msg:'tv',
-        wechatId:userID
+        msg: 'tv',
+        wechatId: userID
       },
       method: 'POST',
       header: {
-        'content-type':'application/json'
+        'content-type': 'application/json'
       },
-      success: function(res) {
-          that.procseeData(res.data)
+      success: function (res) {
+        that.procseeData(res.data)
       },
-      fail: function(error) {
+      fail: function (error) {
         console.log(error)
       }
     })
   },
- 
+
   // 处理数据函数
-  procseeData: function(datas) {
+  procseeData: function (datas) {
     var objects = [];
+    var objectsHighRank = [];
+    var ID = 0;
+    var Image = "image";
+    var object1 = [];
+    var object2 = [];
+    var cnt = 0;
     for (var idx in datas.data) {
+      cnt++;
+      if (cnt < 10) {
         var subject = datas.data[idx];
-      var title = subject.name;
-      if (title.length >= 10) {
-        title = title.substring(0, 10) + "···";
+        var title = subject.name;
+        if (title.length >= 10) {
+          title = title.substring(0, 10) + "···";
+        }
+        var attitude;
+        switch (subject.myattitude) {
+          case 1:
+            attitude = "推荐";
+            break;
+          case 0:
+            attitude = "暂无";
+            break;
+          case -1:
+            attitude = "不推荐";
+            break;
+            // default:
+            //   attitude="暂无"
+        }
+        var temp = {
+          description: subject.description,
+          unrecommendtotal: subject.unrecommendtotal,
+          info: subject.info,
+          image: subject.image,
+          attitude: attitude,
+          detailpage: subject.detailpage,
+          recommendtotal: subject.recommendtotal,
+          ranks: subject.ranks,
+          name: title
+        }
+        objects.push(temp);
+        var tmp2 = {
+          id: ID,
+          type: Image,
+          url: subject.image
+        }
+        if (ID < 4) {
+          console.log(subject.name)
+          object1.push(tmp2)
+          ID++;
+        }
+
+      }else if(cnt>10){
+        var subject = datas.data[idx];
+        var title = subject.name;
+        if (title.length >= 10) {
+          title = title.substring(0, 10) + "···";
+        }
+        var attitude;
+        switch (subject.myattitude) {
+          case 1:
+            attitude = "推荐";
+            break;
+          case 0:
+            attitude = "暂无";
+            break;
+          case -1:
+            attitude = "不推荐";
+            break;
+            // default:
+            //   attitude="暂无"
+        }
+        var temp = {
+          description: subject.description,
+          unrecommendtotal: subject.unrecommendtotal,
+          info: subject.info,
+          image: subject.image,
+          attitude: attitude,
+          detailpage: subject.detailpage,
+          recommendtotal: subject.recommendtotal,
+          ranks: subject.ranks,
+          name: title
+        }
+        objectsHighRank.push(temp);
+        var tmp2 = {
+          id: ID,
+          type: Image,
+          url: subject.image
+        }
+        if (ID < 8) {
+          console.log(subject.name)
+          object2.push(tmp2)
+          ID++;
+        }
       }
-      var attitude;
-      switch(subject.myattitude){
-        case 1: 
-          attitude="推荐";
-          break;
-          case 0: 
-          attitude="暂无";
-          break;
-          case -1: 
-          attitude="不推荐";
-          break;
-          // default:
-          //   attitude="暂无"
-      }
-      var temp = {
-      description: subject.description,
-      unrecommendtotal: subject.unrecommendtotal,
-      info: subject.info,
-      image: subject.image,
-      attitude: attitude,
-      detailpage: subject.detailpage,
-      recommendtotal: subject.recommendtotal,
-      ranks: subject.ranks,
-      name: title
-      }
-      objects.push(temp);
-      this.setData({tvs:objects});
-      app.globalData.tvHot=objects;
-      // console.log(readyData);
-      }
-     
+    }
+    this.setData({
+      tvs: objects
+    });
+    app.globalData.tvHot = objects;
+    this.setData({
+      tvsHighRanks: objectsHighRank
+    });
+    app.globalData.tvsHighRanks = objectsHighRank;
+
+    object2.push.apply(object2, object1);
+    console.log(object1);
+    this.setData({
+      swiperList: object2,
+    }, () => {})
+    this.towerSwiper('swiperList');
 
   },
   /**
@@ -154,5 +237,71 @@ getData: function (url,userID) {
    */
   onShareAppMessage() {
 
+  },
+  DotStyle(e) {
+    this.setData({
+      DotStyle: e.detail.value
+    })
+  },
+  // cardSwiper
+  cardSwiper(e) {
+    this.setData({
+      cardCur: e.detail.current
+    })
+  },
+  // towerSwiper
+  // 初始化towerSwiper
+  towerSwiper(name) {
+    console.log("towerSwiper: " + name)
+    let list = this.data[name];
+    for (let i = 0; i < list.length; i++) {
+      list[i].zIndex = parseInt(list.length / 2) + 1 - Math.abs(i - parseInt(list.length / 2))
+      list[i].mLeft = i - parseInt(list.length / 2)
+    }
+    this.setData({
+      swiperList: list
+    })
+  },
+  // towerSwiper触摸开始
+  towerStart(e) {
+    this.setData({
+      towerStart: e.touches[0].pageX
+    })
+  },
+  // towerSwiper计算方向
+  towerMove(e) {
+    this.setData({
+      direction: e.touches[0].pageX - this.data.towerStart > 0 ? 'right' : 'left'
+    })
+  },
+  // towerSwiper计算滚动
+  towerEnd(e) {
+    let direction = this.data.direction;
+    let list = this.data.swiperList;
+    if (direction == 'right') {
+      let mLeft = list[0].mLeft;
+      let zIndex = list[0].zIndex;
+      for (let i = 1; i < list.length; i++) {
+        list[i - 1].mLeft = list[i].mLeft
+        list[i - 1].zIndex = list[i].zIndex
+      }
+      list[list.length - 1].mLeft = mLeft;
+      list[list.length - 1].zIndex = zIndex;
+      this.setData({
+        swiperList: list
+      })
+    } else {
+      let mLeft = list[list.length - 1].mLeft;
+      let zIndex = list[list.length - 1].zIndex;
+      for (let i = list.length - 1; i > 0; i--) {
+        list[i].mLeft = list[i - 1].mLeft
+        list[i].zIndex = list[i - 1].zIndex
+      }
+      list[0].mLeft = mLeft;
+      list[0].zIndex = zIndex;
+      this.setData({
+        swiperList: list
+      })
+    }
   }
 })

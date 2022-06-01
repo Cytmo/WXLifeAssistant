@@ -13,7 +13,6 @@
   </view>
 </view>
 
-
 <!-- loading部分 -->
 <view class="bottom-view">
   <view class="loading" hidden="{{!hasMore}}">正在载入更多...</view>

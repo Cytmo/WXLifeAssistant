@@ -6,38 +6,33 @@ Page({
    * 页面的初始数据
    */
   data: {
-    notification: []
+    notification: [],
+    swiperList: [{
+      id: 0,
+      type: 'image',
+      url: '/images/homepagephoto/homepage2.png'
+    }, {
+      id: 1,
+        type: 'image',
+        url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84001.jpg',
+    }, {
+      id: 2,
+      type: 'image',
+      url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big39000.jpg'
+    }, {
+      id: 3,
+      type: 'image',
+      url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg'
+    }],
+    PageCur: 'basics'
   },
-  gotoMovie: function () {
-    wx.navigateTo({
-      url: '/pages/recommendspages/movie-all/moviemain/movie',
+  NavChange(e) {
+    this.setData({
+      PageCur: e.currentTarget.dataset.cur
     })
   },
-  gotoNovel: function () {
-    wx.navigateTo({
-      url: '/pages/recommendspages/novel-all/novelmain/novel',
-    })
-  },
-  gotoTVSeries: function () {
-    wx.navigateTo({
-      url: '/pages/recommendspages/TVSeries-all/tvmain/tv',
-    })
-  },
-  gotoGroup: function () {
-    wx.navigateTo({
-      url: '/pages/recommendspages/group/group?&pageid=' + 0,
-    })
-  },
-  goToChatList: function () {
-    wx.navigateTo({
-      url: '../expandspages/chat-list/chat-list',
-    })
-  },
-  goToTreehole: function () {
-    wx.navigateTo({
-      url: '../expandspages/treehole/index/index',
-    })
-  },
+ 
+  //跳转其他微信小程序
   gotoOther1: function () {
     wx.navigateToMiniProgram({
       appId: 'wx20499591d49cdb5c',
@@ -45,9 +40,7 @@ Page({
         // 打开成功
       }
     })
-
   },
-
   /**
    * 生命周期函数--监听页面加载
    */
@@ -137,8 +130,6 @@ Page({
     app.globalData.circles = objects1;
     app.globalData.mapPosition1 = objects;
     app.globalData.circles1 = objects1;
-    //console.log(app.globalData.mapPosition1);
-    // console.log(readyData);
 
 
   },
@@ -238,5 +229,70 @@ Page({
    */
   onShareAppMessage() {
 
+  },
+  DotStyle(e) {
+    this.setData({
+      DotStyle: e.detail.value
+    })
+  },
+  // cardSwiper
+  cardSwiper(e) {
+    this.setData({
+      cardCur: e.detail.current
+    })
+  },
+  // towerSwiper
+  // 初始化towerSwiper
+  towerSwiper(name) {
+    let list = this.data[name];
+    for (let i = 0; i < list.length; i++) {
+      list[i].zIndex = parseInt(list.length / 2) + 1 - Math.abs(i - parseInt(list.length / 2))
+      list[i].mLeft = i - parseInt(list.length / 2)
+    }
+    this.setData({
+      swiperList: list
+    })
+  },
+  // towerSwiper触摸开始
+  towerStart(e) {
+    this.setData({
+      towerStart: e.touches[0].pageX
+    })
+  },
+  // towerSwiper计算方向
+  towerMove(e) {
+    this.setData({
+      direction: e.touches[0].pageX - this.data.towerStart > 0 ? 'right' : 'left'
+    })
+  },
+  // towerSwiper计算滚动
+  towerEnd(e) {
+    let direction = this.data.direction;
+    let list = this.data.swiperList;
+    if (direction == 'right') {
+      let mLeft = list[0].mLeft;
+      let zIndex = list[0].zIndex;
+      for (let i = 1; i < list.length; i++) {
+        list[i - 1].mLeft = list[i].mLeft
+        list[i - 1].zIndex = list[i].zIndex
+      }
+      list[list.length - 1].mLeft = mLeft;
+      list[list.length - 1].zIndex = zIndex;
+      this.setData({
+        swiperList: list
+      })
+    } else {
+      let mLeft = list[list.length - 1].mLeft;
+      let zIndex = list[list.length - 1].zIndex;
+      for (let i = list.length - 1; i > 0; i--) {
+        list[i].mLeft = list[i - 1].mLeft
+        list[i].zIndex = list[i - 1].zIndex
+      }
+      list[0].mLeft = mLeft;
+      list[0].zIndex = zIndex;
+      this.setData({
+        swiperList: list
+      })
+    }
   }
 })

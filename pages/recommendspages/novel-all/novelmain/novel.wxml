@@ -1,24 +1,15 @@
 <!--movie/moviemain/movie.wxml-->
-<view class="containerrecom">
-  <view class="slide">
-    <swiper catchtap="onItemClick" indicator-dots="true" autoplay="true" interval="5000" duration="1000">
-     <swiper-item >
-      <image src="{{novelsyuepiao[0].image}}" mode="widthFix" data-type="yuepiao"></image>
-    </swiper-item> 
-    <swiper-item >
-      <image src="{{novelsrecom[0].image}}" mode="widthFix" data-type="recom"></image>
-    </swiper-item> 
-    <swiper-item >
-      <image src="{{novelsmmyuepiao[0].image}}" mode="widthFix" data-type="mmyuepiao"></image>
-    </swiper-item>
-    <swiper-item >
-      <image src="{{novelsmmrecom[0].image}}" mode="widthFix" data-type="mmrecom"></image>
-    </swiper-item> 
-    </swiper>
+<view class="tower-swiper" bindtouchmove="towerMove" bindtouchstart="towerStart" bindtouchend="towerEnd">
+  <view class="tower-item {{item.zIndex==1?'none':''}}" wx:for="{{swiperList}}" wx:key style="--index:{{item.zIndex}};--left:{{item.mLeft}}">
+  <!-- <view>{{item.zIndex}}</view> -->
+  <!-- <view>{{item.mleft}}</view> -->
+    <view class="swiper-item" >
+      <image src="{{item.url}}" mode="aspectFill" wx:if="{{item.type=='image'}}"></image>
+    </view>
   </view>
-
+</view>
+<view class="containerrecom">
     <view class="board" scroll-y="true">
-
     <block >
       <view class="board-item">
           <view class="title" bindtap="gotoyuepiao">
@@ -46,12 +37,12 @@
           </view>
         <scroll-view class="content" scroll-x="true">
           <view class="inner">
-            <navigator wx:for="{{ novelsrecom}}" wx:key="id" url="../item/item">
+            <view wx:for="{{ novelsrecom}}" wx:key="id">
               <view class="movie-item">
                 <image src="{{item.image}}" mode="aspectFill"></image>
                 <text>{{item.name}}</text>
               </view>
-            </navigator>
+            </view>
           </view>
         </scroll-view>
       </view>
@@ -65,12 +56,12 @@
           </view>
         <scroll-view class="content" scroll-x="true">
           <view class="inner">
-            <navigator wx:for="{{ novelsmmyuepiao }}" wx:key="id" url="../item/item">
+            <view wx:for="{{ novelsmmyuepiao }}" wx:key="id">
               <view class="movie-item">
                 <image src="{{item.image}}" mode="aspectFill"></image>
                 <text>{{item.name}}</text>
               </view>
-            </navigator>
+            </view>
           </view>
         </scroll-view>
       </view>
@@ -84,12 +75,12 @@
           </view>
         <scroll-view class="content" scroll-x="true">
           <view class="inner">
-            <navigator wx:for="{{ novelsmmrecom }}" wx:key="id" url="../item/item">
+            <view wx:for="{{ novelsmmrecom }}" wx:key="id" >
               <view class="movie-item">
                 <image src="{{item.image}}" mode="aspectFill"></image>
                 <text>{{item.name}}</text>
               </view>
-            </navigator>
+            </view>
           </view>
         </scroll-view>
       </view>
