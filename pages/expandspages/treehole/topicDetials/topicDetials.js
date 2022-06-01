@@ -1,7 +1,7 @@
 var util = require('../../../../utils/util.js');
 var th = require('../../../../utils/throttle/throttle.js');
 import { formatTime,formatDate } from '../../../../utils/common'
-
+import {handleRes} from '../../../../utils/czutils'
 const app = getApp()
 
 var ipv4 = "http://localhost:80"
@@ -109,11 +109,13 @@ Page({
         under_post_id:under_post_id
       },
       success: function(res) {
-        console.log(res.data)
-        var tempList = res.data.data
-        that.setData({
-          commentList:tempList
-        })
+        handleRes(res)
+        if(res.data.code == 0){
+          var tempList = res.data.data
+          that.setData({
+            commentList:tempList
+          })
+        }
       },
       fail: function(error) {
         console.log(error)
@@ -421,6 +423,7 @@ Page({
   },
 
   jump: function(event) {
+    console.log(event)
     let flag = event.currentTarget.dataset.commid;
     let childid = event.currentTarget.dataset.childid;
     let parentid = event.currentTarget.dataset.parentid;
@@ -496,6 +499,46 @@ Page({
       }
     });
   },
+
+  doCommit:function(event){
+    var content = event.detail.value.content;
+    var under_post_id = this.data.contentdetail.hollowId;
+    this.commit(content,under_post_id,under_post_id);
+  },
+
+  commit:function(content,under_post_id,reply_post_id){
+    var time = formatTime(new Date());
+    if (content == null || content == ""){
+      util.showTip("话题内容不能为空");
+      return;
+    }
+    var that = this
+    var urlsend = ipv4 + "/hollow/createHollow"
+    wx.request({
+      url: urlsend,
+      method: 'post',
+      header: {
+        'content-type': 'application/json' // 豆瓣一定不能是json
+      },
+      data:{
+        time : time,
+        content: content,
+        under_post_id : under_post_id,
+        reply_post_id : reply_post_id,
+        belong_to : that.data.userId
+      },
+      success: function(res) {
+        handleRes(res)
+      },
+      fail: function(error) {
+        console.log(error)
+        that.setData({
+          canshow : false
+        })
+      }
+    })
+  },
+
 
 
   /**

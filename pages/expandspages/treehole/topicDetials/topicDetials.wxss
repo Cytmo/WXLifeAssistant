@@ -191,3 +191,41 @@
   margin-right: 20rpx;
   margin-bottom: 10rpx;
 }
+
+.contentNew {
+  font-size: 30rpx;
+  color: #666;
+  margin-bottom: 30rpx;
+   /* text-indent: 2em;  */
+   padding: 2em; 
+  }
+
+  .btn{
+    font-size:32rpx;
+    font-family:SourceHanSansCN-Medium;
+    color:rgba(255,255,255,1);
+    background:#3B49E0;
+    border-radius:5px;
+    padding: 2% 5% 2% 5%;
+  }
+
+  .texteare{
+    height: 45;
+    width: 80%;
+    background:rgba(255, 255, 255, 1);
+    padding: 5rpx 5rpx;
+  }
+  .texteare textarea{
+    font-size:35rpx;
+    font-family:SourceHanSansCN-Regular;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .xblock{
+    height: 50;
+    width: 100%;
+    display: flex;
+    /*row 横向  column 列表  */
+    flex-direction: row;
+  }
