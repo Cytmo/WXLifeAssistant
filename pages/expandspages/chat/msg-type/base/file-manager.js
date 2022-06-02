@@ -38,8 +38,10 @@ export default class FileManager {
      * @param duration 由输入组件接收到的录音时间
      */
     async sendOneMsg({type, content, duration}) {
+      console.log("begin to sendOneMsg")
         try {
             const {savedFilePath} = await FileSaveManager.saveFileRule({tempFilePath: content});
+            console.log("content is:"+{content: savedFilePath, duration, type})
             await this._sendFileMsg({content: savedFilePath, duration, type});
         } catch (e) {
             await this._sendFileMsg({content, type, duration});

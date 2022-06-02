@@ -12,7 +12,7 @@
 
 <view class="hr"></view>
 <view class='item'>
-  <view class="title">手机绑定</view>
+  <view class="title" bindtap="gotoChatList">聊天测试</view>
   <view class="detail2">
     <text>></text>
   </view>

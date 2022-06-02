@@ -2,3 +2,10 @@
 <block wx:for="{{conversations}}" wx:key="conversationId">
     <template is="chat-item" data="{{item:item}}"/>
 </block>
+
+<button bindtap="beginMatch" type="primary" data-type="0">倾听</button>
+<button bindtap="beginMatch" type="primary" data-type="1">倾诉</button>
+<button bindtap="beginMatch" type="primary" data-type="2">闲聊</button>
+<button bindtap="endMatch" type="primary" data-type="2">停止匹配</button>
+
+<button bindtap="test" type="primary" data-type="2">直接进入聊天，仅用于测试</button>

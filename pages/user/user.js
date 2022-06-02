@@ -48,11 +48,13 @@ Page({
               //获取到你的openid
               that.setData({
                 userID: res.data.openid
+                
               });
               console.log("存储openid 为: " + res.data.openid);
               wx.setStorageSync('openid',res.data.openid);
               console.log("设置openid 为: " + res.data.openid);
               app.globalData.userID = res.data.openid;
+              app.globalData.userId = res.data.userId;
 
             }
           })
@@ -63,6 +65,52 @@ Page({
     }
 
 
+  },
+  gotoChatList(){
+    var token;
+    var userID = app.globalData.openId;
+    console.log("取得的userID为"+userID)
+    if((this.userInfo!=[])){{
+      console.log("开始请求token")
+      wx.request({
+        url: app.globalData.url+"/user/login",
+        data: {
+          //数据urlencode方式编码，变量间用&连接，再post
+          wechatId: userID
+        },
+        method: 'POST',
+        header: {
+          'content-type': 'application/json'
+        },
+        success: function (res) {
+          console.log(res.data)
+          token=res.data.token
+          console.log("userId 为： "+res.data.user.userId)
+          wx.navigateTo({
+            url:'../expandspages/chat-list/chat-list?&userid='+res.data.user.userId+"&token="+token,
+            
+          })
+        },
+        fail: function (error) {
+          console.log(error)
+        }
+      })
+    }
+    }
+    else{
+      wx.showToast({
+        title: '请先登录',
+        content: '请先登录',
+        icon:"error",
+        success: function (res) {
+          if (res.confirm) {//这里是点击了确定以后
+            console.log('用户点击确定')
+          } else {//这里是点击了取消以后
+            console.log('用户点击取消')
+          }
+        }
+      })
+    }
   },
   // loadUserInfo: function() {
   //   var that = this;

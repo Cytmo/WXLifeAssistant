@@ -44,7 +44,6 @@ Page({
         this.imOperator = new IMOperator(this, friend);
         this.UI = new UI(this);
         this.msgManager = new MsgManager(this);
-
         this.imOperator.onSimulateReceiveMsg((msg) => {
             this.msgManager.showMsg({msg})
         });
@@ -132,6 +131,8 @@ Page({
 
     async sendMsg({content, itemIndex}) {
         try {
+            
+          
             const {msg} = await this.imOperator.onSimulateSendMsg({content})
             this.UI.updateViewWhenSendSuccess(msg, itemIndex);
             return {msg};

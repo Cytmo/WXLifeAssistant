@@ -1,6 +1,7 @@
 /**
  * 用户处理消息的收发UI更新
  */
+import {dealChatTime} from "../../../utils/time";
 export default class UI {
     constructor(page) {
         this._page = page;
@@ -54,6 +55,7 @@ export default class UI {
         console.log('发送成功', sendMsg);
         let that = this._page;
         let item = that.data.chatItems[itemIndex];
+        //item.timestamp = Date.now();
         item.timestamp = sendMsg.timestamp;
         this.updateSendStatusView('success', itemIndex);
     }
