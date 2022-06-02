@@ -51,21 +51,7 @@ Page({
         });
         this.UI.updateChatStatus('正在聊天中...');
 
-        try {
-          getApp().getIMHandler().sendMsg({
-            content: {
-              method: "chat",
-              data: {
-                message:"聊天已开始，请注意文明交流",
-                userId:temp.friendId
-              }
-            }
-          });
-          console.log('发送对方进入聊天消息');
-    
-        } catch (e) {
-          console.log('发送对方进入聊天消息失败', e);
-        }
+       
     },
     onReady() {
         this.chatInput = this.selectComponent('#chatInput');

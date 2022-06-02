@@ -20,7 +20,7 @@ Page({
 
 
         console.log("存储userInfo 为: " + res.userInfo,);
-
+        console.log(res.userInfo);
         wx.setStorageSync('userInfo', res.userInfo,);
 
       },
@@ -58,12 +58,33 @@ Page({
 
             }
           })
+        
         }
 
       })
 
     }
 
+    wx.request({
+      url: app.globalData.url+"/user/register",
+      data: {
+        "wechatId": app.globalData.openID,
+          "username": this.userInfo.nickName,
+          "phone": "19813218574",
+          "image":this.avatarUrl,
+      },
+      method: 'POST',
+      header: {
+        'content-type': 'application/json'
+      },
+      success: function (res) {
+        console.log(res)
+      },
+      fail: function (error) {
+        console.log(error)
+      }
+    })
+    
 
   },
   gotoChatList(){

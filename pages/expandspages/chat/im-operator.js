@@ -38,6 +38,7 @@ export default class IMOperator {
         if(msg.msg=="参数错误 : 没有建立聊天"){
           this._page.UI.updateChatStatus('发送失败，对方已离线...');
         }
+       // if(msg.)
         if (msg.chatMessage == null ||msg.action==null) {
           return;
         }
@@ -73,8 +74,6 @@ export default class IMOperator {
         },
         content
       }
-      console.log("dasdaadsa")
-      console.log(content)
       const {
         content: contentSendSuccess
       } = await getApp().getIMHandler().sendMsg({
