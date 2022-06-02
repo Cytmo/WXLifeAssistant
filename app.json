@@ -14,14 +14,12 @@
     "pages/recommendspages/TVSeries-all/item/item",
     "pages/recommendspages/TVSeries-all/list/list",
     "pages/recommendspages/group/group",
-
     "pages/expandspages/chat/chat",
     "pages/expandspages/chat-list/chat-list",
     "pages/expandspages/treehole/index/index",
     "pages/expandspages/treehole/thumbup/thumbup",
     "pages/expandspages/treehole/comments/comments",
     "pages/expandspages/treehole/publishTopics/publishTopics",
-    "pages/expandspages/treehole/message/message",
     "pages/recommendspages/addGroup/addGroup",
     "pages/expandspages/treehole/topicDetials/topicDetials"
   ],

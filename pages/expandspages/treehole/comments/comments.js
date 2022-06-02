@@ -1,6 +1,9 @@
 var util = require('../../../../utils/util.js');
 var th = require('../../../../utils/throttle/throttle.js');
+import { formatTime,formatDate } from '../../../../utils/common'
+import {loadSuccess,loadFailed,handleRes} from '../../../../utils/czutils'
 const app = getApp();
+var ipv4 = "http://localhost:80"
 Page({
   /**
    * 页面的初始数据
@@ -10,37 +13,134 @@ Page({
     canshow: false,
     currentIndexNav: 0,
     navList: [
-      { 'index': 0, 'text': '评论我的' },
-      { 'index': 1, 'text': '我的评论' }
+      { 'index': 0, 'text': '评论我的' }
     ],
     userInfo: null,
-    pageIndex: 1,
-    pageSize: 5,
-    pageCount: 0,
-    total: 0,
-    commentDocList: [],
+
+
+    replyList: [],
+    replyConIdMap: null,
+    currentTime:null,
+    userId:0,
+    triggered: false,
+    scrollHeight : 200
+
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if (app.globalData.openId) {
-      //全局应用已有openId
+    let  scrollHeight = wx.getSystemInfoSync().windowHeight;
+    this.setData({
+      scrollHeight: scrollHeight,
+      replyConIdMap : new Map([[0,"消息不存在"]])
+    });
+    if(app.globalData.userID){
+      // showMessage(app.globalData.userID);
       this.setData({
-        openId: app.globalData.openId
-      });
-    } else {
-      // 由于 login云函数 是网络请求，可能会在 Page.onLoad 之后才返回 
-      // 所以此处加入 callback 以防止这种情况 
+        replyList:[],
+        userId:app.globalData.userID
+      })
+    }else{
+      // 跳转登录
       app.openIdReadyCallback = res => {
+        //开启未读消息自动刷新
+        showMessage(res.result.openid);
         this.setData({
           openId: res.result.openid
         });
       }
     }
-    this.setData({
-      userInfo: app.globalData.userInfo
+    this.setData({currentTime :formatTime(new Date())})
+    this.getReplyList(formatTime(new Date()))
+    console.log(this.data.replyList)
+  },
+
+  getReplyList:function(time){
+    var that = this
+    var urlsend = ipv4 + "/user/replyHollowList"
+
+    wx.request({
+      url: urlsend,
+      method: 'post',
+      header: {
+        'content-type': 'application/json' // 豆瓣一定不能是json
+      },
+      data:{
+        time : time,
+        userId : that.data.userId
+      },
+      success: function(res) {
+        console.log(res.data)
+        var tempList = res.data.data
+        var cloneList = []
+        let mapTemp = new Map(that.data.replyConIdMap)
+        for (let index = 0; index < tempList.length; index++) {
+          const element = tempList[index];
+          if(mapTemp.has(element.reply_post_id)){
+            var obadd = {firstcon:mapTemp.get(element.reply_post_id)}
+            cloneList = cloneList.concat({...element,...obadd})
+            that.setData({
+              replyConIdMap:mapTemp
+            })
+          }else{
+            wx.request({
+              url: ipv4 + "/hollow/getHollowById",
+              method: 'post',
+              header: {
+                'content-type': 'application/json' // 豆瓣一定不能是json
+              },
+              data:{
+                hollowId : element.reply_post_id,
+                userId : that.data.userId
+              },
+              success: function(res) {
+                var hollow = res.data.result
+                var contentHead = "内容拉取失败"
+                if(hollow.content.length > 20){
+                  contentHead = hollow.content.substring(0,20) + "..."
+                }else{
+                  contentHead = hollow.content
+                }
+                mapTemp.set(hollow.hollowId,contentHead)
+                var obadd = {firstcon:mapTemp.get(element.reply_post_id)}
+                cloneList = cloneList.concat({...element,...obadd})
+                console.log(cloneList)
+                that.setData({
+                  replyList:cloneList,
+                  replyConIdMap:mapTemp,
+                  canshow:true,
+                  triggered: false
+                })
+              },
+              fail: function(error) {
+                console.log(error)
+              }
+            })
+          }
+        }
+        if(cloneList.length != 0){
+          that.setData({
+            replyList:cloneList,
+            currentTime:cloneList[cloneList.length-1].time,
+            canshow:true,
+            triggered: false
+          })
+        }else{
+          that.setData({
+            triggered: false
+          })
+        }
+      },
+      fail: function(error) {
+        console.log(error)
+        that.setData({
+          replyList:[],
+          canshow : false,
+          triggered: false
+        })
+      }
     })
   },
 
@@ -48,7 +148,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.setTotal();
   },
 
   /**
@@ -90,161 +189,11 @@ Page({
     }
   },
 
-  /**
-   * 切换上方导航栏
-   */
-  activeNav: function (e) {
-    this.setData({
-      currentIndexNav: e.target.dataset.index,
-      canshow: false
-    });
-    this.setTotal();
-  },
 
-  /**
-   * 设置列表记录总数
-   */
-  setTotal: function () {
-    let that = this;
-    const db = wx.cloud.database();
-    const myopenId = this.data.openId;
-    if (that.data.currentIndexNav == 0) {
-      db.collection("commentDoc").where({ 'byReviewerId': myopenId }).count({
-        success: function (res) {
-          console.log("获取记录列表总数成功" + res.total);
-          that.data.pageIndex = 1;
-          that.fetchCommentDocList("刷新中", true);
-        }
-      });
-    } else {
-      that.data.pageIndex = 1;
-      db.collection("commentDoc").where({ '_openid': myopenId }).count({
-        success: function (res) {
-          console.log("获取记录列表总数成功" + res.total);
-          that.changeUnread();   //将未读信息转换为已读
-          that.fetchCommentDocList("刷新中", false);
-        }
-      });
-    }
-  },
 
-  /**
-   * 获取评论列表
-   */
-  fetchCommentDocList: function (title, sign) {
-    let that = this;
-    let pageIndex = that.data.pageIndex;
-    let pageSize = that.data.pageSize;
-    const db = wx.cloud.database();
-    const myopenId = this.data.openId;
-    if (sign) {//获取点赞我的列表
-      //先计算总数，才可以进行分页
-      db.collection("commentDoc").where({ 'byReviewerId': myopenId }).count({
-        success: function (res) {
-          console.log("获取记录列表总数成功" + res.total);
-          let pageCount = Math.ceil(res.total / pageSize);
-          let total = res.total;
-          //根据不同需求的抓取显示不同的进程提示
-          wx.showLoading({
-            title: title,
-            mask: true
-          });
-          //分页获取记录列表内容
-          db.collection("commentDoc").where({ "byReviewerId": myopenId }).skip((pageIndex - 1) * pageSize).limit(pageSize).orderBy('upTime', 'desc').get({
-            success: function (res) {
-              console.log("获取记录列表成功");
-              //先获取原先的记录列表
-              let tempList = that.data.commentDocList;
-              if (that.data.pageIndex == 1) {
-                //如果要显示第一页，无需拼接记录列表数据
-                tempList = res.data;
-              } else {
-                //否则，拼接新的记录列表数据
-                tempList = tempList.concat(res.data);
-              }
-              //更新数据
-              that.setData({
-                pageCount: pageCount,
-                total: total,
-                commentDocList: tempList,
-                canshow: true
-              });
-              //获取新纪录点赞状态
-              //that.getOnLikePrivate(0, res.data.length, res.data);
-            },
-            fail: function (res) {
-              console.log("获取记录列表失败");
-              that.setData({
-                canshow: false
-              })
-            },
-            complete: function () {
-              wx.hideLoading();
-            }
-          });
-        },
-        fail: function (res) {
-          console.log("获取记录列表总数失败");
-          that.setData({
-            canshow: false
-          })
-        }
-      });
-    } else {//获取我的点赞列表
-      //先计算总数，才可以进行分页
-      db.collection("commentDoc").where({ '_openid': myopenId }).count({
-        success: function (res) {
-          console.log("获取记录列表总数成功" + res.total);
-          let pageCount = Math.ceil(res.total / pageSize);
-          let total = res.total;
-          //根据不同需求的抓取显示不同的进程提示
-          wx.showLoading({
-            title: title,
-            mask: true
-          });
-          //分页获取记录列表内容
-          db.collection("commentDoc").where({ '_openid': myopenId }).skip((pageIndex - 1) * pageSize).limit(pageSize).orderBy('upTime', 'desc').get({
-            success: function (res) {
-              console.log("获取记录列表成功");
-              //先获取原先的记录列表
-              let tempList = that.data.commentDocList;
-              if (that.data.pageIndex == 1) {
-                //如果要显示第一页，无需拼接记录列表数据
-                tempList = res.data;
-              } else {
-                //否则，拼接新的记录列表数据
-                tempList = tempList.concat(res.data);
-              }
-              //更新数据
-              that.setData({
-                pageCount: pageCount,
-                total: total,
-                commentDocList: tempList,
-                canshow: true
-              });
-              //获取新纪录点赞状态
-              //that.getOnLikePrivate(0, res.data.length, res.data);
-            },
-            fail: function (res) {
-              console.log("获取记录列表失败");
-              that.setData({
-                canshow: false
-              })
-            },
-            complete:function(){
-              wx.hideLoading();
-            }
-          });
-        },
-        fail: function (res) {
-          console.log("获取记录列表总数失败");
-          that.setData({
-            canshow: false
-          })
-        }
-      });
-    }
-  },
+
+
+  
 
   /**
    * 将评论变为已读状态

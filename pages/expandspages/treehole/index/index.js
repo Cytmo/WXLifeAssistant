@@ -2,6 +2,7 @@ var util = require('../../../../utils/util.js');
 var th = require('../../../../utils/throttle/throttle.js');
 import   '../../../../utils/util.js';
 import { formatTime,formatDate } from '../../../../utils/common'
+import {loadSuccess,loadFailed,handleRes} from '../../../../utils/czutils'
 var avoidPreviewImageOnShow; //避免预览图片后，触发onShow函数
 var ipv4 = "http://localhost:80"
 //index.js
@@ -16,26 +17,24 @@ Page({
       {'index':0,'text':'树洞广场'},
       {'index':1,'text':'我的树洞'}
     ],
-    pageIndex: 1,
-    pageSize: 5,
-    pageCount: 0,
-    total: 0,
     uploadDocList: [],
     isFirstIndex:true,
-
     hollowList:[],
     myhollowList:[],
-    date: null,
-    text: null,
-    onLikePublic: null,
-    onLikePrivate: null,
 
     currentTime:null,
-    mycurrentTime:null
+    mycurrentTime:null,
+    triggered: false,
+    scrollHeight : 200
 
   },
 
   onLoad: function() {
+    let  scrollHeight = wx.getSystemInfoSync().windowHeight;
+    this.setData({
+      hollowList:[],
+      scrollHeight: scrollHeight
+    });
     if(app.globalData.userID){
       // showMessage(app.globalData.userID);
       this.setData({
@@ -52,7 +51,7 @@ Page({
       }
     }
     this.setData({currentTime :formatTime(new Date())})
-    this.getHollowList(this.data.currentTime)
+    this.getHollowList(formatTime(new Date()))
   },
 
   /**
@@ -91,7 +90,12 @@ Page({
           that.setData({
             hollowList:tempList,
             currentTime:tempList[tempList.length-1].time,
-            canshow:true
+            canshow:true,
+            triggered: false
+          })
+        }else{
+          that.setData({
+            triggered: false
           })
         }
         
@@ -100,7 +104,8 @@ Page({
         console.log(error)
         that.setData({
           hollowList:[],
-          canshow : false
+          canshow : false,
+          triggered: false
         })
       }
     })
@@ -130,7 +135,12 @@ Page({
           that.setData({
             myhollowList:tempList,
             mycurrentTime:tempList[tempList.length-1].time,
-            canshow:true
+            canshow:true,
+            triggered: false
+          })
+        }else{
+          that.setData({
+            triggered: false
           })
         }
         
@@ -139,7 +149,8 @@ Page({
         console.log(error)
         that.setData({
           hollowList:[],
-          canshow : false
+          canshow : false,
+          triggered: false
         })
       }
     })
@@ -150,6 +161,12 @@ Page({
 
   onPullDownRefresh: function () {
     //下拉刷新记录列表
+    this.setData({
+      currentTime :formatTime(new Date()),
+      mycurrentTime:formatTime(new Date()),
+      hollowList:[],
+      myhollowList:[]
+    })
     if(this.data.currentIndexNav == 0){
       this.getHollowList(this.data.currentTime)
     }else{
@@ -168,16 +185,6 @@ Page({
     
   },
   
-
-
-  onShow: function () {
-    if (typeof this.getTabBar === 'function' &&
-    this.getTabBar()) {
-    this.getTabBar().setData({
-      selected: null  //标亮的导航按钮的下标，如果是其他子页面，可以赋值为null
-    })
-  }
- },
   
 
   activeNav: function(e) {
@@ -365,81 +372,7 @@ Page({
       }
     });
   },
-  /**
-   * 点赞响应事件(已添加节流函数，防止恶意点击)
-   */
-  // onLikePrivate: th.throttle(function (that, event) {
-  //   //点赞获取点赞者的openid和记录的id和点赞数
-  //   let localopenid = app.globalData.openId;
-  //   let _id = event.currentTarget.dataset.id;
-  //   let tempList = that.data.uploadDocList;
-  //   let state = "onLikePrivate." + _id;
-  //   let recordUserOpenId;
-  //   let recordUserName;
-  //   let firstImage;
-  //   let summary;
-  //   let i;
-  //   let flag;
-  //   for (i = 0; i < tempList.length; i++) {
-  //     if (_id == tempList[i]._id) {
-  //       recordUserOpenId = tempList[i]._openid;
-  //       recordUserName = tempList[i].publisher;
-  //       if (tempList[i].imageUrls != null) {
-  //         firstImage = tempList[i].imageUrls[0];
-  //       } else {
-  //         firstImage = null;
-  //       }
-  //       summary = that.getSummary(tempList[i].content);
-  //       break;
-  //     }
-  //   }
-  //   if (!that.data.onLikePrivate[_id]) { //点赞
-  //     tempList[i].praiseNum = tempList[i].praiseNum + 1;
-  //     flag = 1;
-  //     wx.showToast({
-  //       title: '点赞成功',
-  //     });
-  //   } else { //取消点赞
-  //     tempList[i].praiseNum = tempList[i].praiseNum == 0 ? 0 : tempList[i].praiseNum - 1;
-  //     flag = 0;
-  //     wx.showToast({
-  //       title: '已取消点赞',
-  //     });
-  //   }
-  //   that.setData({
-  //     [state]: !that.data.onLikePrivate[_id],
-  //     uploadDocList: tempList
-  //   });
-
-  //   //修改云端数据
-  //   that.upLoadLikeNumber(flag, _id, localopenid, recordUserOpenId, recordUserName, firstImage, summary);
-  // }, 2000),
-
-  getSummary: function(content){
-    if(content.length <= 50){
-      content = content;
-    }else{
-      content = content.slice(0, 50) + '...';
-    }  
-    return content;
-  },
-  loadSuccess:function(){
-    wx.showToast({
-      title: '操作成功',
-      mask : true,
-      icon: 'none',
-      duration: 1000//持续的时间
-    })
-  },
-
-  loadFailed:function(msg){
-    wx.showToast({
-      title: msg,
-      mask : true,
-      icon: 'none',
-      duration: 2000//持续的时间
-    })
-  },
+  
 
   
 })

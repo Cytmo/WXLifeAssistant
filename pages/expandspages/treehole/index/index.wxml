@@ -10,20 +10,21 @@
 
   <view class="mainview" wx:if="{{currentIndexNav===0 && canshow}}" >
 
-    <scroll-view scroll-y>
+    <scroll-view scroll-y refresher-enabled="true"bindrefresherrefresh="onPullDownRefresh" lower-threshold='30' style="height:{{scrollHeight}}px" bindscrolltolower="onReachBottom" refresher-triggered="{{triggered}}">
       <view class="blank" wx:if="{{hollowList.length == 0}}"><image src="../../../../images/blank.png"></image></view>
       <view class="information" wx:for="{{hollowList}}" wx:key="hollowId">
         <!-- <view class="useravatar" catchtap='gotoTopicDetials' data-recordid='{{item.hollowId}}'>
           <image class="userimg" src="{{item.image}}"></image>
         </view> -->
+        <view class="useravatar" catchtap='gotoTopicDetials' data-recordid='{{item.hollowId}}'>
+          <image class="userimg" src="../../../../images/0030.jpg"></image>
+        </view>
         <view class="userinformation">
           <view class="information_top" catchtap='gotoTopicDetials' data-recordid='{{item.hollowId}}'>
             <view class="username">{{item.username}}</view>
             <view class="date">{{item.time}}</view>
           </view>
           <view class="information_text" catchtap='gotoTopicDetials' data-recordid='{{item.hollowId}}'>{{item.content}}</view>
-          </view>
-  
           <view class="comments_thumbsup flex_end">
             <view class='comments' bindtap='gotoTopicDetials' data-recordid='{{item.hollowId}}'>
               <image src="../../../../images/comments.png"></image>
@@ -40,16 +41,15 @@
               <image src="../../../../images/against.png"></image>
             </view>
           </view>
+        </view>
       </view>
-      
-      
     </scroll-view>
   </view>
 
 
 
   <view class="mainview" wx:if="{{currentIndexNav===1 && canshow}}">
-    <scroll-view scroll-y>
+    <scroll-view scroll-y refresher-enabled="true"bindrefresherrefresh="onPullDownRefresh" lower-threshold='30' style="height:{{scrollHeight}}px" bindscrolltolower="onReachBottom" refresher-triggered="{{triggered}}">
       <view class="blank" wx:if="{{myhollowList.length == 0}}">
       <image src="../../../../images/blank.png"></image>
       </view>
@@ -58,6 +58,9 @@
         <!-- <view class="useravatar" catchtap='gotoTopicDetials' data-recordid='{{item.hollowId}}'>
           <image class="userimg" src="{{item.image}}"></image>
         </view> -->
+        <view class="useravatar" catchtap='gotoTopicDetials' data-recordid='{{item.hollowId}}'>
+          <image class="userimg" src="../../../../images/0030.jpg"></image>
+        </view>
         <view class="userinformation">
           <view class="information_top" catchtap='gotoTopicDetials' data-recordid='{{item.hollowId}}'>
             <view class="flex_row">

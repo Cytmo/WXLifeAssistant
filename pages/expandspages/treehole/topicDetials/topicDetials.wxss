@@ -8,6 +8,7 @@
   background: rgba(255, 255, 255, 1);
   padding: 30rpx 20rpx;
   display: flex;
+  margin-bottom: 10rpx;
 }
 
 .useravatar {
@@ -97,6 +98,7 @@
   flex-direction: column;
   border-top: 1px solid #ddd;
   background-color: #ddd;
+  margin-top: 10rpx;
 }
 
 .write-container{

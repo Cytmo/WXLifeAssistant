@@ -5,6 +5,7 @@
       <view class="information">
         <view class="useravatar">
           <!-- <image class="userimg" src='{{contentdetail.image}}'></image> -->
+          <image class="userimg" src="../../../../images/0030.jpg"></image>
         </view>
         <view class="userinformation">
           <view class="information_top">
@@ -32,7 +33,7 @@
           </view>
         </view>
       </view>
-
+      <text style="font-size: 35rpx;">相关评论:</text>
       <!-- <text>留言评论区</text> -->
       <view class='comments-container'>
 
@@ -41,6 +42,7 @@
             <view class='user-date-container'>
               <view class='user'>
                 <!-- <image src='{{comment.reviewerIcon}}'></image> -->
+                <image src="../../../../images/0030.jpg"></image>
                 <text>{{item.username}}</text>
               </view>
               <text class='date'>{{item.time}}</text>
@@ -67,6 +69,7 @@
       </view>
     </scroll-view>
   </view>
+
   <!-- 写评论区入口 -->
   <view class='write-container'>
     <view class='write-icon'>
