@@ -43,7 +43,7 @@
 
   <view class="movie-actor main-content">
     <view class="block-title">演职员</view>
-        <text class="desc">导演</text>
+        <text class="desc"wx:if="{{detailInfo.director}}">导演</text>
      <view>{{detailInfo.director}}</view>
      <text class="desc" wx:if="{{detailInfo.screenWriter}}">编剧</text>
      <view>{{detailInfo.screenWriter}}</view>
