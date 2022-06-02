@@ -76,6 +76,8 @@ Page({
 
   // 处理数据函数
   procseeData: function (datas) {
+    console.log("所有数据")
+    console.log(datas)
     var objects = [];
     var objectsHighRank = [];
     var ID = 0;
@@ -85,7 +87,7 @@ Page({
     var cnt = 0;
     for (var idx in datas.data) {
       cnt++;
-      if (cnt < 10) {
+      if (cnt <= 10) {
         var subject = datas.data[idx];
         var title = subject.name;
         if (title.length >= 10) {
@@ -248,6 +250,9 @@ Page({
       tvsHighRanks: objectsHighRank
     });
     app.globalData.tvsHighRanks = objectsHighRank;
+
+    console.log(objects)
+    console.log(objectsHighRank)
 
     object2.push.apply(object2, object1);
     this.setData({
