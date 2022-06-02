@@ -2,6 +2,7 @@ import {getIMHandlerFactory} from "../libs/im-sdk/im-factory";
 
 export default class AppIMDelegate {
     constructor(app) {
+      console.log("创建ws控制器")
         this._app = app;
     }
 
@@ -10,6 +11,7 @@ export default class AppIMDelegate {
     }
 
     onShow(options) {
+      console.log("创建ws连接")
         this.iIMHandler.createConnection({options: {url: 'ws://10.131.150.190:8081/chat'}});
     }
 

@@ -29,7 +29,9 @@ export default class IMOperator {
     // });
     getApp().getIMHandler().setOnReceiveMessageListener({
       listener: (msg) => {
-        if (msg.chatMessage == null) {
+        console.log("收到的消息为")
+        console.log(msg)
+        if (msg.chatMessage == null ||msg.action==null) {
           console.log("后端提示信息")
           console.log(msg)
           return;

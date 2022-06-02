@@ -19,6 +19,7 @@ Page({
    */
   onLoad(options) {
     this.token = options.token,
+    console.log(this.token)
       this.userId = options.userid,
       this.authorization(options.token)
 
@@ -72,6 +73,7 @@ getConversationsItem(item) {
       }
     });
     try {
+      console.log("正在等待认证");
       await getApp().getIMHandler().sendMsg({
         content: {
           method: "authorization",
@@ -139,10 +141,10 @@ getConversationsItem(item) {
           }
         }
       });
-      console.log('认证成功');
+      console.log('发送匹配消息成功');
 
     } catch (e) {
-      console.log('认证失败', e);
+      console.log('发送匹配消息认证失败', e);
     }
 
 
@@ -169,10 +171,10 @@ getConversationsItem(item) {
           }
         }
       });
-      console.log('认证成功');
+      console.log('结束匹配');
 
     } catch (e) {
-      console.log('认证失败', e);
+      console.log('错误，无法结束匹配', e);
     }
 
 
@@ -187,7 +189,6 @@ getConversationsItem(item) {
       listener: (msg) => {
         console.log(msg);
         if(!(msg.action="matchSuccess")){
-          console.log(msg)
           wx.showModal({
             cancelColor: 'cancelColor',
             title: "提示",

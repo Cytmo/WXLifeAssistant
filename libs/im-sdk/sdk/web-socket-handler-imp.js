@@ -17,15 +17,17 @@ export default class WebSocketHandlerImp extends IIMHandler {
      * @param options 建立连接时需要的配置信息，这里是传入的url，即你的服务端地址，端口号不是必需的。
      */
     createConnection({options}) {
-        !this._isLogin && wx.connectSocket({
+         wx.connectSocket({
             url: options.url,
             header: {
                 'content-type': 'application/json'
             },
             method: 'GET',
             success(res){
+            
               console.log(res)
-            }
+            },
+
         });
     }
 

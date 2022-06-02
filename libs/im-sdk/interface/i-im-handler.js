@@ -6,7 +6,7 @@
  */
 export default class IIMHandler {
     constructor() {
-        this._isLogin = false;
+        this._isLogin = true;
         this._msgQueue = [];
         this._receiveListener = null;
     }
@@ -27,11 +27,13 @@ export default class IIMHandler {
     sendMsg({content}) {
         return new Promise((resolve, reject) => {
             if (this._isLogin) {
+              console.log("sendMsg执行完毕")
                 return this._sendMsgImp({content, success: resolve, fail: reject});
             } else {
                 this._msgQueue.push({content, resolve, reject});
             }
         });
+        
     }
 
     /**
@@ -39,7 +41,9 @@ export default class IIMHandler {
      * @param listener
      */
     setOnReceiveMessageListener({listener}) {
+      
         this._receiveListener = listener;
+        console.log("消息接收监听函数执行完成")
     }
 
     closeConnection() {
