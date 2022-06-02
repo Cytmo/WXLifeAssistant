@@ -13,6 +13,7 @@ export default class IMOperator {
     this._latestTImestamp = 0; //最新消息的时间戳
     this._myHeadUrl = getApp().globalData.userInfo.myHeadUrl;
     this._otherHeadUrl = this._opts.friendHeadUrl;
+    this._page = page;
   }
 
   getFriendId() {
@@ -32,10 +33,10 @@ export default class IMOperator {
         console.log("收到的消息为")
         console.log(msg)
         if(msg.action=="userGoOffline"){
-          this.UI.updateChatStatus('对方已离线...');
+          this._page.UI.updateChatStatus('对方已离线...');
         }
         if(msg.msg=="参数错误 : 没有建立聊天"){
-          this.UI.updateChatStatus('发送失败，对方已离线...');
+          this._page.UI.updateChatStatus('发送失败，对方已离线...');
         }
         if (msg.chatMessage == null ||msg.action==null) {
           return;
