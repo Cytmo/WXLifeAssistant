@@ -31,11 +31,16 @@ export default class IMOperator {
       listener: (msg) => {
         console.log("收到的消息为")
         console.log(msg)
+        if(msg.action=="userGoOffline"){
+          this.UI.updateChatStatus('对方已离线...');
+        }
+        if(msg.msg=="参数错误 : 没有建立聊天"){
+          this.UI.updateChatStatus('发送失败，对方已离线...');
+        }
         if (msg.chatMessage == null ||msg.action==null) {
-          console.log("后端提示信息")
-          console.log(msg)
           return;
         }
+ 
         if (!msg) {
           return;
         }

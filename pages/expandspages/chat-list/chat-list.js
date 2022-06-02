@@ -105,6 +105,19 @@ getConversationsItem(item) {
 
       listener: (msg) => {
         console.log(msg);
+        if(msg.user!="null"&&msg.code==0){
+          var temp = {
+            conversationId: "-1",
+            friendHeadUrl: msg.user.image,
+            friendId: msg.user.userId,
+            friendName: msg.user.image,
+            msgUserId: msg.user.userId,
+            timeStr: "19:06",
+            timestamp:1533294362000,
+            type: "text",
+          }
+          that.goToChat(temp);
+        }
         if (msg.action == "matchSuccess") {
           wx.showModal({
             cancelColor: 'cancelColor',
@@ -113,7 +126,7 @@ getConversationsItem(item) {
             success() {
               // this.setData({conversations: msg.conversations.map(item => this.getConversationsItem(item))})
               console.log("用户进入聊天")
-             
+         
               var temp = {
                 conversationId: "-1",
                 friendHeadUrl: msg.user.image,
@@ -192,7 +205,7 @@ getConversationsItem(item) {
           wx.showModal({
             cancelColor: 'cancelColor',
             title: "提示",
-            content: "收到聊天申请，对方为：" + msg.user.username + "，是否进入聊天",
+            content: "收到对方的匹配申请，对方为：" + msg.user.username + "，是否进入聊天",
             success() {
               var temp = {
                 conversationId: "-1",
@@ -212,6 +225,8 @@ getConversationsItem(item) {
         }
       }
     });
+    //{method:"chat" , data:{ message:"4sssssssss",userId:"1" }}
+
     try {
       getApp().getIMHandler().sendMsg({
         content: {
