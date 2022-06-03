@@ -14,8 +14,10 @@ Page({
     movie: {},
     navTitle: '',
     showDescFull: true, // 简介展开,true显示简介所有内容
+    showDescFull1: false, // 简介展开,true显示简介所有内容
     desc60words: '',
-    flag:false,
+    flag:false,    
+    flag1:false,
     show:'',
     detailInfo:''
   },
@@ -89,7 +91,13 @@ Page({
     this.setData({ showDescFull: false });
     this.setData({ flag: false });
   },
-
+  showDescFullWords1() {
+    this.setData({ showDescFull1: true , flag1: true });
+  },
+  unshowDescFullWords1() {
+    this.setData({ showDescFull1: false });
+    this.setData({ flag1: false });
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

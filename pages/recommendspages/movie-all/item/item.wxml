@@ -33,23 +33,30 @@
   </view>
   <view class="movie-info main-content">
     <view class="block-title">剧情简介</view>
-    <text class="info-content" style=" height: auto;"wx:if="{{!showDescFull}}">{{show}}</text>
-    <text class="info-content" style=" height: auto;"wx:if="{{showDescFull}}">{{movie.description}}</text>
+    <text class="info-content" style=" height: auto;" wx:if="{{!showDescFull}}">{{show}}</text>
+    <text class="info-content" style=" height: auto;" wx:if="{{showDescFull}}">{{movie.description}}</text>
 
     <text class="more1" bind:tap="showDescFullWords" wx:if="{{!flag&&!showDescFull}}">展开</text>
     <text class="more1" bind:tap="unshowDescFullWords" wx:if="{{flag}}">收起</text>
   </view>
 
-  <view class="movie-actor main-content">
-    <view class="block-title">演职员</view>
-        <text class="desc">导演</text>
-     <view>{{detailInfo.director}}</view>
-     <text class="desc">编剧</text>
-     <view>{{detailInfo.screenWriter}}</view>
-     <text class="desc">主演</text>
-     <view>{{detailInfo.actors}}</view>
 
-      </view>
+  <view class="movie-info main-content">
+    <view class="block-title">演职员</view>
+    <text class="desc">导演</text>
+    <view>{{detailInfo.director}}</view>
+    <view  wx:if="{{showDescFull1}}">
+      <text class="desc">编剧</text>
+      <view>{{detailInfo.screenWriter}}</view>
+      <text class="desc">主演</text>
+      <view>{{detailInfo.actors}}</view>
+    </view>
+    <text class="more1" bind:tap="showDescFullWords1" wx:if="{{!flag1&&!showDescFull1}}">展开</text>
+    <text class="more1" bind:tap="unshowDescFullWords1" wx:if="{{flag1}}">收起</text>
+  </view>
+
+
+
 
 
 </view>
