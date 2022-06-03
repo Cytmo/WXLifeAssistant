@@ -260,13 +260,39 @@ Page({
   },
 
   onLikePublic: function (event) {
-    let that = this;
     let hollowId = event.currentTarget.dataset.id
-
     let urlin = ipv4 + "/hollow/support"
+    this.onChangeEvent(urlin,hollowId,1,"成功点赞","赞已取消",1)
+  },
 
+  onComfortPublic:function(event){
+    let hollowId = event.currentTarget.dataset.id
+    let urlin = ipv4 + "/hollow/comfort"
+    this.onChangeEvent(urlin,hollowId,2,"成功安慰","安慰已取消",1)
+  },
+
+  onLikePrivate: function (event) {
+    let hollowId = event.currentTarget.dataset.id
+    let urlin = ipv4 + "/hollow/support"
+    this.onChangeEvent(urlin,hollowId,1,"成功点赞","赞已取消",2)
+  },
+
+  onComfortPrivate:function(event){
+    let hollowId = event.currentTarget.dataset.id
+    let urlin = ipv4 + "/hollow/comfort"
+    this.onChangeEvent(urlin,hollowId,2,"成功安慰","安慰已取消",2)
+  },
+
+  onChangeEvent:function(urlin,hollowId,sc,content1,content2,pp){
+    let that = this;
     let userId = this.data.userId
-    let tempList = this.data.hollowList
+    var tempList
+    if(pp == 1){
+      tempList = this.data.hollowList
+    }else{
+      tempList = this.data.myhollowList
+    }
+    
     var indexin = 0
     for (let index = 0; index < tempList.length; index++) {
       const element = tempList[index];
@@ -286,22 +312,44 @@ Page({
       },
       success: function(res) {
         var result = res.data
-        if(result.msg == "成功点赞"){
-          tempList[indexin].support_num = tempList[indexin].support_num + 1
-          that.setData({
-            hollowList:tempList,
-            canshow : true
-          })
-          that.loadSuccess()
-        }else if(result.msg == "赞已取消"){
-          tempList[indexin].support_num = tempList[indexin].support_num - 1
-          that.setData({
-            hollowList:tempList,
-            canshow : true
-          })
-          that.loadFailed(result.msg)
+        if(result.msg == content1){
+          if(sc == 1){
+            tempList[indexin].support_num = tempList[indexin].support_num + 1
+          }else{
+            tempList[indexin].comfort_num = tempList[indexin].comfort_num + 1
+          }
+          if(pp == 1){
+            that.setData({
+              hollowList:tempList,
+              canshow : true
+            })
+          }else{
+            that.setData({
+              myhollowList:tempList,
+              canshow : true
+            })
+          }
+          loadSuccess()
+        }else if(result.msg == content2){
+          if(sc == 1){
+            tempList[indexin].support_num = tempList[indexin].support_num - 1
+          }else{
+            tempList[indexin].comfort_num = tempList[indexin].comfort_num - 1
+          }
+          if(pp == 1){
+            that.setData({
+              hollowList:tempList,
+              canshow : true
+            })
+          }else{
+            that.setData({
+              myhollowList:tempList,
+              canshow : true
+            })
+          }
+          loadFailed(result.msg)
         }else{
-          that.loadFailed(result.msg)
+          loadFailed(result.msg)
           that.setData({
             canshow : false,
           })
@@ -315,101 +363,15 @@ Page({
         })
       }
     })
-
   },
 
-  onComfortPublic:function(){
-
-  },
 
   onAgainstPublic:function(){
 
   },
 
-  getOnLikePrivate: function (index, length, newDoc) {
-    let that = this;
-    let openId = this.data.openId;
-    let id = newDoc[index]._id;
-    const db = wx.cloud.database();
-    db.collection("praiseDoc").where({
-      clickUserId: openId,
-      recordId: id
-    }).count({
-      success: function (res) {
-        if (res.total != 0) {
-          //添加喜欢键值对id:true
-          let state = "onLikePrivate." + id;
-          that.setData({
-            [state]: true
-          });
-        } else {
-          console.log("用户不喜欢");
-          //添加不喜欢键值对id:false
-          let state = "onLikePrivate." + id;
-          that.setData({
-            [state]: false
-          });
-        }
-      },
-      fail: function (res) {
-        //获取失败,默认是不喜欢
-        console.log("默认用户不喜欢");
-        //添加不喜欢键值对id:true
-        let state = "onLikePrivate." + id;
-        that.setData({
-          [state]: false
-        });
-      },
-      complete: function (res) {
-        if ((index + 1) == length) {
-          //最后一个记录判断当前用户是否喜欢完成
-          wx.hideLoading();
-        } else {
-          //否则，判断下一个记录
-          index = index + 1;
-          that.getOnLikePrivate(index, length, newDoc);
-        }
-      }
-    });
-  },
   
 
   
 })
 
-//获取未读消息，隔3秒刷新一次
-function showMessage(openId) {
-  const db = wx.cloud.database();
-  //获得评论promise对象
-  let p1 = db.collection('commentDoc').where({
-    byReviewerId: openId, firstRead: true
-  }).count();
-  //获得点赞promise对象
-  let p2 = db.collection('praiseDoc').where({
-    recordUserId: openId, first: true
-  }).count();
-  //等待获取评论数点赞数
-  Promise.all([p1, p2])
-  .then((res) => {
-    //赋予全局，以便message页面获取
-    app.globalData.newCommentsCount = res[0].total;
-    app.globalData.newThumbupCount = res[1].total;
-    //更新消息tabBar
-    let sum = res[0].total + res[1].total;
-    if (sum == 0) {
-      wx.removeTabBarBadge({
-        index: 2
-      });
-    } else {
-      wx.setTabBarBadge({
-        index: 2,
-        text: String(sum)
-      });
-    }
-  }).catch((error) => {
-    console.log(error)
-  });
-  setTimeout(function () {
-    showMessage(openId);
-  }, 1000);
-}

@@ -54,7 +54,7 @@ Page({
     }
     this.setData({currentTime :formatTime(new Date())})
     this.getReplyList(formatTime(new Date()))
-    console.log(this.data.replyList)
+
   },
 
   getReplyList:function(time){
@@ -72,7 +72,6 @@ Page({
         userId : that.data.userId
       },
       success: function(res) {
-        console.log(res.data)
         var tempList = res.data.data
         var cloneList = []
         let mapTemp = new Map(that.data.replyConIdMap)
@@ -106,7 +105,6 @@ Page({
                 mapTemp.set(hollow.hollowId,contentHead)
                 var obadd = {firstcon:mapTemp.get(element.reply_post_id)}
                 cloneList = cloneList.concat({...element,...obadd})
-                console.log(cloneList)
                 that.setData({
                   replyList:cloneList,
                   replyConIdMap:mapTemp,
@@ -115,6 +113,9 @@ Page({
                 })
               },
               fail: function(error) {
+                that.setData({
+                  triggered:false
+                })
                 console.log(error)
               }
             })
@@ -161,123 +162,77 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
+    this.setData({
+      currentTime :formatTime(new Date()),
+      replyList:[]
+    })
     //下拉刷新记录列表
-    this.data.pageIndex = 1;
-    if (this.data.currentIndexNav == 0) {
-      this.fetchCommentDocList("刷新中", true);
-    } else {
-      this.fetchCommentDocList("刷新中", false);
-    }
+    this.getReplyList(formatTime(new Date()))
     //停止下拉刷新
-    wx.stopPullDownRefresh();
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    if (this.data.pageIndex < this.data.pageCount) {
-      //如果没到最后一页，页码加1，并加载新的一页记录列表数据
-      this.data.pageIndex = this.data.pageIndex + 1;
-      if (this.data.currentIndexNav == 0) {
-        this.fetchCommentDocList("刷新中", true);
-      } else {
-        this.fetchCommentDocList("刷新中", false);
-      }
-    } else {
-      util.showTip('没有更多记录了');
-    }
+    this.getReplyList(this.data.currentTime)
   },
 
-
-
-
-
-  
-
-  /**
-   * 将评论变为已读状态
-   */
-  changeUnread: function () {
-    const db = wx.cloud.database();
-    const commentDocList = this.data.commentDocList;
-    const openId = this.data.openId;
-    wx.cloud.callFunction({
-      // 云函数名称
-      name: 'updateOperate',
-      // 传给云函数的参数
-      data: {
-        docList: commentDocList,
-        doc: "commentDoc"
+  changeState:function(hollowId){
+    var that = this
+    var urlsend = ipv4 + "/user/finishReplyHollow"
+    wx.request({
+      url: urlsend,
+      method: 'post',
+      header: {
+        'content-type': 'application/json' // 豆瓣一定不能是json
       },
-      success: function (res) {
-        console.log("更改为已读成功");
-        //从全局拿到最新的评论数和点赞数
-        app.globalData.newCommentsCount = 0;
+      data:{
+        hollowId : hollowId,
+        userId : that.data.userId
       },
-      fail: function (res) {
-        console.log("更改为已读失败");
-      }
-    });
-  },
-
-  /**
-   * 删除评论
-   */
-  deleteComment: function (event) {
-    var _id = event.target.dataset.id;
-    var recordId = event.target.dataset.recordid;
-    var that = this;
-    wx.showModal({
-      title: '删除',
-      content: '是否删除评论',
-      showCancel: true,
-      cancelText: '取消',
-      cancelColor: '#3B49E0',
-      confirmText: '确定',
-      confirmColor: '#576B95',
-      success: function (res) {
-        if (res.confirm) {
-          wx.showLoading({
-            title: '删除中',
-            mask: true,
-          })
-          //调用云函数进行删除根据指定的_id和recordId进行删除对应数据库的内容
-          wx.cloud.callFunction({
-            // 要调用的云函数名称
-            name: 'commDocOperate',
-            // 传递给云函数的event参数
-            data: {
-              id: _id,
-              operate: 'removeRelative'
-            }
-          }).then(res => {
-            wx.cloud.callFunction({
-              // 要调用的云函数名称
-              name: 'utterDocOperate',
-              // 传递给云函数的event参数
-              data: {
-                operate: 'sub',
-                id: recordId,
-              }
-            }).then(res => {console.log("评论数减1成功"); }).catch(err => { console.log("调用失败");})
-            //然后触发事件到父组件进行渲染页面
-            wx.hideLoading();
-            that.fetchCommentDocList("刷新中", false);
-          }).catch(err => {
-            // handle error
-          })
+      success: function(res) {
+        if(res.data.code == 0){
+          loadSuccess()
+          return 0
+        }else{
+          loadFailed(res.data.msg)
+          return 1
         }
+        
       },
-      fail: function (res) { },
-      complete: function (res) { },
+      fail: function(error) {
+        console.log(error)
+        return 1
+      }
     })
+
+
+
   },
+
   gotoTopicDetials: function (event) {
-    let _id = event.currentTarget.dataset.recordid;
-    console.log(_id)
+    console.log(event)
+    let id = event.currentTarget.dataset.recordid
+    let hollowId = event.currentTarget.dataset.hollowid
+    var result = this.changeState(hollowId)
+    var tempList = this.data.replyList
+    var deleteIndex 
+    if(result == 0){
+      for (let index = 0; index < tempList.length; index++) {
+        const element = tempList[index];
+        if(element.hollowId == hollowId){
+          deleteIndex = index
+          break
+        }
+      }
+      let removedList = tempList.splice(deleteIndex, 1)
+      this.setData({
+        replyList:removedList
+      })
+    }
     wx.navigateTo({
-      url: "../topicDetials/topicDetials?recordId=" + _id
+      url: '/pages/expandspages/treehole/topicDetials/topicDetials?&recordid='+id
     });
   }
 

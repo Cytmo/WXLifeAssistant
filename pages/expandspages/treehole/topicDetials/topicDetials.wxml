@@ -1,7 +1,7 @@
 <!--topicDetial.wxml-->
 <view>
   <view class="mainview">
-    <scroll-view enable-back-to-top='true' scroll-y='true'>
+    <scroll-view scroll-y refresher-enabled="true"bindrefresherrefresh="onPullDownRefresh" lower-threshold='30' style="height:{{scrollHeight - 40}}px" bindscrolltolower="onReachBottom" refresher-triggered="{{triggered}}">
       <view class="information">
         <view class="useravatar">
           <!-- <image class="userimg" src='{{contentdetail.image}}'></image> -->
@@ -16,18 +16,18 @@
 
           <!-- 评论与点赞个数 -->
           <view class="comments_thumbsup">
-            <view class='comments'>
+            <view class='comments' bindtap="doComment" data-recordid='{{contentdetail.hollowId}}' data-name='{{contentdetail.username}}'>
               <image src="../../../../images/comments.png"></image>
             </view>
-            <view bindtap='onLikePublic'>
+            <view bindtap='onLikeHead'>
               <image src="../../../../images/thumbup.png"></image>
               <text>{{contentdetail.support_num}}</text>
             </view>
-            <view bindtap='onComfortPublic'>
+            <view bindtap='onComfortHead'>
               <image src="../../../../images/comfort.png"></image>
               <text>{{contentdetail.comfort_num}}</text>
             </view>
-            <view bindtap='onAgainstPublic'>
+            <view bindtap='onAgainstHead'>
               <image src="../../../../images/against.png"></image>
             </view>
           </view>
@@ -49,18 +49,18 @@
             </view>
             <text class='content'>{{item.content}}</text>
             <view class="comments_thumbsup">
-            <view class='comments'>
+            <view class='comments' bindtap="doComment" data-recordid='{{item.hollowId}}' data-name='{{item.username}}'>
               <image src="../../../../images/comments.png"></image>
             </view>
-            <view bindtap='onLikePublic'>
+            <view bindtap='onLikePublic' data-id='{{item.hollowId}}'>
               <image src="../../../../images/thumbup.png"></image>
-              <text>{{contentdetail.support_num}}</text>
+              <text>{{item.support_num}}</text>
             </view>
-            <view bindtap='onComfortPublic'>
+            <view bindtap='onComfortPublic' data-id='{{item.hollowId}}'>
               <image src="../../../../images/comfort.png"></image>
-              <text>{{contentdetail.comfort_num}}</text>
+              <text>{{item.comfort_num}}</text>
             </view>
-            <view bindtap='onAgainstPublic'>
+            <view bindtap='onAgainstPublic' data-id='{{item.hollowId}}'>
               <image src="../../../../images/against.png"></image>
             </view>
           </view>
@@ -71,19 +71,20 @@
   </view>
 
   <!-- 写评论区入口 -->
-  <view class='write-container'>
-    <view class='write-icon'>
-      <image class='icon' src='/images/write.png'></image>
-      <form catchsubmit="doCommit" style="width:100%;height:40%">
-        <view class="xblock">
+  <form catchsubmit="doCommit" style="width:100%;height:auto">
+    <view class='write-container'>
+      <view class='write-icon' bindtap="getFocus">
+        <image class='icon' src='/images/write.png'></image>
+        <view class="xblock" style="width:100%;height:auto">
           <view class="texteare">
-              <textarea name="content" placeholder="友善的评论是交流的起点" placeholder-class="placeholderclass"></textarea>
-            </view>
-            <button class="btn" style="width:100rpx;height:40rpx" form-type="submit">发布</button>
+              <textarea name="content" style="width:100%" 	auto-height = 'true' bindblur='loseFocus' focus="{{focus}}" placeholder="{{replyto}}" placeholder-class="placeholderclass"></textarea>
+          </view>
+          
         </view>
-      </form>
+      </view>
+      <button class="btn" style="width:150rpx;height:60rpx" form-type="submit">发布</button>
     </view>
-  </view>
+  </form>
   <!-- 弹出评论区
   <v-input wx:else bind:commentinput='publish' informations='{{mainTopicComm}}' replyComm='{{replyComm}}' /> -->
 </view>
