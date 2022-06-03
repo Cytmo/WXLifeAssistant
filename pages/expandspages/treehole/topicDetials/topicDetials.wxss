@@ -8,6 +8,7 @@
   background: rgba(255, 255, 255, 1);
   padding: 30rpx 20rpx;
   display: flex;
+  margin-bottom: 10rpx;
 }
 
 .useravatar {
@@ -97,14 +98,15 @@
   flex-direction: column;
   border-top: 1px solid #ddd;
   background-color: #ddd;
+  margin-top: 10rpx;
 }
 
 .write-container{
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items:flex-end;
   width: 100%;
-  height: 100rpx;
+  height: auto;
   background-color: #DDD;
   position: fixed;
   bottom:0;
@@ -129,7 +131,7 @@
   border: 1.5px solid #3B49E0;
   border-radius: 65rpx;
   width: 100%;
-  height: 70rpx;
+  height: auto;
   background-color: #EEE;
 }
 
@@ -191,3 +193,43 @@
   margin-right: 20rpx;
   margin-bottom: 10rpx;
 }
+
+.contentNew {
+  font-size: 30rpx;
+  color: #666;
+  margin-bottom: 30rpx;
+   /* text-indent: 2em;  */
+   padding: 2em; 
+  }
+
+  .btn{
+    font-size:32rpx;
+    font-family:SourceHanSansCN-Medium;
+    color:rgba(255,255,255,1);
+    background:#3B49E0;
+    border-radius:9px;
+    margin-bottom: 9px;
+    padding: 1% 3% 1% 3%;
+  }
+
+  .texteare{
+    height: auto;
+    width: 90%;
+    background:rgba(255, 255, 255, 1);
+    padding: 5rpx 5rpx;
+    border-radius:2px;
+  }
+  .texteare textarea{
+    font-size:35rpx;
+    font-family:SourceHanSansCN-Regular;
+    width: 100%;
+    height: 40;
+    border-radius:2px;
+  }
+  
+  .xblock{
+    display: flex;
+    /*row 横向  column 列表  */
+    flex-direction: row;
+    align-items:flex-end;
+  }

@@ -28,7 +28,7 @@ Component({
         {
           "selectedIconPath": "/images/message_select.png",
           "iconPath": "/images/message.png",
-          "pagePath": "/pages/expandspages/treehole/message/message",
+          "pagePath": "/pages/expandspages/treehole/comments/comments",
           "text": "消息"
         }
 

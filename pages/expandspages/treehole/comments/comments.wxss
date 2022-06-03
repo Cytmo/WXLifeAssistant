@@ -96,6 +96,12 @@
 .comments{
   padding: 20rpx 30rpx;
 }
+.comments_back{
+  font-size:26rpx;
+  font-family:SourceHanSansCN-Regular;
+  font-weight:400;
+  color:rgba(183, 184, 204, 0.774);
+}
 .comments_nick{
   font-size:26rpx;
   font-family:SourceHanSansCN-Regular;
