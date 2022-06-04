@@ -1,7 +1,8 @@
 {
   "usingComponents": {
     "loading": "/components/loading/loading",
-    "star": "/components/star/star"
+    "star": "/components/star/star",
+    "ec-canvas": "/components/ec-canvas/ec-canvas"
   },
   "navigationBarTitleText": "电影详情"
 }

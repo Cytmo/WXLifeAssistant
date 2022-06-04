@@ -93,20 +93,6 @@ Page({
         if (title.length >= 10) {
           title = title.substring(0, 10) + "···";
         }
-        var attitude;
-        switch (subject.myattitude) {
-          case 1:
-            attitude = "推荐";
-            break;
-          case 0:
-            attitude = "暂无";
-            break;
-          case -1:
-            attitude = "不推荐";
-            break;
-            // default:
-            //   attitude="暂无"
-        }
         var recommendrate = this.toPercent(subject.recommendtotal,subject.unrecommendtotal);
         var unrecommendrate = this.toPercent(subject.unrecommendtotal,subject.recommendtotal);
         var temp = {
@@ -116,7 +102,7 @@ Page({
           unrecommendtotal: subject.unrecommendtotal,
           info: subject.info,
           image: subject.image,
-          attitude: attitude,
+          myattitude: subject.myattitude,
           detailpage: subject.detailpage,
           recommendtotal: subject.recommendtotal,
           ranks: subject.ranks,
@@ -170,20 +156,6 @@ Page({
         if (title.length >= 10) {
           title = title.substring(0, 10) + "···";
         }
-        var attitude;
-        switch (subject.myattitude) {
-          case 1:
-            attitude = "推荐";
-            break;
-          case 0:
-            attitude = "暂无";
-            break;
-          case -1:
-            attitude = "不推荐";
-            break;
-            // default:
-            //   attitude="暂无"
-        }
         var recommendrate = this.toPercent(subject.recommendtotal,subject.unrecommendtotal);
         var unrecommendrate = this.toPercent(subject.unrecommendtotal,subject.recommendtotal);
         var temp = {
@@ -193,7 +165,7 @@ Page({
           unrecommendtotal: subject.unrecommendtotal,
           info: subject.info,
           image: subject.image,
-          attitude: attitude,
+          myattitude: subject.myattitude,
           detailpage: subject.detailpage,
           recommendtotal: subject.recommendtotal,
           ranks: subject.ranks,
