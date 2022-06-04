@@ -1,11 +1,48 @@
-<import src="view/chat-item.wxml"/>
-<block wx:for="{{conversations}}" wx:key="conversationId">
+
+<import src="view/chat-item.wxml" />
+<!-- <block wx:for="{{conversations}}" wx:key="conversationId">
     <template is="chat-item" data="{{item:item}}"/>
-</block>
+</block> -->
+<view class="cu-load bg-grey {{!isLoad?'loading':'over'}}" wx:if="{{isMatching}}"></view>
 
-<button bindtap="beginMatch" type="primary" data-type="0">倾听</button>
-<button bindtap="beginMatch" type="primary" data-type="1">倾诉</button>
-<button bindtap="beginMatch" type="primary" data-type="2">闲聊</button>
-<button bindtap="endMatch" type="primary" data-type="2">停止匹配</button>
+<view class="cu-bar margin-top bg-white" wx:if="{{showMatchButton}}">
+  <view class="action">
+    <text class="cuIcon-title text-blue"></text>请选择你的倾向，选择后即开始为你随机匹配
+  </view>
+</view>
+<!-- <view class="cu-bar bg-white">
+  <view class='action'>
+    <text class='cuIcon-title text-blue'></text>背景
+  </view>
+</view> -->
 
-<button bindtap="gotoLastChat" type="primary" data-type="2">进入上次会话</button>
+
+
+
+<view class="cu-modal {{modalName=='Modal'?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content">正在匹配...</view>
+      <view class="action" bindtap="endMatch" data-type="2">
+        <text class="cuIcon-close text-red"></text>
+      </view>
+    </view>
+    <view class="padding-xl">
+      关闭此窗口来取消匹配
+    </view>
+  </view>
+</view>
+
+
+
+
+
+<view  class="padding flex flex-direction" wx:if="{{showMatchButton}}">
+  <button class="cu-btn bg-blue margin-tb-sm lg" bindtap="beginMatch" data-type="0">倾听</button>
+  <button class="cu-btn bg-red lg" bindtap="beginMatch" data-type="1">倾诉</button>
+  <button class="cu-btn bg-yellow margin-tb-sm lg" bindtap="beginMatch" data-type="2">闲聊</button>
+</view>
+
+<!-- <button wx:if="{{!showMatchButton}}" bindtap="endMatch" type="primary" data-type="2">停止匹配</button> -->
+
+<!-- <button bindtap="gotoLastChat" wx:if="{{hasLastChat}}" type="primary" data-type="2">进入上次会话</button> -->

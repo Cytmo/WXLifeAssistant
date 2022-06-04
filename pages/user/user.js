@@ -9,6 +9,8 @@ Page({
     userID: ""
   },
   doAuthorization: function (e) {
+    var ifYes=true
+    var that =this
     wx.getUserProfile({
       desc: '展示用户信息', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
       success: (res) => {
@@ -19,84 +21,90 @@ Page({
         })
 
 
-        console.log("存储userInfo 为: " + res.userInfo,);
+        console.log("存储userInfo 为: " + res.userInfo, );
         console.log(res.userInfo);
-        wx.setStorageSync('userInfo', res.userInfo,);
-
+        app.globalData.userInfo=res.userInfo
+        wx.setStorageSync('userInfo', res.userInfo, );
+        that.login();
       },
       fail: function (err) {
         console.log("record  失败", err);
-      }
-    })
-    app.globalData.userInfo = this.userInfo;
-    if (false) {
-      //todo 已获得用户信息后不再弹出授权
-      console.log(alreadyGetUserInfo)
-    } else {
-      var that = this;
-      console.log("调用了 doAuthorization 授权");
-      // console.log(e);
-
-      //授权
-      wx.login({
-        success: function (res) {
-          console.log('login:code', res.code)
-          wx.request({
-            url: `https://api.weixin.qq.com/sns/jscode2session?appid=wxcf9a5cc5ed4abadb&secret=bbf59871d44cc7a980fcb9f6d382d6a0&js_code=${res.code}&grant_type=authorization_code`,
-            success: (res) => {
-              //console.log(res);
-              //获取到你的openid
-              that.setData({
-                userID: res.data.openid
-                
-              });
-              console.log("存储openid 为: " + res.data.openid);
-              wx.setStorageSync('openid',res.data.openid);
-              console.log("设置openid 为: " + res.data.openid);
-              app.globalData.userID = res.data.openid;
-              app.globalData.userId = res.data.userId;
-
-            }
-          })
         
-        }
-
-      })
-
-    }
-
-    wx.request({
-      url: app.globalData.url+"/user/register",
-      data: {
-        "wechatId": app.globalData.openID,
-          "username": this.userInfo.nickName,
-          "phone": "19813218574",
-          "image":this.avatarUrl,
-      },
-      method: 'POST',
-      header: {
-        'content-type': 'application/json'
-      },
-      success: function (res) {
-        console.log(res)
-      },
-      fail: function (error) {
-        console.log(error)
       }
     })
-    
 
-  },
-  gotoChatList(){
+   
+
+    },
+
+    login:function(){
+
+        var that = this;
+        console.log("调用了 doAuthorization 授权");
+        // console.log(e);
+  
+        //授权
+        wx.login({
+          success: function (res) {
+            console.log('login:code', res.code)
+            wx.request({
+              url: `https://api.weixin.qq.com/sns/jscode2session?appid=wxcf9a5cc5ed4abadb&secret=bbf59871d44cc7a980fcb9f6d382d6a0&js_code=${res.code}&grant_type=authorization_code`,
+              success: (res) => {
+                //console.log(res);
+                //获取到你的openid
+                that.setData({
+                  userID: res.data.openid
+  
+                });
+                console.log("存储openid 为: " + res.data.openid);
+                wx.setStorageSync('openid', res.data.openid);
+                console.log("设置openid 为: " + res.data.openid);
+                app.globalData.userID = res.data.openid;
+                console.log("userId 为: " + res.data.openid);
+                that.registerAndLogin()
+  
+              }
+            })
+  
+          }
+  
+        })
+    }
+    // wx.request({
+    //   url: app.globalData.url + "/user/register",
+    //   data: {
+    //     "wechatId": app.globalData.openID,
+    //     "username": this.userInfo.nickName,
+    //     "phone": "19813218574",
+    //     "image": this.avatarUrl,
+    //   },
+    //   method: 'POST',
+    //   header: {
+    //     'content-type': 'application/json'
+    //   },
+    //   success: function (res) {
+    //     console.log(res)
+    //   },
+    //   fail: function (error) {
+    //     console.log(error)
+    //   }
+    // })
+
+
+  ,
+
+  registerAndLogin: function () {
+    //首先请求登录，如果失败则进行注册
     var token;
-    var userID = app.globalData.openId;
-    console.log("取得的userID为"+userID)
-    if((this.userInfo!=[])){{
+    var userID = app.globalData.userID;
+    console.log(userID)
+    var that = this
+    console.log("取得的userID为" + userID)
+    if ((app.globalData.userInfo != [])) {
       console.log("开始请求token")
       wx.request({
-        url: app.globalData.url+"/user/login",
+        url: app.globalData.url + "/user/login",
         data: {
-          //数据urlencode方式编码，变量间用&连接，再post
           wechatId: userID
         },
         method: 'POST',
@@ -105,35 +113,92 @@ Page({
         },
         success: function (res) {
           console.log(res.data)
-          token=res.data.token
-          console.log("userId 为： "+res.data.user.userId)
-          app.globalData.userId=res.data.user.userId;
-          wx.navigateTo({
-            url:'../expandspages/chat-list/chat-list?&userid='+res.data.user.userId+"&token="+token,
-            
-          })
+          token = res.data.token
+          wx.setStorageSync('token', token)
+          console.log("userId 为： " + res.data.user.userId)
+          wx.setStorageSync('userId', res.data.user.userId)
+          app.globalData.userId = res.data.user.userId;
         },
         fail: function (error) {
+          console.log("登陆失败，准备注册")
           console.log(error)
+          that.userRegister()           
         }
       })
-    }
-    }
-    else{
-      wx.showToast({
-        title: '请先登录',
-        content: '请先登录',
-        icon:"error",
-        success: function (res) {
-          if (res.confirm) {//这里是点击了确定以后
-            console.log('用户点击确定')
-          } else {//这里是点击了取消以后
-            console.log('用户点击取消')
-          }
-        }
-      })
-    }
+    } 
   },
+
+  userRegister() {
+    var that = this
+    wx.request({
+      url: app.globalData.url + "/user/register",
+      data: {
+        "wechatId": app.globalData.openID,
+        "username": app.globalData.userInfo.nickName,
+        "phone": "19813218574",
+        "image": app.globalData.userInfo.avatarUrl,
+      },
+      method: 'POST',
+      header: {
+        'content-type': 'application/json'
+      },
+      success: function (res) {
+        console.log(res)
+        that.registerAndLogin()
+      },
+      fail: function (error) {
+        console.log(error)
+      }
+    })
+  },
+
+  // gotoChatList() {
+  //   var token;
+  //   var userID = app.globalData.openId;
+  //   console.log("取得的userID为" + userID)
+  //   if ((this.userInfo != [])) {
+  //     {
+  //       console.log("开始请求token")
+  //       wx.request({
+  //         url: app.globalData.url + "/user/login",
+  //         data: {
+  //           //数据urlencode方式编码，变量间用&连接，再post
+  //           wechatId: userID
+  //         },
+  //         method: 'POST',
+  //         header: {
+  //           'content-type': 'application/json'
+  //         },
+  //         success: function (res) {
+  //           console.log(res.data)
+  //           token = res.data.token
+  //           console.log("userId 为： " + res.data.user.userId)
+  //           app.globalData.userId = res.data.user.userId;
+  //           wx.navigateTo({
+  //             url: '../expandspages/chat-list/chat-list?&userid=' + res.data.user.userId + "&token=" + token,
+
+  //           })
+  //         },
+  //         fail: function (error) {
+  //           console.log(error)
+  //         }
+  //       })
+  //     }
+  //   } else {
+  //     wx.showToast({
+  //       title: '请先登录',
+  //       content: '请先登录',
+  //       icon: "error",
+  //       success: function (res) {
+  //         if (res.confirm) { //这里是点击了确定以后
+  //           console.log('用户点击确定')
+  //         } else { //这里是点击了取消以后
+  //           console.log('用户点击取消')
+  //         }
+  //       }
+  //     })
+  //   }
+  // },
   // loadUserInfo: function() {
   //   var that = this;
   //   if (this.openid != "") {
@@ -186,13 +251,28 @@ Page({
     if (app.globalData.userInfo.avatarUrl != null) {
       console.log("已获取到本地信息，隐藏登录按钮");
       this.setData({
-        hasUserInfo:true
+        hasUserInfo: true
       });
     }
+    wx.getStorage({
+      key: 'ifShowWarn',
+      success(res) {
+        if (res.data == 1) {
+          wx.showToast({
+            title: '请先登录',
+            icon: "error",
+            duration: 2000
+          })
+          wx.setStorageSync('ifShowWarn', 0)
+        }
+      }
+    })
     //that.loadUserInfo();
   },
 
-  onLoad: function () {
+  onLoad: function (options) {
+
+
     var that = this;
 
 
