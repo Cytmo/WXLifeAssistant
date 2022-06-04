@@ -49,7 +49,12 @@ Page({
         this.imOperator.onSimulateReceiveMsg((msg) => {
             this.msgManager.showMsg({msg})
         });
-        this.UI.updateChatStatus('正在聊天中...');
+        this.UI.updateChatStatus('正在聊天中... ');
+        wx.showToast({
+          title: '退出此页面将会清空本次聊天的所有信息',
+          icon:'none',
+          duration:2000
+        })
 
        
     },

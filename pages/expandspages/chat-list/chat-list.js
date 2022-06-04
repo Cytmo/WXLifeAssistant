@@ -25,7 +25,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+
     var that =this
+
     wx.getStorage({
       key:'token',
       success(res){
@@ -38,7 +40,7 @@ Page({
           that.userId = app.globalData.userId
           that.authorization(token)
         })
-
+        
     },
     fail(res){
         wx.showToast({
@@ -120,6 +122,10 @@ Page({
     }
   },
   async onShow() {
+    this.setData({
+      showMatchButton:true,
+      isMatching:false
+    })
 
     // getApp().getIMHandler().setOnReceiveMessageListener({
     //     listener: (msg) => {
@@ -343,6 +349,7 @@ Page({
       hasLastChat:true
     }
     )
+    this.hideModal()
     var that = this
     // getApp().getIMHandler().setOnReceiveMessageListener({
 
@@ -414,7 +421,7 @@ Page({
   gotoLastChat: function () {
     var lastChat = this.lastChat
     var temp = lastChat;
-    if(lastChat==null){wx.showToast({
+    if(false){wx.showToast({
       icon:"error",
       title: '无上次会话信息',
     })}else{
