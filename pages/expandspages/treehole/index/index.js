@@ -4,9 +4,10 @@ import   '../../../../utils/util.js';
 import { formatTime,formatDate } from '../../../../utils/common'
 import {loadSuccess,loadFailed,handleRes} from '../../../../utils/czutils'
 var avoidPreviewImageOnShow; //避免预览图片后，触发onShow函数
-// var ipv4 = "http://localhost:80"
+var ipv4 = "http://localhost:80"
 const app = getApp()
-var ipv4 = "http://localhost:8081"
+// var ipv4 = "http://localhost:8081"
+// var ipv4 = app.globalData.url
 //index.js
 
 Page({
@@ -27,7 +28,9 @@ Page({
     currentTime:null,
     mycurrentTime:null,
     triggered: false,
-    scrollHeight : 200
+    scrollHeight : 200,
+
+    against:null
 
   },
 
@@ -53,8 +56,6 @@ Page({
         });
       }
     }
-    this.setData({currentTime :formatTime(new Date())})
-    this.getHollowList(formatTime(new Date()))
   },
 
   /**
@@ -62,11 +63,12 @@ Page({
    */
   onShow: function () {
     console.log("begin to show")
-    
-    if (avoidPreviewImageOnShow) {
-      avoidPreviewImageOnShow = false;
-      return;
-    }
+    this.setData({currentTime :formatTime(new Date())})
+    this.getHollowList(formatTime(new Date()))
+  },
+
+  onReady:function(){
+    this.against = this.selectComponent("#against")
   },
 
   getHollowList:function(time){
@@ -287,6 +289,12 @@ Page({
     this.onChangeEvent(urlin,hollowId,2,"成功安慰","安慰已取消",2)
   },
 
+  onAgainst:function(event){
+    let hollowId = event.currentTarget.dataset.id
+    this.against.setId(this.data.userId,hollowId)
+    this.against.toShow()
+  },
+
   onChangeEvent:function(urlin,hollowId,sc,content1,content2,pp){
     let that = this;
     let userId = this.data.userId
@@ -370,9 +378,7 @@ Page({
   },
 
 
-  onAgainstPublic:function(){
 
-  },
 
   
 

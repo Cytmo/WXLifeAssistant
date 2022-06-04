@@ -22,7 +22,7 @@ App(
       novelsmmrecom: {},
       tvHot: {},
       userID: '1',
-      userId:'',
+      userId:'1',
       openId: '',
       url: "http://10.131.150.190:8081",
       novelShow:{},

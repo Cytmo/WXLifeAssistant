@@ -4,8 +4,9 @@ import { formatTime,formatDate } from '../../../../utils/common'
 import {handleRes} from '../../../../utils/czutils'
 // miniprogram/pages/publishTopics/publishTopics.js
 const app = getApp();
-// var ipv4 = "http://localhost:80"
-var ipv4 = "http://localhost:8081"
+var ipv4 = "http://localhost:80"
+// var ipv4 = "http://localhost:8081"
+// var ipv4 = app.globalData.url
 Page({
 
   /**

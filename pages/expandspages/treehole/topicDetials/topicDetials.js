@@ -3,8 +3,9 @@ var th = require('../../../../utils/throttle/throttle.js');
 import { formatTime,formatDate } from '../../../../utils/common'
 import {loadSuccess,loadFailed,handleRes} from '../../../../utils/czutils'
 const app = getApp()
+var ipv4 = "http://localhost:80"
 
-var ipv4 = app.globalData.url
+// var ipv4 = app.globalData.url
 
 Page({
   data: {
@@ -58,6 +59,10 @@ Page({
       }
     }
     this.showHollow(hollowId,true)
+  },
+
+  onReady:function(){
+    this.against = this.selectComponent("#against")
   },
 
   showHollow:function(hollowId,ifLoad){
@@ -155,7 +160,11 @@ Page({
     this.onChangeEventList(urlin,hollowId,2,"成功安慰","安慰已取消")
   },
 
-  onAgainstPublic:function(){},
+  onAgainst:function(event){
+    let hollowId = event.currentTarget.dataset.id
+    this.against.setId(this.data.userId,hollowId)
+    this.against.toShow()
+  },
   
   onChangeEventList:function(urlin,hollowId,sc,content1,content2){
     let that = this;
@@ -270,6 +279,7 @@ Page({
   },
 
   onShow: function() {
+    console.log("detail to show")
   },
   onPullDownRefresh: function() {
     //下拉刷新整个记录列表

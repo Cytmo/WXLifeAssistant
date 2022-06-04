@@ -1,4 +1,7 @@
 {
+  "usingComponents": {
+    "against":"../../../../components/against/against"
+  },
   "navigationBarBackgroundColor": "#3B49E0",
   "enablePullDownRefresh": true,
   "onReachBottomDistance": 50

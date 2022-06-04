@@ -1,0 +1,71 @@
+/* components/against/against.wxss */
+
+.drawer_screen { 
+
+  width: 100%;  
+
+  height: 100%;  
+
+  position: fixed;  
+
+  z-index: 500;
+
+  top: 0;  
+
+  left: 0;  
+  background: rgba(0,0,0,0.5);  
+  
+  overflow: hidden;  
+
+} 
+
+    
+
+/*content*/
+
+.drawer_box { 
+  width: 650rpx;  
+  height: 450rpx;
+  overflow: hidden;  
+  position: fixed;  
+  top: 50%;  
+  left: 0;  
+  z-index: 1000;
+  background: #ffffff;  
+  margin: -150px 50rpx 0 50rpx;  
+  border-radius: 3px;  
+  opacity:   1;
+  display: flex;
+  flex-direction: row;
+  align-items :center;
+} 
+
+.texteare{
+  height: 70%;
+  width: 90%;
+  background:rgba(255, 255, 255, 1);
+  padding: 5rpx 5rpx;
+  border-radius:2px;
+  margin-top: 30rpx;
+  margin-left: 35rpx;
+  margin-bottom: 25rpx;
+  outline-style: solid;
+  border-radius: 3rpx;
+  outline-color: rgb(15, 160, 218);
+}
+.texteare textarea{
+  font-size:35rpx;
+  font-family:SourceHanSansCN-Regular;
+  width: 100%;
+  height: 40;
+  border-radius:2px;
+}
+.btn{
+  font-size:32rpx;
+  font-family:SourceHanSansCN-Medium;
+  color:rgba(255,255,255,1);
+  background:#3B49E0;
+  border-radius:9px;
+  margin-bottom: 9px;
+  padding: 1% 3% 1% 3%;
+}

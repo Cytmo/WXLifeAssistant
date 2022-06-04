@@ -2,7 +2,9 @@
 import { $init, $digest } from '../../../utils/common'
 const app = getApp()
 //直接在app.js中修改!!
-var ipv4 = app.globalData.url
+// var ipv4 = app.globalData.url
+var ipv4 = "http://localhost:80"
+
 Page({
   data: {
     openId: null,
