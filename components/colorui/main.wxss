@@ -1095,7 +1095,7 @@ button.icon.lg {
 }
 
 .cu-load.loading::after {
-	content: "加载中...";
+	content: "正在匹配...";
 }
 
 .cu-load.over::before {

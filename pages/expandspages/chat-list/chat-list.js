@@ -12,7 +12,13 @@ Page({
     conversations: [],
     token: "",
     userId: "",
-    lastChat:[]
+    lastChat:[],
+    hasLastChat:false,
+    ColorList: app.globalData.ColorList,
+    CustomBar: app.globalData.CustomBar,
+    loadProgress:0,
+    isMatching:false,
+    showMatchButton:true
   },
 
   /**
@@ -49,7 +55,70 @@ Page({
     }
   })
   },
+  showModal(e) {
+    this.setData({
+      modalName: "Modal"
+    })
+  },
+  SetShadow(e) {
+    this.setData({
+      shadow: e.detail.value
+    })
+  },
+  SetBorderSize(e) {
+    this.setData({
+      bordersize: e.detail.value
+    })
+  },
+  hideModal(e) {
+    this.setData({
+      modalName: null
+    })
 
+  },
+  ChooseCheckbox(e) {
+    let items = this.data.checkbox;
+    let values = e.currentTarget.dataset.value;
+    for (let i = 0, lenI = items.length; i < lenI; ++i) {
+      if (items[i].value == values) {
+        items[i].checked = !items[i].checked;
+        break
+      }
+    }
+    this.setData({
+      checkbox: items
+    })
+  },
+  
+  isLoading (e) {
+    this.setData({
+      isLoad: e.detail.value
+    })
+  },
+  loadModal () {
+    this.setData({
+      loadModal: true
+    })
+    setTimeout(()=> {
+      this.setData({
+        loadModal: false
+      })
+    }, 20000)
+  },
+  loadProgress(){
+    this.setData({
+      loadProgress: this.data.loadProgress+3
+    })
+    if (this.data.loadProgress<100){
+      setTimeout(() => {
+        this.loadProgress();
+      }, 100)
+    }else{
+      this.setData({
+        loadProgress: 0
+      })
+    }
+  },
   async onShow() {
 
     // getApp().getIMHandler().setOnReceiveMessageListener({
@@ -125,14 +194,19 @@ Page({
   },
 
   beginMatch: function (e) {
-    wx.showToast({
-      title: '正在后台匹配',
-      icon: "error",
-      duration: 2000
-    })
+    // wx.showToast({
+    //   title: '正在后台匹配',
+    //   icon: "error",
+    //   duration: 2000
+    // })
     var userId = this.userId
     var type = e.currentTarget.dataset.type
     console.log("开始匹配,userID为：" + userId)
+    this.setData({
+      isMatching:true,
+      showMatchButton:false
+    })
+    this.showModal()
     var that = this
     getApp().getIMHandler().setOnReceiveMessageListener({
 
@@ -226,9 +300,15 @@ Page({
   },
 
   endMatch: function (e) {
+
     var userId = this.userId
     var type = e.currentTarget.dataset.type
     console.log("结束匹配,userID为：" + userId)
+    this.setData({
+      showMatchButton:true,
+      isMatching:false
+    })
+    this.hideModal()
     var that = this
     getApp().getIMHandler().setOnReceiveMessageListener({
 
@@ -259,7 +339,9 @@ Page({
   goToChat: function (temp) { 
     console.log(temp)
     this.setData({
-      lastChat:temp}
+      lastChat:temp,
+      hasLastChat:true
+    }
     )
     var that = this
     // getApp().getIMHandler().setOnReceiveMessageListener({
