@@ -6,7 +6,7 @@ import {loadSuccess,loadFailed,handleRes} from '../../../../utils/czutils'
 var avoidPreviewImageOnShow; //避免预览图片后，触发onShow函数
 // var ipv4 = "http://localhost:80"
 const app = getApp()
-var ipv4 = "http://localhost:8081"
+var ipv4 = app.globalData.url
 //index.js
 
 Page({
@@ -32,6 +32,34 @@ Page({
   },
 
   onLoad: function() {
+    var that =this
+    wx.getStorage({
+      key:'token',
+      success(res){
+        console.log("成功读取本地token")
+        console.log(res.data)
+        var token = res.data
+        that.setData({
+          token:res.data
+        },()=>{
+          that.userId = app.globalData.userId
+        })
+
+    },
+    fail(res){
+        wx.showToast({
+          title: '请先登录',
+          icon:"error",
+          duration:2000
+        })
+        wx.setStorageSync('ifShowWarn',1)
+          wx.switchTab({
+            
+            url: '/pages/user/user',
+          })
+        
+    }
+  })
     let  scrollHeight = wx.getSystemInfoSync().windowHeight;
     console.log("idyuan:"+app.globalData.userId)
     this.setData({

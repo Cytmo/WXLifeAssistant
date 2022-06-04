@@ -18,11 +18,35 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    this.token = options.token,
-      console.log(this.token)
-    this.userId = options.userid,
-      this.authorization(options.token)
+    var that =this
+    wx.getStorage({
+      key:'token',
+      success(res){
+        console.log("成功读取本地token")
+        console.log(res.data)
+        var token = res.data
+        that.setData({
+          token:res.data
+        },()=>{
+          that.userId = app.globalData.userId
+          that.authorization(token)
+        })
 
+    },
+    fail(res){
+        wx.showToast({
+          title: '请先登录',
+          icon:"error",
+          duration:2000
+        })
+        wx.setStorageSync('ifShowWarn',1)
+          wx.switchTab({
+            
+            url: '/pages/user/user',
+          })
+        
+    }
+  })
   },
 
   async onShow() {
