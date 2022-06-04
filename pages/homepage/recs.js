@@ -10,7 +10,7 @@ Page({
     swiperList: [{
       id: 0,
       type: 'image',
-      url: '/images/homepagephoto/homepage2.png'
+      url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84001.jpg'
     }, {
       id: 1,
         type: 'image',

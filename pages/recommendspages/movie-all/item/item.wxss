@@ -1,3 +1,4 @@
+@import '/pages/recommendspages/recommWXSS/itemWXSS.wxss';
 
 .meta {
   display: flex;

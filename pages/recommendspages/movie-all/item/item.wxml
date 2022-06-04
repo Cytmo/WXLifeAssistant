@@ -12,8 +12,9 @@
             {{detailInfo.movieCountry}}/
             {{detailInfo.movieType}} /
             {{detailInfo.firstTime}} /
-            {{detailInfo.totalTime}}
+            {{detailInfo.totalTime}}/
           </view>
+          <view>推荐人数: {{movie.recommendtotal}} 不推荐人数: {{movie.unrecommendtotal}}</view>
         </view>
       </view>
       <view class="movie-score">
@@ -24,8 +25,12 @@
             <star score="{{movie.ranks}}" />
           </view>
           <view class="add-score">
-            <i class="iconfont icon-edit-outline" />
-            我的态度
+            <view>
+              <image src="/images/homepagephoto/agree.png" bind:tap="agreeDefault" class="agrees" wx:if="{{!attitudeFor}}"></image>
+              <image src="/images/homepagephoto/agree1.png" bind:tap="agreeYes"class="agrees" wx:if="{{attitudeFor&&!attitudeAgainst}}"></image>
+              <image src="/images/homepagephoto/agree.png" bind:tap="disagreeDefault" class="agrees"wx:if="{{!attitudeAgainst}}"></image>
+              <image src="/images/homepagephoto/disagree.png" bind:tap="disagreeNo" class="agrees"wx:if="{{!attitudeFor&&attitudeAgainst}}"></image>
+            </view>
           </view>
         </view>
       </view>
@@ -40,12 +45,11 @@
     <text class="more1" bind:tap="unshowDescFullWords" wx:if="{{flag}}">收起</text>
   </view>
 
-
   <view class="movie-info main-content">
     <view class="block-title">演职员</view>
     <text class="desc">导演</text>
     <view>{{detailInfo.director}}</view>
-    <view  wx:if="{{showDescFull1}}">
+    <view wx:if="{{showDescFull1}}">
       <text class="desc">编剧</text>
       <view>{{detailInfo.screenWriter}}</view>
       <text class="desc">主演</text>
@@ -54,6 +58,21 @@
     <text class="more1" bind:tap="showDescFullWords1" wx:if="{{!flag1&&!showDescFull1}}">展开</text>
     <text class="more1" bind:tap="unshowDescFullWords1" wx:if="{{flag1}}">收起</text>
   </view>
+
+  <view class="movie-info main-content">
+    <view class="block-title">推荐指数</view>
+    <view class="containerpie">
+      <text class="desc">支持\n比例</text>
+      <ec-canvas id="mychart-dom-pie" canvas-id="mychart-pie" ec="{{ ec }}"></ec-canvas>
+    </view>
+    <view class="containerpie" wx:if="{{showDescFull2}}">
+      <text class="desc">反对\n比例</text>
+      <ec-canvas id="mychart-dom-pie2" canvas-id="mychart-pie2" ec="{{ ec2 }}"></ec-canvas>
+    </view>
+    <text class="more1" bind:tap="showDescFullWords2" wx:if="{{!flag2&&!showDescFull2}}">展开</text>
+    <text class="more1" bind:tap="unshowDescFullWords2" wx:if="{{flag2}}">收起</text>
+  </view>
+
 
 
 

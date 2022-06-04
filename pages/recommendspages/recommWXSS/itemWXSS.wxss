@@ -1,0 +1,21 @@
+ec-canvas {
+  width: 100%;
+  height: 100%;
+}
+.containerpie {
+  position: relative;
+  height: 400rpx;
+  width:700rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+} 
+
+.agrees{
+  position: relative;
+  height: 80rpx;
+  width:  80rpx;
+  margin-right: 20rpx;
+}
