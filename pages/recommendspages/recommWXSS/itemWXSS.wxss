@@ -19,3 +19,17 @@ ec-canvas {
   width:  80rpx;
   margin-right: 20rpx;
 }
+
+.agrees1{
+  position: relative;
+  height: 200rpx;
+  width:  200rpx;
+  margin-right: 20rpx;
+}
+
+.agrees2{
+  position: relative;
+  height: 180rpx;
+  width:  180rpx;
+  margin-right: 20rpx;
+}

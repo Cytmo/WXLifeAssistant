@@ -183,31 +183,16 @@ Page({
     for (var idx in datas.data) {
       cnt++;
       if (cnt <= 10) {
-
         var subject = datas.data[idx];
         var title = subject.name;
         if (title.length >= 10) {
           title = title.substring(0, 10) + "···";
         }
-        var attitude;
-        switch (subject.myattitude) {
-          case 1:
-            attitude = "推荐";
-            break;
-          case 0:
-            attitude = "暂无";
-            break;
-          case -1:
-            attitude = "不推荐";
-            break;
-            // default:
-            //   attitude="暂无"
-        }
         var temp = {
           unrecommendtotal: subject.unrecommendtotal,
           introduction: subject.introduction,
           image: subject.image,
-          attitude: attitude,
+          myattitude: subject.myattitude,
           author: subject.author,
           recommendtotal: subject.recommendtotal,
           ranks: subject.ranks,
@@ -265,39 +250,12 @@ Page({
         if (title.length >= 10) {
           title = title.substring(0, 10) + "···";
         }
-        var attitude;
-        switch (subject.myattitude) {
-          case 1:
-            attitude = "推荐";
-            break;
-          case 0:
-            attitude = "暂无";
-            break;
-          case -1:
-            attitude = "不推荐";
-            break;
-            // default:
-            //   attitude="暂无"
-        }
-        var attitude;
-        switch (subject.myattitude) {
-          case 1:
-            attitude = "推荐";
-            break;
-          case 0:
-            attitude = "暂无";
-            break;
-          case -1:
-            attitude = "不推荐";
-            break;
-            // default:
-            //   attitude="暂无"
-        }
+      
         var temp = {
           unrecommendtotal: subject.unrecommendtotal,
           introduction: subject.introduction,
           image: subject.image,
-          attitude: attitude,
+          myattitude: subject.myattitude,
           author: subject.author,
           recommendtotal: subject.recommendtotal,
           ranks: subject.ranks,
@@ -356,39 +314,11 @@ Page({
         if (title.length >= 10) {
           title = title.substring(0, 10) + "···";
         }
-        var attitude;
-        switch (subject.myattitude) {
-          case 1:
-            attitude = "推荐";
-            break;
-          case 0:
-            attitude = "暂无";
-            break;
-          case -1:
-            attitude = "不推荐";
-            break;
-            // default:
-            //   attitude="暂无"
-        }
-        var attitude;
-        switch (subject.myattitude) {
-          case 1:
-            attitude = "推荐";
-            break;
-          case 0:
-            attitude = "暂无";
-            break;
-          case -1:
-            attitude = "不推荐";
-            break;
-            // default:
-            //   attitude="暂无"
-        }
         var temp = {
           unrecommendtotal: subject.unrecommendtotal,
           introduction: subject.introduction,
           image: subject.image,
-          attitude: attitude,
+          myattitude: subject.myattitude,
           author: subject.author,
           recommendtotal: subject.recommendtotal,
           ranks: subject.ranks,
@@ -446,40 +376,12 @@ Page({
         if (title.length >= 10) {
           title = title.substring(0, 10) + "···";
         }
-        var attitude;
-        switch (subject.myattitude) {
-          case 1:
-            attitude = "推荐";
-            break;
-          case 0:
-            attitude = "暂无";
-            break;
-          case -1:
-            attitude = "不推荐";
-            break;
-            // default:
-            //   attitude="暂无"
-        }
-        var attitude;
-        switch (subject.myattitude) {
-          case 1:
-            attitude = "推荐";
-            break;
-          case 0:
-            attitude = "暂无";
-            break;
-          case -1:
-            attitude = "不推荐";
-            break;
-            // default:
-            //   attitude="暂无"
-        }
         var temp = {
           unrecommendtotal: subject.unrecommendtotal,
           introduction: subject.introduction,
           image: subject.image,
-          attitude: attitude,
-          author: subject.author,
+          myattitude: subject.myattitude,
+          myattitude: subject.myattitude,
           recommendtotal: subject.recommendtotal,
           ranks: subject.ranks,
           updatedchapter: subject.updatedchapter,

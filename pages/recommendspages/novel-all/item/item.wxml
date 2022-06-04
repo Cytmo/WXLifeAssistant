@@ -11,21 +11,29 @@
         <view class="author">作者：{{novel.author}}</view>
         <view class="wordsNum">状态：{{novel.completionstatus}}</view>
         <view class="updatetime">类型： <view class="cu-tag line-red" style="padding: 3rpx; height: 40rpx; font-size: 28rpx;">{{novel.category}}</view>
-        <view class="cu-tag line-blue"  style="padding: 3rpx; height: 40rpx; font-size: 28rpx;"> {{novel.subcategory}}</view>
+          <view class="cu-tag line-blue" style="padding: 3rpx; height: 40rpx; font-size: 28rpx;"> {{novel.subcategory}}</view>
         </view>
-        <view class="updatetime">排行：{{novel.ranks}}</view>
+        <view class="updatetime">排行：{{novel.ranks}} 推荐/不推荐:{{novel.recommendtotal}}/{{novel.unrecommendtotal}}</view>
       </view>
     </view>
     <view class="clearfix"></view>
     <view class="btn-group">
-      <view class="addToList" bindtap="addOrRemove">
-        <view class="true">
-          <icon class="addList-icon" />推荐指数
-        </view>
+
+      <view wx:if="{{!attitudeFor}}" bind:tap="agreeDefault" class="addToList">
+        <image src="/images/homepagephoto/agree.png" class="agrees1"></image><text style="font-size: 35rpx;position: relative; margin-left: 10rpx;">支持</text>
       </view>
-      <view class="read" bindtap="goToReader">
-        <image src=""></image>我的态度
+      <view wx:if="{{attitudeFor&&!attitudeAgainst}}" bind:tap="agreeYes" class="addToList">
+        <image src="/images/homepagephoto/agree1.png" class="agrees1"></image><text style="font-size: 35rpx;position: relative; margin-left: 10rpx;">支持</text>
+
       </view>
+
+      <view wx:if="{{!attitudeAgainst}}" bind:tap="disagreeDefault" class="read">
+        <image src="/images/homepagephoto/agree.png" class="agrees"></image><text style="font-size: 35rpx; position: relative; margin-left: 10rpx;">反对</text>
+      </view>
+      <view wx:if="{{!attitudeFor&&attitudeAgainst}}" bind:tap="disagreeNo" class="read">
+        <image src="/images/homepagephoto/disagree.png" class="agrees"></image><text style="font-size: 35rpx; position: relative; margin-left: 10rpx;">反对</text>
+      </view>
+
     </view>
   </view>
   <view style="margin-top: 20rpx;"></view>
@@ -41,5 +49,20 @@
     </view>
     <text class="info-content" style=" height: auto;" wx:if="{{!showDescFull}}">{{show}}</text>
     <text class="info-content" style=" height: auto;" wx:if="{{showDescFull}}">{{novel.introduction}}</text>
+  </view>
+
+  <view class="comments">
+    <view class="title">推荐指数
+      <text class="add-comment" bind:tap="showDescFullWords1" wx:if="{{!flag1&&!showDescFull1}}">展开</text>
+      <text class="add-comment" bind:tap="unshowDescFullWords1" wx:if="{{flag1}}">收起</text>
+    </view>
+    <view class="containerpie">
+      <text style="font-size: 30rpx; margin-left: 10rpx;color: #ccc;">支持\n比例</text>
+      <ec-canvas id="mychart-dom-pie" canvas-id="mychart-pie" ec="{{ ec }}"></ec-canvas>
+    </view>
+    <view class="containerpie" wx:if="{{showDescFull1}}">
+      <text style="font-size: 30rpx; margin-left: 10rpx;color: #ccc;">反对\n比例</text>
+      <ec-canvas id="mychart-dom-pie2" canvas-id="mychart-pie2" ec="{{ ec2 }}"></ec-canvas>
+    </view>
   </view>
 </view>
