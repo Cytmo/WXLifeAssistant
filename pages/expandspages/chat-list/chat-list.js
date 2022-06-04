@@ -12,6 +12,7 @@ Page({
     conversations: [],
     token: "",
     userId: "",
+    lastChat:[]
   },
 
   /**
@@ -257,7 +258,9 @@ Page({
 
   goToChat: function (temp) { 
     console.log(temp)
-    wx.setStorageSync("lastChat", temp);
+    this.setData({
+      lastChat:temp}
+    )
     var that = this
     // getApp().getIMHandler().setOnReceiveMessageListener({
 
@@ -327,9 +330,8 @@ Page({
 
 
   gotoLastChat: function () {
-    var lastChat=wx.getStorageSync("lastChat")
+    var lastChat = this.lastChat
     var temp = lastChat;
-    console.log(lastChat);
     if(lastChat==null){wx.showToast({
       icon:"error",
       title: '无上次会话信息',
