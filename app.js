@@ -23,8 +23,7 @@ App(
       tvHot: {},
       //userID为 openid
       userID: '1',
-      //userId为 注册id
-      userId: '',
+      userId:'1',
       openId: '',
       url: "http://10.131.150.190:8081",
       novelShow: {},

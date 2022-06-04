@@ -1,4 +1,5 @@
 <!--topicDetial.wxml-->
+<against id = "against" againstTo = "1" ></against>
 <view>
   <view class="mainview">
     <scroll-view scroll-y refresher-enabled="true"bindrefresherrefresh="onPullDownRefresh" lower-threshold='30' style="height:{{scrollHeight - 40}}px" bindscrolltolower="onReachBottom" refresher-triggered="{{triggered}}">
@@ -27,7 +28,7 @@
               <image src="../../../../images/comfort.png"></image>
               <text>{{contentdetail.comfort_num}}</text>
             </view>
-            <view bindtap='onAgainstHead'>
+            <view bindtap='onAgainst' data-id='{{contentdetail.hollowId}}'>
               <image src="../../../../images/against.png"></image>
             </view>
           </view>
@@ -60,7 +61,7 @@
               <image src="../../../../images/comfort.png"></image>
               <text>{{item.comfort_num}}</text>
             </view>
-            <view bindtap='onAgainstPublic' data-id='{{item.hollowId}}'>
+            <view bindtap='onAgainst' data-id='{{item.hollowId}}'>
               <image src="../../../../images/against.png"></image>
             </view>
           </view>

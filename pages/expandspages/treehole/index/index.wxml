@@ -1,4 +1,5 @@
 <!--index.wxml-->
+<against id = "against" againstTo = "1" ></against>
 <view>
   <view class="nav">
   <scroll-view scroll-x>
@@ -37,7 +38,7 @@
               <image src="../../../../images/comfort.png"></image>
               <text>{{item.comfort_num}}</text>
             </view>
-            <view bindtap='onAgainstPublic' data-id='{{item.hollowId}}'>
+            <view bindtap='onAgainst' data-id='{{item.hollowId}}'>
               <image src="../../../../images/against.png"></image>
             </view>
           </view>

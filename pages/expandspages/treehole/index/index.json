@@ -1,6 +1,7 @@
 {
   "usingComponents": {
-    "tabbar":"../../../../components/tabbar/index"
+    "tabbar":"../../../../components/tabbar/index",
+    "against":"../../../../components/against/against"
   },
 
   "navigationBarBackgroundColor": "#ffffff",
