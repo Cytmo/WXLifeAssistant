@@ -107,6 +107,7 @@ Page({
           console.log(res.data)
           token=res.data.token
           console.log("userId 为： "+res.data.user.userId)
+          app.globalData.userId=res.data.user.userId;
           wx.navigateTo({
             url:'../expandspages/chat-list/chat-list?&userid='+res.data.user.userId+"&token="+token,
             

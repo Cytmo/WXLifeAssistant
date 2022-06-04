@@ -4,9 +4,11 @@ import   '../../../../utils/util.js';
 import { formatTime,formatDate } from '../../../../utils/common'
 import {loadSuccess,loadFailed,handleRes} from '../../../../utils/czutils'
 var avoidPreviewImageOnShow; //避免预览图片后，触发onShow函数
-var ipv4 = "http://localhost:80"
-//index.js
+// var ipv4 = "http://localhost:80"
 const app = getApp()
+var ipv4 = "http://localhost:8081"
+//index.js
+
 Page({
   data: {
     openId: null,
@@ -31,14 +33,15 @@ Page({
 
   onLoad: function() {
     let  scrollHeight = wx.getSystemInfoSync().windowHeight;
+    console.log("idyuan:"+app.globalData.userId)
     this.setData({
       hollowList:[],
       scrollHeight: scrollHeight
     });
-    if(app.globalData.userID){
+    if(app.globalData.userId){
       // showMessage(app.globalData.userID);
       this.setData({
-        userId:app.globalData.userID
+        userId:app.globalData.userId
       })
     }else{
       // 跳转登录
@@ -71,6 +74,7 @@ Page({
     var urlsend = ipv4 + "/hollow/getHollowList"
 
     console.log("begin to get")
+    console.log("id:"+that.data.userId)
 
     wx.request({
       url: urlsend,

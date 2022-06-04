@@ -30,7 +30,6 @@ App(
       //userID在用户未登录时为1，登陆后为openid
       userID: 1,
       openId: '',
-      url: "http://10.131.150.190:8081",
     },
     getIMHandler() {
       return this.appIMDelegate.getIMHandlerDelegate();

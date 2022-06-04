@@ -3,7 +3,8 @@ var th = require('../../../../utils/throttle/throttle.js');
 import { formatTime,formatDate } from '../../../../utils/common'
 import {loadSuccess,loadFailed,handleRes} from '../../../../utils/czutils'
 const app = getApp();
-var ipv4 = "http://localhost:80"
+// var ipv4 = "http://localhost:80"
+var ipv4 = app.globalData.url
 Page({
   /**
    * 页面的初始数据
@@ -36,11 +37,11 @@ Page({
       scrollHeight: scrollHeight,
       replyConIdMap : new Map([[0,"消息不存在"]])
     });
-    if(app.globalData.userID){
-      // showMessage(app.globalData.userID);
+    if(app.globalData.userId){
+      // showMessage(app.globalData.userId);
       this.setData({
         replyList:[],
-        userId:app.globalData.userID
+        userId:app.globalData.userId
       })
     }else{
       // 跳转登录

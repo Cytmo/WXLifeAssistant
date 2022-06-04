@@ -8,15 +8,5 @@ function getSummary(content) {
 }
 
 module.exports = {
-<<<<<<< HEAD
-  getSummary
-
-=======
-<<<<<<< HEAD
-  getSummary
-
-=======
   getSummary: getSummary
->>>>>>> origin/master
->>>>>>> cznew
 }

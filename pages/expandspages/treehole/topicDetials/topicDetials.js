@@ -42,10 +42,10 @@ Page({
     console.log(options)
     var hollowId = options.recordid
     this.setData.replyId = options.recordid
-    if(app.globalData.userID){
-      // showMessage(app.globalData.userID);
+    if(app.globalData.userId){
+      // showMessage(app.globalData.userId);
       this.setData({
-        userId:app.globalData.userID
+        userId:app.globalData.userId
       })
     }else{
       // 跳转登录

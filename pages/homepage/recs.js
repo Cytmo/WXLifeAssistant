@@ -73,7 +73,6 @@ Page({
       }
     })
   },
-
   // 处理数据函数
   procseeData: function (datas) {
     var objects = [];

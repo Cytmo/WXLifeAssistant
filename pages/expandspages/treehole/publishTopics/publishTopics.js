@@ -4,7 +4,8 @@ import { formatTime,formatDate } from '../../../../utils/common'
 import {handleRes} from '../../../../utils/czutils'
 // miniprogram/pages/publishTopics/publishTopics.js
 const app = getApp();
-var ipv4 = "http://localhost:80"
+// var ipv4 = "http://localhost:80"
+var ipv4 = "http://localhost:8081"
 Page({
 
   /**
@@ -26,7 +27,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.data.userId = app.globalData.userID;
+    this.data.userId = app.globalData.userId;
   },
   /**
    * 生命周期函数--监听页面显示
