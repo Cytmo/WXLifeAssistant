@@ -30,13 +30,14 @@
       <view class="blank" wx:if="{{randomList.length == 0}}"><image src="../../../images/blank.png"></image></view>
 
       <view class="information" wx:for="{{randomList}}" wx:key="groupId">
-        <view class="useravatar" catchtap='showDetailsR' data-recordid='{{item.groupId}}'>
+        <view class="useravatar" catchtap='gotoTopicDetials' data-recordid='{{item.groupId}}'>
+          <image class="userimg" src="../../image/group_head/群聊{{item.groupId%10}}.png" ></image>
         </view>
         <view class="userinformation"  catchtap='showDetailsR' data-recordid='{{item.groupId}}'>
           <view class="information_top" catchtap='showDetailsR' data-recordid='{{item.groupId}}'>
             <view class="username" catchtap='showDetailsR' data-recordid='{{item.groupId}}'>{{item.name}}</view>
           </view>
-          <view class="information_text" catchtap='showDetailsR' data-recordid='{{item.groupId}}'>{{item.number}}
+          <view class="information_text" catchtap='showDetailsR' data-recordid='{{item.groupId}}'>群号：{{item.number}}
           </view>
         </view>
       </view>
@@ -48,23 +49,24 @@
   <view class="mainview" wx:if="{{currentIndexNav===1 && canshow}}" >
     <form catchsubmit="groupSearch">
       <view class = "xblock">
-        <view class="texteare">
+        <view class="texteare" style="height: 48rpx;">
           <textarea name="content" placeholder="请输入想搜的群名" placeholder-class="placeholderclass"></textarea>
         </view>
-        <button class="btn" form-type="submit">查询</button>
+        <button class="btn" style="width: 30%;margin:1% 7% 1% 3%;" form-type="submit">查询</button>
       </view>
     </form>
     
     <scroll-view scroll-y>
 
       <view class="information" wx:for="{{searchList}}" wx:key="groupId">
-        <view class="useravatar" catchtap='showDetailsS' data-recordid='{{item.groupId}}'>
+        <view class="useravatar" catchtap='gotoTopicDetials' data-recordid='{{item.groupId}}'>
+          <image class="userimg" src="../../image/group_head/群聊{{item.groupId%10}}.png" ></image>
         </view>
         <view class="userinformation" catchtap='showDetailsS' data-recordid='{{item.groupId}}'>
           <view class="information_top" catchtap='showDetailsS' data-recordid='{{item.groupId}}'>
             <view class="username" catchtap='showDetailsS' data-recordid='{{item.groupId}}'>{{item.name}}</view>
           </view>
-          <view class="information_text" catchtap='showDetailsS' data-recordid='{{item.groupId}}'>{{item.number}}
+          <view class="information_text" catchtap='showDetailsS' data-recordid='{{item.groupId}}'>群号：{{item.number}}
           </view>
         </view>
       </view>
@@ -74,13 +76,14 @@
   <view class="mainview2" wx:if="{{currentIndexNav===2 && canshow}}" >
     <scroll-view scroll-y="true" bindscrolltolower="addAll"  lower-threshold='30' style="height:{{scrollHeight}}px">
       <view class="information" wx:for="{{allList}}" wx:key="groupId">
-        <view class="useravatar" catchtap='showDetailsA' data-recordid='{{item.groupId}}'>
+        <view class="useravatar" catchtap='gotoTopicDetials' data-recordid='{{item.groupId}}'>
+          <image class="userimg" src="../../image/group_head/群聊{{item.groupId%10}}.png" ></image>
         </view>
         <view class="userinformation" catchtap='showDetailsA' data-recordid='{{item.groupId}}'>
           <view class="information_top" catchtap='showDetailsA' data-recordid='{{item.groupId}}'>
             <view class="username" catchtap='showDetailsA' data-recordid='{{item.groupId}}'>{{item.name}}</view>
           </view>
-          <view class="information_text" catchtap='showDetailsA' data-recordid='{{item.groupId}}'>{{item.number}}
+          <view class="information_text" catchtap='showDetailsA' data-recordid='{{item.groupId}}'>群号：{{item.number}}
           </view>
         </view>
       </view>
@@ -90,20 +93,21 @@
   <view class="mainview" wx:if="{{currentIndexNav===3 && canshow}}" >
     <view class = "xblock">
       <text class= "textmy">已发布的群</text>
-      <button class="btn" bindtap="addNew">+</button>
+      <button class="btn_add" style="width: 30%;margin:1% 7% 1% 3%;"  bindtap="addNew">+</button>
     </view>
     
     <scroll-view scroll-y>
       <view class="information" wx:for="{{myList}}" wx:key="groupId">
-        <view class="useravatar" catchtap='showDetailsM' data-recordid='{{item.groupId}}'>
+        <view class="useravatar" catchtap='gotoTopicDetials' data-recordid='{{item.groupId}}'>
+          <image class="userimg" src="../../image/group_head/群聊{{item.groupId%10}}.png" ></image>
         </view>
         <view class="userinformation" catchtap='showDetailsM' data-recordid='{{item.groupId}}'>
           <view class="information_top" catchtap='showDetailsM' data-recordid='{{item.groupId}}'>
             <view class="username" catchtap='showDetailsM' data-recordid='{{item.groupId}}'>{{item.name}}</view>
           </view>
-          <view class="information_text" catchtap='showDetailsM' data-recordid='{{item.groupId}}'>{{item.number}}
+          <view class="information_text" catchtap='showDetailsM' data-recordid='{{item.groupId}}'>群号：{{item.number}}
           </view>
-          <button class="btnDeny" bindtap="deleteGroup" data-recordid='{{item.groupId}}'>删除</button>
+          <button class="btnDeny" style = "width: 30%;margin-right: 0%;margin-left: 70%;" bindtap="deleteGroup" data-recordid='{{item.groupId}}'>删除</button>
         </view>
       </view>
     </scroll-view>

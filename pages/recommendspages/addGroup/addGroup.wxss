@@ -1,6 +1,6 @@
 /* pages/recommendspages/add-group/addGroup.wxss */
 .xrow{
-  height: 50rpx;
+  height: 70rpx;
   width: 100%;
   background:rgba(255, 255, 255, 1);
   display: flex;
@@ -13,7 +13,7 @@
   width: 100%;
   background:rgba(255, 255, 255, 1);
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   margin-top: 5rpx;
 }
 
@@ -27,7 +27,7 @@
 }
 
 .texteare{
-  height: 40rpx;
+  height: 100%;
   width: 80%;
   background:rgba(255, 255, 255, 1);
   padding: 5rpx 5rpx;
@@ -54,7 +54,7 @@
 
 .btn{
   width:10%;
-  height:100%;
+  height:120rpx;
   font-size:32rpx;
   font-family:SourceHanSansCN-Medium;
   font-weight:500;
@@ -81,21 +81,37 @@ height: 100%;
 
 .question-images {
   display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
   align-items: center;
   margin-top: 40rpx;
 }
 
 .q-image-wrap {
-  width: 31%;
+  width: 80%;
+  height: 80%;
   margin-right: 10rpx;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  display: flex;
 }
 
 .q-image {
   flex: 1;
-  height: 200rpx;
+  height: 300rpx;
   width: 100%;
+  height: 80%;
 }
 
 .q-image-remover {
   text-align: center;
+  margin-top: 3%;
+  width: 100%;
+  height: 20%;
+  font-size: large;
+  font-weight: bold;
+  color:green;
+  text-size-adjust:0.8 ;
 }

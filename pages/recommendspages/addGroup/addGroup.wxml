@@ -20,11 +20,10 @@
       </view>
     </view>
     <view class="bigxrow">
-      <button type="default" size="mini" bindtap="chooseImage" 
-        wx:if="{{images.length < 1}}"
-      >添加二维码图片</button>
+      <button type="default" style="height: 100%;" size="mini" bindtap="chooseImage" 
+        wx:if="{{images.length < 1}}">添加二维码图片</button>
       <!-- 图片缩略图  -->
-      <view class="question-images">
+      <view class="question-images" id = "img" style="height: {{image_size}};">
         <block wx:for="{{images}}" wx:key="*this">
           <view class="q-image-wrap">
             <image class="q-image" src="{{item}}" mode="aspectFill" data-idx="{{index}}" bindtap="handleImagePreview"></image>
@@ -32,7 +31,8 @@
           </view>
         </block>
       </view>
+      <button class="btn" form-type="submit">添加</button>
     </view>
   </view>
-  <button class="btn" form-type="submit">添加</button>
+  
 </form>
