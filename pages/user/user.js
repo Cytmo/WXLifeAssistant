@@ -7,22 +7,10 @@ Page({
     hasUserInfo: false,
     userInfo: [],
     userID: "",
-    array: ['ISTJ',
-      'ISFJ',
-      'INFJ',
-      'INTJ',
-      'ISTP',
-      'ISFP',
-      'INFP',
-      'INTP',
-      'ESTP',
-      'ESFP',
-      'ENFP',
-      'ENTP',
-      'ESTJ',
-      'ESFJ',
-      'ENFT',
-      'ENTJ',],
+    array: ['保密', 'INTJ', 'INTP', 'ENTJ', 'ENTP',
+            'INFJ', 'ENFP', 'ENFJ', 'ENFP',
+            'ISTJ', 'ISFJ', 'EdTJ', 'ESFJ',
+            'ISTP', 'ISFP', 'ESTP', 'ESFP'],
       index:''
 
   },
@@ -159,8 +147,7 @@ Page({
       data: {
         "wechatId": app.globalData.userID,
         "username": app.globalData.userInfo.nickName,
-        "phone": "19813218574",
-        "school": app.globalData.userInfo.avatarUrl,
+        "image":app.globalData.userInfo.avatarUrl
       },
       method: 'POST',
       header: {
@@ -299,16 +286,37 @@ Page({
   },
   
   bindPickerChange:function(e){
-    console.log('picker发送选择改变，携带值为', e.detail.value)
+    console.log('态度索引', e.detail.value)
     this.setData({
       index: e.detail.value
     })
+
     var that = this
-    //todo 向后端发送请求
-    wx.showToast({
-      title: '已设置为'+that.data.array[e.detail.value],
-      icon:'success'
+    // 向后端发送请求 mbti
+    wx.request({
+      url: app.globalData.url + "/user/mbti",
+      data: {
+        userId: app.globalData.userId,
+        mbti: that.data.index
+      },
+      method: 'POST',
+      header: {
+        'content-type': 'application/json'
+      },
+      success: function (res) {
+        wx.showToast({
+          title: that.data.array[e.detail.value]+',设置成功',
+          icon:'success'
+        })
+      },
+      fail: function (error) {
+        wx.showToast({
+          title: '请求失败，请检查你的网络情况',
+          icon:'error'
+        })
+      }
     })
+
 
 
   },
