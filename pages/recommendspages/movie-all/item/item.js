@@ -7,9 +7,9 @@ Page({
      * 页面的初始数据
      */
     data: {
-        rate1: {},
-        rate2: {},
-        flagChart :1,
+        rate1: [],
+        rate2: [],
+        flagChart: 1,
         index: {},
         attitudeFor: 0,
         attitudeAgainst: 0,
@@ -99,23 +99,17 @@ Page({
     },
 
     bindPickerChangeMovie: function (e) {
-      this.setData({ flagChart: 0})
+        this.setData({flagChart: 0})
         console.log('picker发送选择改变，携带值为', e.detail.value)
         var id = e.detail.value
         var array1 = [
             'intj', 'intp', 'entj', 'entp',
             'infj', 'enfp', 'enfj', 'enfp',
-            'istj', 'isfj', 'edtj', 'esfj',
+            'istj', 'isfj', 'estj', 'esfj',
             'istp', 'isfp', 'estp', 'esfp'
         ]
         console.log(array1[id])
 
-        var typeShow1 =
-            ['建筑师', '逻辑学家', '指挥家', '辩论家',
-                '提倡者', '调停者', '主人公', '竞选者',
-                '物流师', '守卫者', '总经理', '执政官',
-                '鉴赏家', '探险家', '企业家', '表演者'
-            ]
         var typeShow1 =
             ['建筑师', '逻辑学家', '指挥家', '辩论家',
                 '提倡者', '调停者', '主人公', '竞选者',
@@ -128,8 +122,9 @@ Page({
         var rate2 = this.data.rate2
 
         var dataShow = []
-        dataShow.push(rate1[id])
         dataShow.push(rate2[id])
+        dataShow.push(rate1[id])
+
 
         var dataShowFinal = {
             series: [{
@@ -147,19 +142,18 @@ Page({
 
         this.setData({
             option: dataShowFinal,
-        },()=>{
-          console.log(dataShowFinal.series[0].data)
-          console.log("重新赋值")
-          var ec = {
-            onInit: this.initChart
-          }
-          this.setData({
-            ec: ec
-          },()=>{
-            this.setData({ flagChart: 1})
-          })
+        }, () => {
+            console.log(dataShowFinal.series[0].data)
+            console.log("重新赋值")
+            var ec = {
+                onInit: this.initChart
+            }
+            this.setData({
+                ec: ec
+            }, () => {
+                this.setData({flagChart: 1})
+            })
         })
-
 
 
     },
@@ -167,36 +161,50 @@ Page({
 
     initChartData: function name(params) {
         var rate1 = [];
-        for (var x in params) {
-            if (x.split(":")[0].length == 4 && x.split(":")[0] != "type" && x.split(":")[0] != "info" && x.split(":")[0] != "name") {
-                var p = x.split(":")[0]
-                var t = this.getNumber(p, params)
-                var tmp = {
-                    // name: x.split(":")[0],
-                    name: "支持者",
-                    value: t
-                }
-                rate1.push(tmp)
-            }
-        }
         var rate2 = [];
-        for (var x in params) {
-            if (x.split(":")[0].length == 6) {
-                var p = x.split(":")[0]
-                var t = this.getNumber(p, params)
-                var tmp = {
-                    // name: x.split(":")[0],
-                    name: "反对者",
-                    value: t
+        var array1 = [
+            'intj', 'intp', 'entj', 'entp',
+            'infj', 'enfp', 'enfj', 'enfp',
+            'istj', 'isfj', 'estj', 'esfj',
+            'istp', 'isfp', 'estp', 'esfp'
+        ]
+
+        console.log("开始赋值")
+        for (var y in array1) {
+
+            for (var x in params) {
+                if (x.split(":")[0]==array1[y]) {
+                    var p = x.split(":")[0]
+                    var t = this.getNumber(p, params)
+                    var tmp = {
+                        // name: x.split(":")[0],
+                        name: array1[y]+ " 支持者",
+                        value: t
+                    }
+                    rate1.push(tmp)
+                    var p2 = "un" + p
+                    var t2 = this.getNumber(p2, params)
+                    // console.log(p2,t2)
+                    var tmp2 = {
+                        name: array1[y] + " 反对者",
+                        value: t2
+                    }
+                    rate2.push(tmp2)
+
                 }
-                rate2.push(tmp)
             }
+
         }
+
+
+        console.log(rate2)
+        console.log(rate1)
 
 
         var dataShow = []
-        dataShow.push(rate1[0])
         dataShow.push(rate2[0])
+        dataShow.push(rate1[0])
+
 
         var dataShowFinal = {
             series: [{
@@ -231,7 +239,7 @@ Page({
         canvas.setChart(chart);
         var that = this
         var option = that.data.option;
-        chart.setOption(option,true);
+        chart.setOption(option, true);
         return chart;
     },
 
@@ -273,10 +281,8 @@ Page({
         //发送给后端
         var that = this
         var wechatid = app.globalData.userID
-        var personality = "未知"
         var data = {
             wechatid: wechatid,
-            personality: personality,
             ranks: that.data.movie.ranks,
             attitude: 1,
             name: that.data.movie.name
@@ -318,7 +324,6 @@ Page({
         var personality = "未知"
         var data = {
             wechatid: wechatid,
-            personality: personality,
             ranks: that.data.movie.ranks,
             attitude: 0,
             name: that.data.movie.name
@@ -363,10 +368,8 @@ Page({
 
         var that = this
         var wechatid = app.globalData.userID
-        var personality = "未知"
         var data = {
             wechatid: wechatid,
-            personality: personality,
             ranks: that.data.movie.ranks,
             attitude: -1,
             name: that.data.movie.name
@@ -406,10 +409,8 @@ Page({
         })
         var that = this
         var wechatid = app.globalData.userID
-        var personality = "未知"
         var data = {
             wechatid: wechatid,
-            personality: personality,
             ranks: that.data.movie.ranks,
             attitude: 0,
             name: that.data.movie.name

@@ -61,6 +61,7 @@
 
   <view class="movie-info main-content">
     <view class="block-title">推荐指数
+
     <view class="more2">
       <picker bindchange="bindPickerChangeMovie" value="{{index}}" range="{{array}}">
         <view class="picker">
@@ -68,6 +69,8 @@
         </view>
       </picker>
     </view>
+
+
 
   </view>
 

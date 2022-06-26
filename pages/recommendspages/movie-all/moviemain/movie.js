@@ -109,30 +109,37 @@ Page({
           intp: subject.intp,
           entj: subject.entj,
           entp: subject.entp,
+
           infj: subject.infj,
           infp: subject.infp,
           enfj: subject.enfj,
           enfp: subject.enfp,
+
           istj: subject.istj,
           isfj: subject.isfj,
           estj: subject.estj,
           esfj: subject.esfj,
+
           istp: subject.istp,
           isfp: subject.isfp,
           estp: subject.estp,
           esfp: subject.esfp,
+
           unintj: subject.unintj,
           unintp: subject.unintp,
           unentj: subject.unentj,
           unentp: subject.unentp,
+
           uninfj: subject.uninfj,
           uninfp: subject.uninfp,
           unenfj: subject.unenfj,
           unenfp: subject.unenfp,
+
           unistj: subject.unistj,
           unisfj: subject.unisfj,
           unestj: subject.unestj,
           unesfj: subject.unesfj,
+
           unistp: subject.unistp,
           unisfp: subject.unisfp,
           unestp: subject.unestp,
@@ -174,30 +181,37 @@ Page({
           intp: subject.intp,
           entj: subject.entj,
           entp: subject.entp,
+
           infj: subject.infj,
           infp: subject.infp,
           enfj: subject.enfj,
           enfp: subject.enfp,
+
           istj: subject.istj,
           isfj: subject.isfj,
           estj: subject.estj,
           esfj: subject.esfj,
+
           istp: subject.istp,
           isfp: subject.isfp,
           estp: subject.estp,
           esfp: subject.esfp,
+
           unintj: subject.unintj,
           unintp: subject.unintp,
           unentj: subject.unentj,
           unentp: subject.unentp,
+
           uninfj: subject.uninfj,
           uninfp: subject.uninfp,
           unenfj: subject.unenfj,
           unenfp: subject.unenfp,
+
           unistj: subject.unistj,
           unisfj: subject.unisfj,
           unestj: subject.unestj,
           unesfj: subject.unesfj,
+
           unistp: subject.unistp,
           unisfp: subject.unisfp,
           unestp: subject.unestp,
