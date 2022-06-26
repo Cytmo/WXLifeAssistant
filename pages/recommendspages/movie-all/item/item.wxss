@@ -160,8 +160,10 @@
   padding: 2px 5px;
   color: #42bd56;
   cursor: pointer;
-
 }
+
+
+
 .movie-info .more::after {
   content: '';
   position: absolute;

@@ -1,7 +1,7 @@
 <!--components/hollowname/hollownameset.wxml-->
 <view class="drawer_screen"  wx:if="{{showTag === true}}">
     <view class="drawer_box" catchtap="toFocus">
-      <form catchsubmit="sendAgainst" style="width:100%;height:100%">
+      <form catchsubmit="setHollowName" style="width:100%;height:100%">
         <view class="texteare">
             <textarea name="content"  focus="{{focus}}" style="width:100%;height:100%"  placeholder="请输入你的树洞昵称，以开始你的树洞之旅，昵称不超过10个字符" placeholder-class="placeholderclass"></textarea>
         </view>

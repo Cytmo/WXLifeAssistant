@@ -33,3 +33,11 @@ ec-canvas {
   width:  180rpx;
   margin-right: 20rpx;
 }
+
+.more2 {
+  position: absolute;
+  right: 15px;
+  padding: 2px 5px;
+  color: #42bd56;
+  cursor: pointer;
+}

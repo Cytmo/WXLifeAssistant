@@ -7,6 +7,10 @@ Page({
    * 页面的初始数据
    */
   data: {
+    rate1: [],
+    rate2: [],
+    flagChart :1,
+    index: {},
     attitudeFor: 0,
     attitudeAgainst: 0,
     id : '',
@@ -24,9 +28,13 @@ Page({
     detailInfo:'',
     ec: {},
     option: {},
-    ec2: {},
-    option2: {},
-    ColorList: [{
+    array: ['intj-建筑师', 'intp-逻辑学家', 'entj-指挥家', 'entp-辩论家',
+      'infj-提倡者', 'enfp-调停者', 'enfj-主人公', 'enfp-竞选者',
+      'istj-物流师', 'isfj-守卫者', 'estj-总经理', 'esfj执政官',
+      'istp-鉴赏家', 'isfp-探险家', 'estp-企业家', 'esfp-表演者'
+    ],
+    ColorList: [
+        {
       title: '嫣红',
       name: 'red',
       color: '#e54d42'
@@ -152,12 +160,6 @@ Page({
     this.setData({
       ec: ec
     })
-    var ec2 = {
-      onInit: this.initChart2
-    }
-    this.setData({
-      ec2: ec2
-    })
 
     var tmp=this.getDesc60Words(novel.introduction)
     var tmp1=novel.introduction
@@ -167,6 +169,157 @@ Page({
      }else{
      }
   },
+
+  bindPickerChangeNovel: function (e) {
+    this.setData({ flagChart: 0})
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    var id = e.detail.value
+    var array1 = [
+      'intj', 'intp', 'entj', 'entp',
+      'infj', 'enfp', 'enfj', 'enfp',
+      'istj', 'isfj', 'estj', 'esfj',
+      'istp', 'isfp', 'estp', 'esfp'
+    ]
+    console.log(array1[id])
+
+    var typeShow1 =
+        ['建筑师', '逻辑学家', '指挥家', '辩论家',
+          '提倡者', '调停者', '主人公', '竞选者',
+          '物流师', '守卫者', '总经理', '执政官',
+          '鉴赏家', '探险家', '企业家', '表演者'
+        ]
+
+    var that = this
+    var rate1 = this.data.rate1
+    var rate2 = this.data.rate2
+
+    var dataShow = []
+    dataShow.push(rate2[id])
+    dataShow.push(rate1[id])
+
+
+    var dataShowFinal = {
+      series: [{
+        label: {
+          normal: {
+            fontSize: 14
+          }
+        },
+        type: 'pie',
+        center: ['50%', '50%'],
+        radius: ['20%', '40%'],
+        data: dataShow
+      }]
+    };
+
+    this.setData({
+      option: dataShowFinal,
+    },()=>{
+      console.log(dataShowFinal.series[0].data)
+      console.log("重新赋值")
+      var ec = {
+        onInit: this.initChart
+      }
+      this.setData({
+        ec: ec
+      },()=>{
+        this.setData({ flagChart: 1})
+      })
+    })
+
+  },
+
+
+  initChartData: function name(params) {
+    var rate1 = [];
+    var rate2 = [];
+
+    var array1 = [
+      'intj', 'intp', 'entj', 'entp',
+      'infj', 'enfp', 'enfj', 'enfp',
+      'istj', 'isfj', 'estj', 'esfj',
+      'istp', 'isfp', 'estp', 'esfp'
+    ]
+    var array2= [
+        'intj-建筑师', 'intp-逻辑学家', 'entj-指挥家', 'entp-辩论家',
+      'infj-提倡者', 'enfp-调停者', 'enfj-主人公', 'enfp-竞选者',
+      'istj-物流师', 'isfj-守卫者', 'estj-总经理', 'esfj执政官',
+      'istp-鉴赏家', 'isfp-探险家', 'estp-企业家', 'esfp-表演者'
+    ]
+
+    console.log("开始赋值")
+    for (var  y in array1){
+      for (var x in params) {
+        if (x.split(":")[0]==array1[y]) {
+          var p = x.split(":")[0]
+          var t = this.getNumber(p, params)
+          // console.log(p)
+          // console.log(t)    // console.log(p2,t2)
+          var tmp = {
+            name: array1[y]+" 支持者",
+            value: t
+          }
+          rate1.push(tmp)
+          var p2="un"+p
+          var t2 = this.getNumber(p2, params)
+          var tmp2 = {
+            name: array1[y]+" 反对者",
+            value: t2
+          }
+          // console.log(p2)
+          // console.log(t2)
+          rate2.push(tmp2)
+
+        }
+      }
+
+    }
+
+    console.log(rate2)
+    console.log(rate1)
+
+
+    var dataShow = []
+    dataShow.push(rate2[0])
+    dataShow.push(rate1[0])
+
+    var dataShowFinal = {
+      series: [{
+        label: {
+          normal: {
+            fontSize: 14
+          }
+        },
+        type: 'pie',
+        center: ['50%', '50%'],
+        radius: ['20%', '40%'],
+        data: dataShow
+      }]
+    };
+
+    console.log(dataShow)
+
+    this.setData({
+      rate1: rate1,
+      rate2: rate2,
+      option: dataShowFinal,
+    })
+
+  },
+  initChart: function (canvas, width, height, dpr) {
+    const chart = echarts.init(canvas, null, {
+      width: width,
+      height: height,
+      devicePixelRatio: dpr
+    });
+    canvas.setChart(chart);
+    var that = this
+    var option = that.data.option;
+    chart.setOption(option);
+    return chart;
+  },
+
+
 
   agreeDefault: function () {
     console.log("支持")
@@ -186,8 +339,8 @@ Page({
     console.log(tmp)
     console.log("原态度为"+tmp.myattitude)
     if(tmp.myattitude==0){
-       tmp.recommendtotal++;
-       tmp.myattitude=1;
+      tmp.recommendtotal++;
+      tmp.myattitude=1;
     }else if(tmp.myattitude==-1){
       tmp.recommendtotal++;
       tmp.unrecommendtotal--;
@@ -215,7 +368,6 @@ Page({
     var personality = "未知"
     var data = {
       wechatid: wechatid,
-      personality: personality,
       author: that.data.novel.author,
       attitude: 1,
       name: that.data.novel.name
@@ -265,7 +417,6 @@ Page({
     var personality = "未知"
     var data = {
       wechatid: wechatid,
-      personality: personality,
       author: that.data.novel.author,
       attitude: 0,
       name: that.data.novel.name
@@ -319,7 +470,6 @@ Page({
     var personality = "未知"
     var data = {
       wechatid: wechatid,
-      personality: personality,
       author: that.data.novel.author,
       attitude: -1,
       name: that.data.novel.name
@@ -369,7 +519,6 @@ Page({
     var personality = "未知"
     var data = {
       wechatid: wechatid,
-      personality: personality,
       author: that.data.novel.author,
       attitude: 0,
       name: that.data.novel.name
@@ -399,87 +548,6 @@ Page({
     })
   },
 
-  initChartData: function name(params) {
-    var rate = [];
-    for (var x in params) {
-      if (x.split(":")[0].length == 4 && x.split(":")[0] != "type" && x.split(":")[0] != "info" && x.split(":")[0] != "name") {
-        var p = x.split(":")[0]
-        var t = this.getNumber(p, params)
-        var tmp = {
-          name: x.split(":")[0],
-          value: t
-        }
-        rate.push(tmp)
-      }
-    }
-    var data = {
-      series: [{
-        label: {
-          normal: {
-            fontSize: 14
-          }
-        },
-        type: 'pie',
-        center: ['50%', '50%'],
-        radius: ['20%', '40%'],
-        data: rate
-      }]
-    };
-    var rate2 = [];
-    for (var x in params) {
-      if (x.split(":")[0].length == 6) {
-        var p = x.split(":")[0]
-        var t = this.getNumber(p, params)
-        var tmp = {
-          name: x.split(":")[0],
-          value: t
-        }
-        rate2.push(tmp)
-      }
-    }
-    var data2 = {
-      series: [{
-        label: {
-          normal: {
-            fontSize: 14
-          }
-        },
-        type: 'pie',
-        center: ['50%', '50%'],
-        radius: ['20%', '40%'],
-        data: rate2
-      }]
-    };
-    this.setData({
-      option: data,
-      option2: data2
-    })
-
-  },
-  initChart: function (canvas, width, height, dpr) {
-    const chart = echarts.init(canvas, null, {
-      width: width,
-      height: height,
-      devicePixelRatio: dpr // new
-    });
-    canvas.setChart(chart);
-    var that = this
-    var option = that.data.option;
-    chart.setOption(option);
-    return chart;
-  },
-  initChart2: function (canvas, width, height, dpr) {
-    const chart = echarts.init(canvas, null, {
-      width: width,
-      height: height,
-      devicePixelRatio: dpr // new
-    });
-    canvas.setChart(chart);
-    var that = this
-    var option2 = that.data.option2;
-    chart.setOption(option2);
-    return chart;
-  },
 
 
   getDesc60Words(desc) {
@@ -558,6 +626,7 @@ Page({
   onShareAppMessage: function () {
     
   },
+
   getNumber: function (x, params) {
     if (x == "intj") {
       return params.intj;

@@ -33,7 +33,7 @@ Component({
       var content = event.detail.value.content;
       var userId = this.data.userId;
       var urlin = ipv4 + "/user/puthollowname"
-      that = this
+      var that = this
       wx.request({
         url: urlin,
         method: 'post',
@@ -47,6 +47,7 @@ Component({
         success: function(res) {
           handleRes(res)
           if(res.data.code == 0){
+            app.globalData.userInformation.hollowName = content
             that.closeShow()
           }
         },
