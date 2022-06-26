@@ -41,7 +41,7 @@ Page({
             pageHeight: wx.getSystemInfoSync().windowHeight,
         });
         wx.setNavigationBarTitle({
-            title: friend.friendName || ''
+            title: "friend.friendName" || ''
         });
         this.imOperator = new IMOperator(this, friend);
         this.UI = new UI(this);
