@@ -5,8 +5,8 @@ import {handleRes} from '../../../../utils/czutils'
 // miniprogram/pages/publishTopics/publishTopics.js
 const app = getApp();
 // var ipv4 = "http://localhost:80"
-var ipv4 = "http://localhost:8081"
-// var ipv4 = app.globalData.url
+// var ipv4 = "http://localhost:8081"
+var ipv4 = app.globalData.url
 Page({
 
   /**
