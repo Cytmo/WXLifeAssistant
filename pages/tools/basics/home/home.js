@@ -14,14 +14,14 @@ Component({
       {
         title: '诉说之窗',
         name: 'talk',
-        color: 'brown',
+        color: 'mauve',
         icon: 'message',
         url: '../expandspages/chat-list/chat-list'
       },
       {
         title: '群组 ',
         name: 'Group',
-        color: 'mauve',
+        color: 'brown',
         icon: 'friend',
         url:  '/pages/recommendspages/group/group?&pageid=' + 0
       },
@@ -54,31 +54,3 @@ Component({
 })
 
 //备选样式(颜色) 按钮背景在 WXLifeAssistant\app.wxss   line-29
-// {
-//   title: '头像',
-//   name: 'avatar',
-//   color: 'red',
-//   icon: 'myfill',
-//   url:''
-// },
-// {
-//   title: '进度条',
-//   name: 'progress',
-//   color: 'orange',
-//   icon: 'icloading',
-//   url:''
-// },
-// {
-//   title: '边框阴影',
-//   name: 'shadow',
-//   color: 'olive',
-//   icon: 'copy',
-//   url:''
-// },
-// {
-//   title: '加载',
-//   name: 'loading',
-//   color: 'green',
-//   icon: 'loading2',
-//   url:''
-// },

@@ -9,9 +9,9 @@
 </swiper>
 <view class="notice">
 </view>
-<i-notice-bar icon="systemprompt" closable loop >
-核酸检测:接学校通知，将于5月29-30日开展一轮扩面核酸检测
-</i-notice-bar>
+<!--<i-notice-bar icon="systemprompt" closable loop >-->
+<!--核酸检测:接学校通知，将于5月29-30日开展一轮扩面核酸检测-->
+<!--</i-notice-bar>-->
 <view class="notice2">
 </view>
 <basics wx:if="{{PageCur=='basics'}}"></basics>
@@ -19,28 +19,3 @@
 <plugin wx:if="{{PageCur=='plugin'}}"></plugin>
 <about wx:if="{{PageCur=='about'}}"></about>
 
-
-<!-- 
-<view class="subtitle">
-  <text>常用应用</text>
-</view>
-<view class="container2">
-    <image src='/images/homepagephoto/whu_logo.png' class='restimg' bindtap="gotoOther1"></image>
-  </view>
-<view class="container2"></view>
-<view class="subtitle">
-  <text>兴趣应用</text>
-</view>
-<view class="container2">
-  <image src='/images/homepagephoto/movie_icon.png' class='restimg' bindtap="gotoMovie"></image>
-  <image src='/images/homepagephoto/novel_icon.png' class='restimg' bindtap="gotoNovel"></image>
-  <image src='/images/homepagephoto/tv_icon.png' class='restimg' bindtap="gotoTVSeries"></image>
-  <image src='/images/homepagephoto/group_icon.png' class='restimg' bindtap="gotoGroup"></image>
-</view>
-<view class="subtitle">
-  <text>特色应用</text>
-</view>
-<view class="container2">
-  <image src='/images/homepagephoto/treehole_icon.png' class='restimg' bindtap="goToTreehole"></image>
-  <image src='/images/homepagephoto/talk_icon.png' class='restimg' bindtap="goToChatList"></image>
-</view> -->

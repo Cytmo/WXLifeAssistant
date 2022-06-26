@@ -1,6 +1,6 @@
 <!--map/map/map.wxml-->
 
-<view class="page">
+<view class="page" style="background-color: #FFFFFF;">
 
   <!--顶部导航栏-->
   <view class="swiper-tab" >
@@ -37,7 +37,8 @@
 
     </swiper-item>
     <swiper-item  >
-      <view wx:for="{{ markers }}">
+    <view>
+      <view wx:for="{{ markers }}" class="border">
         <view class="movie-item">
           <image class="poster" src="../images/location.png"></image>
           <view class="meta">
@@ -49,6 +50,7 @@
 
         </view>
       </view>
+    </view>
 
 
     </swiper-item>
