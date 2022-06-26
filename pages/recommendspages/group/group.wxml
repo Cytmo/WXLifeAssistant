@@ -1,4 +1,5 @@
 <!--pages/recommendspages/group/group.wxml-->
+
 <view>
 
   <view class="drawer_screen" bindtap="closeShow" wx:if="{{showGroupTag === true}}">
