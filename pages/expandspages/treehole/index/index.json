@@ -1,7 +1,8 @@
 {
   "usingComponents": {
     "tabbar":"../../../../components/tabbar/index",
-    "against":"../../../../components/against/against"
+    "against":"../../../../components/against/against",
+    "hollownameset":"../../../../components/hollowname/hollownameset"
   },
 
   "navigationBarBackgroundColor": "#ffffff",

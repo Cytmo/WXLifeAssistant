@@ -30,7 +30,8 @@ Page({
     triggered: false,
     scrollHeight : 200,
 
-    against:null
+    against:null,
+    hollownameset:null
 
   },
 
@@ -71,21 +72,22 @@ Page({
       userId:app.globalData.userId
     });
 
-    // if(app.globalData.userId){
-    //   // showMessage(app.globalData.userID);
-    //   this.setData({
-    //     userId:app.globalData.userId
-    //   })
-    // }else{
-    //   // 跳转登录
-    //   app.openIdReadyCallback = res => {
-    //     //开启未读消息自动刷新
-    //     showMessage(res.result.openid);
-    //     this.setData({
-    //       openId: res.result.openid
-    //     });
-    //   }
-    // }
+    if(app.globalData.userId){
+      // showMessage(app.globalData.userID);
+      this.setData({
+        userId:app.globalData.userId
+      })
+    }else{
+      // 跳转登录
+      app.openIdReadyCallback = res => {
+        //开启未读消息自动刷新
+        showMessage(res.result.openid);
+        this.setData({
+          openId: res.result.openid
+        });
+      }
+    }
+
   },
 
   /**
@@ -99,6 +101,14 @@ Page({
 
   onReady:function(){
     this.against = this.selectComponent("#against")
+    this.hollownameset = this.selectComponent("#hollownameset")
+    var that = this;
+    console.log("是否有树洞昵称：" + app.globalData.userInformation.hollowName)
+    if(app.globalData.userInformation.hollowName == null){
+      console.log("进入到树洞的昵称填写阶段")
+      that.hollownameset.setId(app.globalData.userId)
+      that.hollownameset.toShow()
+    }
   },
 
   getHollowList:function(time){

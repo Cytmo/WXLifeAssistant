@@ -1,5 +1,6 @@
 <!--index.wxml-->
 <against id = "against" againstTo = "1" ></against>
+<hollownameset id = "hollownameset" ></hollownameset>
 <view>
   <view class="nav">
   <scroll-view scroll-x>
