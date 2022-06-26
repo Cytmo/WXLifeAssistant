@@ -10,30 +10,31 @@
   <button class="button"  wx:if="{{!hasUserInfo}}" open-type="getUserInfo" bindtap="doAuthorization"> 微信登录 </button>
 </view>
 
-<view class="hr"></view>
+<!-- <view class="hr"></view>
 <view class='item'>
   <view class="title" bindtap="gotoChatList">聊天测试</view>
   <view class="detail2">
     <text>></text>
   </view>
-</view>
+</view> -->
 <view class="line"></view>
 
 <view class='item'>
-  <view class="title">MBTI</view>
+  <picker class="title" mode="selector" range="{{array}}" value="{{index}}" bindchange="bindPickerChange">MBTI设置</picker>
   <view class="detail2">
     <text>></text>
   </view>
 </view>
 
- <view class="hr"></view>
+<view class="line"></view>
 <view class='item'>
-  <view class="title">占位按钮1</view>
+  <view class="title" bindtap="goToMBTI" >MBTI测试</view>
   <view class="detail2">
     <text> ></text>
   </view>
 </view> 
-<view class="line"></view>
+
+<view class="hr"></view>
 <view class="item">
   <view class="title">通知</view>
   <view class="detail2">

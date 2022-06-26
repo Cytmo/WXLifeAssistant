@@ -7,11 +7,17 @@ Page({
   data: {
     hasUserInfo: false,
     userInfo: [],
-    userID: ""
+    userID: "",
+    array: ['保密','INTJ', 'INTP', 'ENTJ', 'ENTP',
+            'INFJ', 'ENFP', 'ENFJ', 'ENFP',
+            'ISTJ', 'ISFJ', 'EdTJ', 'ESFJ',
+            'ISTP', 'ISFP', 'ESTP', 'ESFP'],
+      index:''
+
   },
   doAuthorization: function (e) {
-    var ifYes=true
-    var that =this
+    var ifYes = true
+    var that = this
     wx.getUserProfile({
       desc: '展示用户信息', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
       success: (res) => {
@@ -22,8 +28,8 @@ Page({
         })
         console.log("存储userInfo 为: " + res.userInfo, );
         console.log(res.userInfo);
-        app.globalData.userInfo=res.userInfo
-        wx.setStorageSync('userInfo', res.userInfo, );
+        app.globalData.userInfo = res.userInfo
+        wx.setStorageSync('userInfo', res.userInfo,);
         that.login();
       },
       fail: function (err) {
@@ -31,10 +37,8 @@ Page({
         loadFailed("获取用户信息失败");
       }
     })
+  },
 
-   
-
-    },
 
     login:function(){
         var that = this;
@@ -64,10 +68,10 @@ Page({
             })
   
           }
-  
         })
     },
 
+  
   registerAndLogin: function () {
     //首先请求登录，如果失败则进行注册
     var token;
@@ -87,6 +91,9 @@ Page({
           'content-type': 'application/json'
         },
         success: function (res) {
+          if (res.data.code == 12) {
+            that.userRegister()
+          }
           console.log(res.data)
           if(res.data.code == 0){
             token = res.data.token
@@ -104,13 +111,14 @@ Page({
         fail: function (error) {
           console.log("登陆失败，准备注册")
           console.log(error)
-          that.userRegister()           
+          that.userRegister()
         }
       })
-    } 
+    }
   },
 
   userRegister() {
+
     var that = this
     wx.request({
       url: app.globalData.url + "/user/register",
@@ -162,6 +170,47 @@ Page({
       }
     })
     //that.loadUserInfo();
+  },
+  
+  bindPickerChange:function(e){
+    console.log('态度索引', e.detail.value+1)
+    this.setData({
+      index: e.detail.value
+    })
+    if(e.detail.value == 0){
+      wx.showToast({
+        title: '不可设置为保密',
+        icon:'error',
+      })
+    }else{
+    var that = this
+    // 向后端发送请求 mbti
+    wx.request({
+      url: app.globalData.url + "/user/mbti",
+      data: {
+        userId: app.globalData.userId,
+        mbti: that.data.index+1
+      },
+      method: 'POST',
+      header: {
+        'content-type': 'application/json'
+      },
+      success: function (res) {
+        wx.showToast({
+          title: that.data.array[e.detail.value]+',设置成功',
+          icon:'success'
+        })
+      },
+      fail: function (error) {
+        wx.showToast({
+          title: '请求失败，请检查你的网络情况',
+          icon:'error'
+        })
+      }
+    })
+
+  }
+
   },
 
   onLoad: function (options) {

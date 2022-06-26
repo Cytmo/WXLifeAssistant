@@ -11,7 +11,7 @@ export default class IMOperator {
   constructor(page, opts) {
     this._opts = opts;
     this._latestTImestamp = 0; //最新消息的时间戳
-    this._myHeadUrl = getApp().globalData.userInfo.myHeadUrl;
+    this._myHeadUrl = getApp().globalData.userInfo.avatarUrl;
     this._otherHeadUrl = this._opts.friendHeadUrl;
     this._page = page;
   }
@@ -128,7 +128,7 @@ export default class IMOperator {
         timestamp: currentTimestamp,
         type:"text", //内容的类型，目前有这几种类型： text/voice/image/custom | 文本/语音/图片/自定义
         content:content.chatMessage, // 显示的内容，根据不同的类型，在这里填充不同的信息。
-        headUrl: content.user.image, //显示的头像，自己或好友的。
+        headUrl: isMy ? this._myHeadUrl : this._otherHeadUrl, //显示的头像，自己或好友的。
         sendStatus: 'success', //发送状态，目前有这几种状态：sending/success/failed | 发送中/发送成功/发送失败
         voiceDuration: duration, //语音时长 单位秒
         isPlaying: false, //语音是否正在播放

@@ -17,7 +17,7 @@ Page({
 
   groupadd:function(e){
     var addNew = e.detail.value
-    var userId = app.globalData.userID
+    var userId = app.globalData.userId
     var that = this; 
     var sendUrl = ipv4 + "/group/addgroup"
     wx.showLoading({

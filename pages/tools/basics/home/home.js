@@ -3,7 +3,29 @@ Component({
     addGlobalClass: true,
   },
   data: {
-    elements: [{
+    elements: [
+      {
+        title: '树洞',
+        name: 'Tree Hole',
+        color: 'pink',
+        icon: 'btn',
+        url: '../expandspages/treehole/index/index'
+      },
+      {
+        title: '诉说之窗',
+        name: 'talk',
+        color: 'brown',
+        icon: 'tagfill',
+        url: '../expandspages/chat-list/chat-list'
+      },
+      {
+        title: '群组 ',
+        name: 'Group',
+        color: 'mauve',
+        icon: 'icon',
+        url:  '/pages/recommendspages/group/group?&pageid=' + 0
+      },
+      {
         title: '电影推荐',
         name: 'Movies',
         color: 'cyan',
@@ -24,27 +46,9 @@ Component({
         icon: 'font',
         url: '/pages/recommendspages/TVSeries-all/tvmain/tv'
       },
-      {
-        title: '群组 ',
-        name: 'Group',
-        color: 'mauve',
-        icon: 'icon',
-        url:  '/pages/recommendspages/group/group?&pageid=' + 0
-      },
-      {
-        title: '树洞',
-        name: 'Tree Hole',
-        color: 'pink',
-        icon: 'btn',
-        url: '../expandspages/treehole/index/index'
-      },
-      {
-        title: '诉说之窗',
-        name: 'talk',
-        color: 'brown',
-        icon: 'tagfill',
-        url: '../expandspages/chat-list/chat-list'
-      }
+
+
+
     ],
   }
 })
