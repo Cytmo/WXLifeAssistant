@@ -8,10 +8,11 @@ Page({
     hasUserInfo: false,
     userInfo: [],
     userID: "",
-    array: ['保密','INTJ', 'INTP', 'ENTJ', 'ENTP',
-            'INFJ', 'ENFP', 'ENFJ', 'ENFP',
-            'ISTJ', 'ISFJ', 'EdTJ', 'ESFJ',
-            'ISTP', 'ISFP', 'ESTP', 'ESFP'],
+    array: ['INTJ-建筑师', 'INTP-逻辑学家', 'ENTJ-指挥家', 'ENTP-辩论家',
+      'INFJ-提倡者', 'ENFP-调停者', 'ENFJ-主人公', 'ENFP-竞选者',
+      'ISTJ-物流师', 'ISFJ-守卫者', 'ESTJ-总经理', 'ESFJ执政官',
+      'ISTP-鉴赏家', 'ISFP-探险家', 'ESTP-企业家', 'ESFP-表演者'
+    ],
       index:''
 
   },
@@ -174,13 +175,16 @@ Page({
   },
   
   bindPickerChange:function(e){
-    console.log('态度索引', e.detail.value+1)
     this.setData({
       index: e.detail.value
     })
-    if(e.detail.value == 0){
+    var index = parseInt(e.detail.value)
+
+    index++
+    console.log('态度索引', index)
+    if(index == 0){
       wx.showToast({
-        title: '不可设置为保密',
+        title: '默认，无法设置',
         icon:'error',
       })
     }else{
@@ -190,7 +194,7 @@ Page({
       url: app.globalData.url + "/user/mbti",
       data: {
         userId: app.globalData.userId,
-        mbti: that.data.index+1
+        mbti: index
       },
       method: 'POST',
       header: {
@@ -198,7 +202,7 @@ Page({
       },
       success: function (res) {
         wx.showToast({
-          title: that.data.array[e.detail.value]+',设置成功',
+          title: that.data.array[e.detail.value],
           icon:'success'
         })
       },
