@@ -8,9 +8,7 @@ Component({
    * 组件的属性列表
    */
   properties: {
-    userId : 0,
-    againstId : 0,
-    againstTo : 0
+    userId : 0
   },
 
   /**
@@ -31,11 +29,10 @@ Component({
         focus : false
       })
     },
-    sendAgainst:function(event){
+    setHollowName:function(event){
       var content = event.detail.value.content;
       var userId = this.data.userId;
-      var againstId = this.data.againstId;
-      var urlin = ipv4 + "/hollow/against"
+      var urlin = ipv4 + "/user/puthollowname"
       that = this
       wx.request({
         url: urlin,
@@ -44,13 +41,14 @@ Component({
           'content-type': 'application/json' // 豆瓣一定不能是json
         },
         data:{
-          hollowId:againstId,
           userId:userId,
-          reportText:content
+          holllowName:content
         },
         success: function(res) {
           handleRes(res)
-          that.closeShow()
+          if(res.data.code == 0){
+            that.closeShow()
+          }
         },
         fail: function(error) {
           console.log(error)
@@ -60,10 +58,9 @@ Component({
       })
       
     },
-    setId:function(userId,againstId){
+    setId:function(userId){
       this.setData({
-        userId:userId,
-        againstId:againstId
+        userId:userId
       })
     },
     toShow:function(){

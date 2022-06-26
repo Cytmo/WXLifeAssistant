@@ -22,6 +22,7 @@ App(
       novelsmmrecom: {},
       tvHot: {},
       //userID为 openid
+      userInformation:{},
       userID: '1',
       userId:'1',
       openId: '',
