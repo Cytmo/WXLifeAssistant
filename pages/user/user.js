@@ -7,7 +7,7 @@ Page({
     hasUserInfo: false,
     userInfo: [],
     userID: "",
-    array: ['保密', 'INTJ', 'INTP', 'ENTJ', 'ENTP',
+    array: ['保密','INTJ', 'INTP', 'ENTJ', 'ENTP',
             'INFJ', 'ENFP', 'ENFJ', 'ENFP',
             'ISTJ', 'ISFJ', 'EdTJ', 'ESFJ',
             'ISTP', 'ISFP', 'ESTP', 'ESFP'],
@@ -286,18 +286,23 @@ Page({
   },
   
   bindPickerChange:function(e){
-    console.log('态度索引', e.detail.value)
+    console.log('态度索引', e.detail.value+1)
     this.setData({
       index: e.detail.value
     })
-
+    if(e.detail.value == 0){
+      wx.showToast({
+        title: '不可设置为保密',
+        icon:'error',
+      })
+    }else{
     var that = this
     // 向后端发送请求 mbti
     wx.request({
       url: app.globalData.url + "/user/mbti",
       data: {
         userId: app.globalData.userId,
-        mbti: that.data.index
+        mbti: that.data.index+1
       },
       method: 'POST',
       header: {
@@ -317,7 +322,7 @@ Page({
       }
     })
 
-
+  }
 
   },
 
