@@ -8,42 +8,42 @@ Component({
         title: '树洞',
         name: 'Tree Hole',
         color: 'pink',
-        icon: 'btn',
+        icon: 'friendfamous',
         url: '../expandspages/treehole/index/index'
       },
       {
         title: '诉说之窗',
         name: 'talk',
         color: 'brown',
-        icon: 'tagfill',
+        icon: 'message',
         url: '../expandspages/chat-list/chat-list'
       },
       {
         title: '群组 ',
         name: 'Group',
         color: 'mauve',
-        icon: 'icon',
+        icon: 'friend',
         url:  '/pages/recommendspages/group/group?&pageid=' + 0
       },
       {
         title: '电影推荐',
         name: 'Movies',
         color: 'cyan',
-        icon: 'newsfill',
+        icon: 'record',
         url: '/pages/recommendspages/movie-all/moviemain/movie'
       },
       {
         title: '小说推荐',
-        name: 'background',
+        name: 'Novels',
         color: 'blue',
-        icon: 'colorlens',
+        icon: 'form',
         url: '/pages/recommendspages/novel-all/novelmain/novel'
       },
       {
         title: '电视推荐',
         name: 'TV',
         color: 'purple',
-        icon: 'font',
+        icon: 'video',
         url: '/pages/recommendspages/TVSeries-all/tvmain/tv'
       },
 
