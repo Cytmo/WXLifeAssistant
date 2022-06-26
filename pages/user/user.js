@@ -217,7 +217,11 @@ Page({
   }
 
   },
-
+  goToMBTI:function(){
+    wx.navigateTo({
+      url: './MBTI',
+    })
+  },
   onLoad: function (options) {
     var that = this;
     wx.getStorage({
