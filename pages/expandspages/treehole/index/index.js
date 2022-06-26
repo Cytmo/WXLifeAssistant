@@ -6,7 +6,7 @@ import {loadSuccess,loadFailed,handleRes} from '../../../../utils/czutils'
 var avoidPreviewImageOnShow; //避免预览图片后，触发onShow函数
 // var ipv4 = "http://localhost:80"
 const app = getApp()
-var ipv4 = "http://localhost:8081"
+var ipv4 = app.globalData.url
 // var ipv4 = app.globalData.url
 //index.js
 

@@ -3,8 +3,7 @@
     "pages/homepage/recs",
     "pages/epidemicpages/map/map",
     "pages/user/user",
-
-    "pages/recommendspages/movie-all/moviemain/movie", 
+    "pages/recommendspages/movie-all/moviemain/movie",
     "pages/recommendspages/movie-all/item/item",
     "pages/recommendspages/movie-all/list/list",
     "pages/recommendspages/novel-all/novelmain/novel",
@@ -21,7 +20,8 @@
     "pages/expandspages/treehole/comments/comments",
     "pages/expandspages/treehole/publishTopics/publishTopics",
     "pages/recommendspages/addGroup/addGroup",
-    "pages/expandspages/treehole/topicDetials/topicDetials"
+    "pages/expandspages/treehole/topicDetials/topicDetials",
+    "pages/user/MBTI"
   ],
   "window": {
     "backgroundTextStyle": "light",
