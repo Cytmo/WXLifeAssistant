@@ -1,5 +1,6 @@
 //index.js
 //获取应用实例
+import {loadSuccess,loadFailed,handleRes} from '../../utils/czutils'
 const app = getApp()
 var openid = wx.getStorageSync("openid");
 Page({
@@ -19,8 +20,6 @@ Page({
           userInfo: res.userInfo,
           hasUserInfo: true,
         })
-
-
         console.log("存储userInfo 为: " + res.userInfo, );
         console.log(res.userInfo);
         app.globalData.userInfo=res.userInfo
@@ -29,7 +28,7 @@ Page({
       },
       fail: function (err) {
         console.log("record  失败", err);
-        
+        loadFailed("获取用户信息失败");
       }
     })
 
@@ -38,11 +37,9 @@ Page({
     },
 
     login:function(){
-
         var that = this;
         console.log("调用了 doAuthorization 授权");
         // console.log(e);
-  
         //授权
         wx.login({
           success: function (res) {
@@ -69,29 +66,7 @@ Page({
           }
   
         })
-    }
-    // wx.request({
-    //   url: app.globalData.url + "/user/register",
-    //   data: {
-    //     "wechatId": app.globalData.openID,
-    //     "username": this.userInfo.nickName,
-    //     "phone": "19813218574",
-    //     "image": this.avatarUrl,
-    //   },
-    //   method: 'POST',
-    //   header: {
-    //     'content-type': 'application/json'
-    //   },
-    //   success: function (res) {
-    //     console.log(res)
-    //   },
-    //   fail: function (error) {
-    //     console.log(error)
-    //   }
-    // })
-
-
-  ,
+    },
 
   registerAndLogin: function () {
     //首先请求登录，如果失败则进行注册
@@ -113,11 +88,18 @@ Page({
         },
         success: function (res) {
           console.log(res.data)
-          token = res.data.token
-          wx.setStorageSync('token', token)
-          console.log("userId 为： " + res.data.user.userId)
-          wx.setStorageSync('userId', res.data.user.userId)
-          app.globalData.userId = res.data.user.userId;
+          if(res.data.code == 0){
+            token = res.data.token
+            wx.setStorageSync('token', token)
+            console.log("userId 为： " + res.data.user.userId)
+            wx.setStorageSync('userId', res.data.user.userId)
+            app.globalData.userId = res.data.user.userId;
+          }else{
+            console.log("登陆失败，准备注册")
+            console.log(res.data)
+            that.userRegister()   
+          }
+
         },
         fail: function (error) {
           console.log("登陆失败，准备注册")
@@ -133,117 +115,29 @@ Page({
     wx.request({
       url: app.globalData.url + "/user/register",
       data: {
-        "wechatId": app.globalData.openID,
+        "wechatId": app.globalData.userID,
         "username": app.globalData.userInfo.nickName,
-        "phone": "19813218574",
-        "image": app.globalData.userInfo.avatarUrl,
+        "image": app.globalData.userInfo.avatarUrl
       },
       method: 'POST',
       header: {
         'content-type': 'application/json'
       },
       success: function (res) {
-        console.log(res)
-        that.registerAndLogin()
+        if(res.data.code == 0){
+          console.log(res)
+          that.registerAndLogin()
+        }else{
+          console.log(res)
+          loadFailed("注册失败")
+        }
+        
       },
       fail: function (error) {
         console.log(error)
       }
     })
   },
-
-  // gotoChatList() {
-  //   var token;
-  //   var userID = app.globalData.openId;
-  //   console.log("取得的userID为" + userID)
-  //   if ((this.userInfo != [])) {
-  //     {
-  //       console.log("开始请求token")
-  //       wx.request({
-  //         url: app.globalData.url + "/user/login",
-  //         data: {
-  //           //数据urlencode方式编码，变量间用&连接，再post
-  //           wechatId: userID
-  //         },
-  //         method: 'POST',
-  //         header: {
-  //           'content-type': 'application/json'
-  //         },
-  //         success: function (res) {
-  //           console.log(res.data)
-  //           token = res.data.token
-  //           console.log("userId 为： " + res.data.user.userId)
-  //           app.globalData.userId = res.data.user.userId;
-  //           wx.navigateTo({
-  //             url: '../expandspages/chat-list/chat-list?&userid=' + res.data.user.userId + "&token=" + token,
-
-  //           })
-  //         },
-  //         fail: function (error) {
-  //           console.log(error)
-  //         }
-  //       })
-  //     }
-  //   } else {
-  //     wx.showToast({
-  //       title: '请先登录',
-  //       content: '请先登录',
-  //       icon: "error",
-  //       success: function (res) {
-  //         if (res.confirm) { //这里是点击了确定以后
-  //           console.log('用户点击确定')
-  //         } else { //这里是点击了取消以后
-  //           console.log('用户点击取消')
-  //         }
-  //       }
-  //     })
-  //   }
-  // },
-  // loadUserInfo: function() {
-  //   var that = this;
-  //   if (this.openid != "") {
-  //     wx.getUserProfile({
-  //       success: res => {
-  //         console.log("wx获得用户信息:", res);
-  //         var data = {
-  //           "openid": openid,
-  //           "user": res.userInfo
-  //         }
-  //         //发送信息给服务器获得用户信息
-  //         wx.request({
-  //           url: app.globalData.userInterfaceUrl + 'login',
-  //           dataType: "json",
-  //           method: "POST",
-  //           data: data,
-  //           success: function(res) {
-  //             console.log("loadUserInfo（服務器返回） success", res.data);
-  //             if (!res.data.error) {
-  //               app.globalData.userInfo = res.data.data;
-  //               that.setData({
-  //                 userInfo: app.globalData.userInfo
-  //               })
-  //             } else {
-  //               console.log("服务器获取用戶信息失敗");
-  //               //TODO：用户信息获取错误
-  //             }
-  //           },
-  //           fail: function(e) {
-  //             console.log("loadUserInfo（服务器返回）error", e);
-  //             //TODO:错误
-  //           },
-  //           complete: function(e) {
-  //             //完成
-  //           }
-  //         })
-  //         // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-  //         // 所以此处加入 callback 以防止这种情况
-  //         if (this.userInfoReadyCallback) {
-  //           this.userInfoReadyCallback(res)
-  //         }
-  //       }
-  //     })
-  //   }
-  // },
 
   // 事件处理函数
   onShow: function () {
@@ -271,11 +165,7 @@ Page({
   },
 
   onLoad: function (options) {
-
-
     var that = this;
-
-
     wx.getStorage({
       key: 'userInfo',
       success(res) {
@@ -286,9 +176,7 @@ Page({
             userInfo: res.data
           })
         }
-
       }
     });
-
   }
 })
