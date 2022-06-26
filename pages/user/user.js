@@ -6,11 +6,17 @@ Page({
   data: {
     hasUserInfo: false,
     userInfo: [],
-    userID: ""
+    userID: "",
+    array: ['保密','INTJ', 'INTP', 'ENTJ', 'ENTP',
+            'INFJ', 'ENFP', 'ENFJ', 'ENFP',
+            'ISTJ', 'ISFJ', 'EdTJ', 'ESFJ',
+            'ISTP', 'ISFP', 'ESTP', 'ESFP'],
+      index:''
+
   },
   doAuthorization: function (e) {
-    var ifYes=true
-    var that =this
+    var ifYes = true
+    var that = this
     wx.getUserProfile({
       desc: '展示用户信息', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
       success: (res) => {
@@ -21,78 +27,79 @@ Page({
         })
 
 
-        console.log("存储userInfo 为: " + res.userInfo, );
+        console.log("存储userInfo 为: " + res.userInfo,);
         console.log(res.userInfo);
-        app.globalData.userInfo=res.userInfo
-        wx.setStorageSync('userInfo', res.userInfo, );
+        app.globalData.userInfo = res.userInfo
+        wx.setStorageSync('userInfo', res.userInfo,);
         that.login();
       },
       fail: function (err) {
         console.log("record  失败", err);
-        
+
       }
     })
 
-   
 
-    },
 
-    login:function(){
+  },
 
-        var that = this;
-        console.log("调用了 doAuthorization 授权");
-        // console.log(e);
-  
-        //授权
-        wx.login({
-          success: function (res) {
-            console.log('login:code', res.code)
-            wx.request({
-              url: `https://api.weixin.qq.com/sns/jscode2session?appid=wxcf9a5cc5ed4abadb&secret=bbf59871d44cc7a980fcb9f6d382d6a0&js_code=${res.code}&grant_type=authorization_code`,
-              success: (res) => {
-                //console.log(res);
-                //获取到你的openid
-                that.setData({
-                  userID: res.data.openid
-  
-                });
-                console.log("存储openid 为: " + res.data.openid);
-                wx.setStorageSync('openid', res.data.openid);
-                console.log("设置openid 为: " + res.data.openid);
-                app.globalData.userID = res.data.openid;
-                console.log("userId 为: " + res.data.openid);
-                that.registerAndLogin()
-  
-              }
-            })
-  
+  login: function () {
+
+    var that = this;
+    console.log("调用了 doAuthorization 授权");
+    // console.log(e);
+
+    //授权
+    wx.login({
+      success: function (res) {
+        console.log('login:code', res.code)
+        wx.request({
+          url: `https://api.weixin.qq.com/sns/jscode2session?appid=wxcf9a5cc5ed4abadb&secret=bbf59871d44cc7a980fcb9f6d382d6a0&js_code=${res.code}&grant_type=authorization_code`,
+          success: (res) => {
+            //console.log(res);
+            //获取到你的openid
+            that.setData({
+              userID: res.data.openid
+
+            });
+            console.log("存储openid 为: " + res.data.openid);
+            wx.setStorageSync('openid', res.data.openid);
+            console.log("设置openid 为: " + res.data.openid);
+            app.globalData.userID = res.data.openid;
+            console.log("userId 为: " + res.data.openid);
+            that.registerAndLogin()
+
           }
-  
         })
-    }
-    // wx.request({
-    //   url: app.globalData.url + "/user/register",
-    //   data: {
-    //     "wechatId": app.globalData.openID,
-    //     "username": this.userInfo.nickName,
-    //     "phone": "19813218574",
-    //     "image": this.avatarUrl,
-    //   },
-    //   method: 'POST',
-    //   header: {
-    //     'content-type': 'application/json'
-    //   },
-    //   success: function (res) {
-    //     console.log(res)
-    //   },
-    //   fail: function (error) {
-    //     console.log(error)
-    //   }
-    // })
+
+      }
+
+    })
+  }
+  // wx.request({
+  //   url: app.globalData.url + "/user/register",
+  //   data: {
+  //     "wechatId": app.globalData.openID,
+  //     "username": this.userInfo.nickName,
+  //     "phone": "19813218574",
+  //     "image": this.avatarUrl,
+  //   },
+  //   method: 'POST',
+  //   header: {
+  //     'content-type': 'application/json'
+  //   },
+  //   success: function (res) {
+  //     console.log(res)
+  //   },
+  //   fail: function (error) {
+  //     console.log(error)
+  //   }
+  // })
 
 
   ,
 
+  
   registerAndLogin: function () {
     //首先请求登录，如果失败则进行注册
     var token;
@@ -112,31 +119,35 @@ Page({
           'content-type': 'application/json'
         },
         success: function (res) {
+          if (res.data.code == 12) {
+            that.userRegister()
+          }
           console.log(res.data)
           token = res.data.token
           wx.setStorageSync('token', token)
           console.log("userId 为： " + res.data.user.userId)
           wx.setStorageSync('userId', res.data.user.userId)
           app.globalData.userId = res.data.user.userId;
+
         },
         fail: function (error) {
           console.log("登陆失败，准备注册")
           console.log(error)
-          that.userRegister()           
+          that.userRegister()
         }
       })
-    } 
+    }
   },
 
   userRegister() {
+
     var that = this
     wx.request({
       url: app.globalData.url + "/user/register",
       data: {
-        "wechatId": app.globalData.openID,
+        "wechatId": app.globalData.userID,
         "username": app.globalData.userInfo.nickName,
-        "phone": "19813218574",
-        "image": app.globalData.userInfo.avatarUrl,
+        "image":app.globalData.userInfo.avatarUrl
       },
       method: 'POST',
       header: {
@@ -152,6 +163,10 @@ Page({
     })
   },
 
+  goToMBTI(){
+    wx.navigateTo({url:'MBTI'})
+
+  },
   // gotoChatList() {
   //   var token;
   //   var userID = app.globalData.openId;
@@ -268,6 +283,47 @@ Page({
       }
     })
     //that.loadUserInfo();
+  },
+  
+  bindPickerChange:function(e){
+    console.log('态度索引', e.detail.value+1)
+    this.setData({
+      index: e.detail.value
+    })
+    if(e.detail.value == 0){
+      wx.showToast({
+        title: '不可设置为保密',
+        icon:'error',
+      })
+    }else{
+    var that = this
+    // 向后端发送请求 mbti
+    wx.request({
+      url: app.globalData.url + "/user/mbti",
+      data: {
+        userId: app.globalData.userId,
+        mbti: that.data.index+1
+      },
+      method: 'POST',
+      header: {
+        'content-type': 'application/json'
+      },
+      success: function (res) {
+        wx.showToast({
+          title: that.data.array[e.detail.value]+',设置成功',
+          icon:'success'
+        })
+      },
+      fail: function (error) {
+        wx.showToast({
+          title: '请求失败，请检查你的网络情况',
+          icon:'error'
+        })
+      }
+    })
+
+  }
+
   },
 
   onLoad: function (options) {
