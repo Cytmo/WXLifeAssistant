@@ -8,7 +8,7 @@
 
   position: fixed;  
 
-  z-index: 500;
+  z-index: 1000;
 
   top: 0;  
 
@@ -30,7 +30,7 @@
   position: fixed;  
   top: 50%;  
   left: 0;  
-  z-index: 1000;
+  z-index: 1100;
   background: #ffffff;  
   margin: -150px 50rpx 0 50rpx;  
   border-radius: 10px;  
