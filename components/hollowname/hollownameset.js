@@ -47,7 +47,7 @@ Component({
         success: function(res) {
           handleRes(res)
           if(res.data.code == 0){
-            app.globalData.userInformation.hollowName = content
+            app.globalData.userInformation.hollow_name = content
             that.closeShow()
           }
         },

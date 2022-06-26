@@ -1,4 +1,6 @@
 /* pages/recommendspages/group/group.wxss */
+
+
 .nav{
   display: flex;
   align-items:center;

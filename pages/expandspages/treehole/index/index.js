@@ -107,8 +107,8 @@ Page({
     this.against = this.selectComponent("#against")
     this.hollownameset = this.selectComponent("#hollownameset")
     var that = this;
-    console.log("是否有树洞昵称：" + app.globalData.userInformation.hollowName)
-    if(app.globalData.userInformation.hollowName == null){
+    console.log("是否有树洞昵称：" + app.globalData.userInformation.hollow_name)
+    if(app.globalData.userInformation.hollow_name == null){
       console.log("进入到树洞的昵称填写阶段")
       that.hollownameset.setId(app.globalData.userId)
       that.hollownameset.toShow()
