@@ -1,3 +1,6 @@
 {
-  "usingComponents": {}
+  "usingComponents": {},
+  "navigationBarBackgroundColor": "#996515",
+  "navigationBarTextStyle": "white",
+  "navigationBarTitleText": "群组"
 }

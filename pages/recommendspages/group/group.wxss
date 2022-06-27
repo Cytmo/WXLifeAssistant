@@ -1,5 +1,16 @@
 /* pages/recommendspages/group/group.wxss */
 
+page{
+  --backlight:rgb(243, 243, 245);
+  --lighter:  rgb(240, 230, 140);
+  --light:    rgb(255, 215, 0);
+  --normal:   rgb(218, 165, 32);
+  --darker:   rgb(153, 101, 21);
+  --dark:     rgb(207, 181, 59);
+  --title-grad:linear-gradient(to right, var(--darker) , var(--lighter),rgba(255,255,255,1));
+  background-color: rgb(243, 243, 245);
+}
+
 
 .nav{
   display: flex;
@@ -11,14 +22,16 @@
 
   font-size:30rpx;
   font-family:PingFang-SC-Medium;
-  color:rgba(156,162,187,1);
+  /* color:rgba(156,162,187,1); */
+  color: var(--dark);
   display: inline-block;
 }
 .nav_item.active{
   font-size:34rpx;
   font-family:PingFang-SC-Bold;
-  color:rgb(0, 0, 0);
-  border-bottom: 5rpx solid rgb(0, 0, 0);
+  /* color:rgb(0, 0, 0); */
+  color: var(--darker);
+  border-bottom: 5rpx solid var(--darker);
 }
 
 
@@ -26,13 +39,10 @@
 .mainview{
   height: auto;
   width: 100%;
-  background:rgba(249,249,249,1);
+  background:var(--backlight);
+  margin-top: 3%;
 }
-.mainview2{
-  height: 100%;
-  width: 100%;
-  background:rgba(249,249,249,1);
-}
+
 .blank{
   padding: 100rpx 50rpx;
   background:rgba(255,255,255,1);
@@ -41,10 +51,14 @@
   height: 700rpx;
 }
 .information{
-  width: 100%;
-  background:rgba(255,255,255,1);
+  width: 90%;
+  border: 3px outset var(--normal);
+
+  /* background:var(--lighter); */
+  border-radius: 40rpx;
   padding:30rpx 40rpx;
-  margin-bottom: 30rpx;
+  margin: 0 30rpx 30rpx 30rpx;
+  box-shadow: 5px 5px 5px var(--dark);
   z-index: 200;
   display: flex;
 }
@@ -56,14 +70,17 @@
   width: 90rpx;
   height: 90rpx;
   border-radius: 50%;
+  border: 1px dashed var(--dark);
 }
 .userinformation{
   width: 72%;
   margin-left: 40rpx;
 }
+
 .information_top{
   margin-top: 10rpx;
-
+  border: 2px solid;
+  border-image: linear-gradient(to top right, var(--darker) , var(--lighter),var(--backlight),var(--backlight)) 2;
   display: flex;
   align-items:baseline;
   justify-content:space-between;
@@ -73,6 +90,7 @@
   font-family:SourceHanSansCN-Regular;
   font-weight:400;
   color:rgba(51,51,51,1);
+  
 }
 .visibility_public{
   margin-left: 10rpx;
@@ -209,11 +227,14 @@
 .texteare{
   height: 100%;
   width: 80%;
-  background:rgba(255, 255, 255, 1);
   padding: 5rpx 5rpx;
+  margin-left: 5rpx;
+  border-radius: 10%;
+  border:2px solid var(--normal);
 }
 .texteare textarea{
   font-size:35rpx;
+  margin-left: 5rpx;
   font-family:SourceHanSansCN-Regular;
   width: 100%;
   height: 100%;
@@ -233,22 +254,25 @@
   width: 100%;
   font-size: large;
   font-weight: bold;
-  color:darkgray;
+  margin-left: 20rpx;
+  color:var(--normal);
+  text-shadow: 2px 2px 1rpx var(--light);
   vertical-align: middle;
   display: flex;
+  border-bottom: 2px double var(--normal);
   /*row 横向  column 列表  */
   flex-direction: row;
 }
 
 .btn{
   width: 100%;
-  font-size:35rpx;
+  font-size:32rpx;
   font-family:SourceHanSansCN-Medium;
   font-weight:normal;
-  color:rgba(255,255,255,1);
-  background:#3B49E0;
+  color: var(--darker);
+  border: 2px double var(--darker);
   border-radius:10px;
-  padding:8rpx 4rpx 8rpx 4rpx;
+  padding:3rpx 4rpx 3rpx 4rpx;
 }
 
 .btn_add{
@@ -256,8 +280,8 @@
   font-size:42rpx;
   font-family:SourceHanSansCN-Medium;
   font-weight:bold;
-  color:rgba(255,255,255,1);
-  background:#3B49E0;
+  color: var(--darker);
+  border: 2px double var(--darker);
   border-radius:10px;
   padding:4rpx 4rpx 4rpx 4rpx;
 }
@@ -288,8 +312,12 @@
   margin: 10rpx; 
 }
 .title {
-font-size: 42rpx;
-color: #333;
+  font-size: 50rpx;
+  font-weight: bold;
+  border-bottom: 3rpx solid var(--normal);
+  padding-left: 10px;
+  padding-right: 10px;
+  color: var(--dark);
 }
 .info {
 font-size: 24rpx;
@@ -303,9 +331,10 @@ margin: 30rpx auto;
 opacity: 1;
 }
 .label {
-display: block;
-font-size: 40rpx;
-margin-bottom: 20rpx;
+  display: block;
+  font-size: 40rpx;
+  margin-bottom: 20rpx;
+  color: var(--darker);
 }
 
 .content {
@@ -317,9 +346,14 @@ margin-bottom: 30rpx;
 }
 .meta {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
   padding: 0rpx;
+}
+.closeimg{
+  height: 25px; 
+  width: 25px;
+  margin-right: 5px;
 }
 
 .drawer_screen { 
@@ -346,25 +380,17 @@ margin-bottom: 30rpx;
 /*content*/
 
 .drawer_box { 
-
   width: 650rpx;  
-
   overflow: hidden;  
-
   position: fixed;  
-
   top: 50%;  
-
   left: 0;  
-
   z-index: 1000;
-
-  background: #ffffff;  
-
+  background: var(--backlight);  
   margin: -150px 50rpx 0 50rpx;  
-
-  border-radius: 3px;  
-
+  border-radius: 10px;  
+  padding-top: 3%;
+  border:5px double var(--normal); 
   opacity:   1;
 
 } 
