@@ -14,7 +14,7 @@
         <text class="label">群号 ： {{showGroup.number}}</text>
         <text class="label">群简介 ：{{showGroup.introduction}}</text>
         <text class="label">群二维码 ：</text>
-        <image class="image_box"src="{{showGroup.qrCode}}"></image>
+        <image class="image_box"src="{{showGroup.qrCode}}" catchtap="preview"></image>
       </view>
     </view>
   </view>
@@ -34,7 +34,7 @@
 
       <view class="information" wx:for="{{randomList}}" wx:key="groupId">
         <view class="useravatar" catchtap='gotoTopicDetials' data-recordid='{{item.groupId}}'>
-          <image class="userimg" src="../../image/group_head/群聊{{item.groupId%10}}.png" ></image>
+          <image class="userimg" src="../../image/group_head/{{item.groupId%10}}.png" ></image>
         </view>
         <view class="userinformation"  catchtap='showDetailsR' data-recordid='{{item.groupId}}'>
           <view class="information_top" catchtap='showDetailsR' data-recordid='{{item.groupId}}'>
@@ -63,7 +63,7 @@
 
       <view class="information" wx:for="{{searchList}}" wx:key="groupId">
         <view class="useravatar" catchtap='gotoTopicDetials' data-recordid='{{item.groupId}}'>
-          <image class="userimg" src="../../image/group_head/群聊{{item.groupId%10}}.png" ></image>
+          <image class="userimg" src="../../image/group_head/{{item.groupId%10}}.png" ></image>
         </view>
         <view class="userinformation" catchtap='showDetailsS' data-recordid='{{item.groupId}}'>
           <view class="information_top" catchtap='showDetailsS' data-recordid='{{item.groupId}}'>
@@ -80,7 +80,7 @@
     <scroll-view scroll-y="true" bindscrolltolower="addAll"  lower-threshold='30' style="height:{{scrollHeight}}px">
       <view class="information" wx:for="{{allList}}" wx:key="groupId">
         <view class="useravatar" catchtap='gotoTopicDetials' data-recordid='{{item.groupId}}'>
-          <image class="userimg" src="../../image/group_head/群聊{{item.groupId%10}}.png" ></image>
+          <image class="userimg" src="../../image/group_head/{{item.groupId%10}}.png" ></image>
         </view>
         <view class="userinformation" catchtap='showDetailsA' data-recordid='{{item.groupId}}'>
           <view class="information_top" catchtap='showDetailsA' data-recordid='{{item.groupId}}'>
@@ -102,7 +102,7 @@
     <scroll-view scroll-y>
       <view class="information" wx:for="{{myList}}" wx:key="groupId">
         <view class="useravatar" catchtap='gotoTopicDetials' data-recordid='{{item.groupId}}'>
-          <image class="userimg" src="../../image/group_head/群聊{{item.groupId%10}}.png" ></image>
+          <image class="userimg" src="../../image/group_head/{{item.groupId%10}}.png" ></image>
         </view>
         <view class="userinformation" catchtap='showDetailsM' data-recordid='{{item.groupId}}'>
           <view class="information_top" catchtap='showDetailsM' data-recordid='{{item.groupId}}'>

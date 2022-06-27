@@ -193,6 +193,13 @@ Page({
     $digest(this)
   },
 
+  preview(){
+    var that = this;
+    wx.previewImage({
+      urls: [that.data.showGroup.qrCode]
+    })
+  },
+
   showDetailsA:function(event){
     console.log(event.target.dataset.recordid)
     var idShow = event.target.dataset.recordid
