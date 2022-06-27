@@ -103,6 +103,7 @@ Page({
             wx.setStorageSync('userId', res.data.user.userId)
             app.globalData.userId = res.data.user.userId;
             app.globalData.userInformation = res.data.user;
+            console.log("用户信息",app.globalData.userInformation);
           }else{
             console.log("登陆失败，准备注册")
             console.log(res.data)

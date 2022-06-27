@@ -90,12 +90,19 @@ App(
             'content-type': 'application/json'
           },
           success: function (res) {
-            console.log(res.data)
-            token = res.data.token
-            wx.setStorageSync('token', token)
-            console.log("userId 为： " + res.data.user.userId)
-            wx.setStorageSync('userId', res.data.user.userId)
-            that.globalData.userId = res.data.user.userId;
+            if(res.data.code == 0){
+              token = res.data.token
+              wx.setStorageSync('token', token)
+              console.log("userId 为： " + res.data.user.userId)
+              wx.setStorageSync('userId', res.data.user.userId)
+              that.globalData.userId = res.data.user.userId;
+              that.globalData.userInformation = res.data.user;
+              console.log("用户信息",that.globalData.userInformation);
+            }else{
+              console.log("登陆失败，准备注册")
+              console.log(res.data)
+              that.userRegister()   
+            }
           },
           fail: function (error) {
             console.log("登陆失败，准备注册")
@@ -121,8 +128,13 @@ App(
           'content-type': 'application/json'
         },
         success: function (res) {
-          console.log(res)
-          that.registerAndLogin()
+          if(res.data.code == 0){
+            console.log(res)
+            that.registerAndLogin()
+          }else{
+            console.log(res)
+            loadFailed("注册失败")
+          }
         },
         fail: function (error) {
           console.log(error)
