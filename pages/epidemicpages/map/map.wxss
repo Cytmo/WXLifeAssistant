@@ -80,6 +80,19 @@ page {
 
 }
 
+.border{
+  margin: 20rpx;
+  font-size: 14rpx;
+  overflow: hidden;
+  position: relative;
+  background: #fff;
+  border: 1rpx solid #dddee1;
+  border-radius: 15rpx;
+  margin-top: 15rpx;
+  margin-bottom: 10rpx;
+ }
+  
+
 
 .movie-item {
   display: flex;

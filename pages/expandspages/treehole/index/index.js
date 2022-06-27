@@ -95,7 +95,11 @@ Page({
    */
   onShow: function () {
     console.log("begin to show")
-    this.setData({currentTime :formatTime(new Date())})
+    this.setData({
+      hollowList:[],
+      myhollowList:[],
+      currentTime :formatTime(new Date())
+    })
     this.getHollowList(formatTime(new Date()))
   },
 
@@ -247,7 +251,7 @@ Page({
     } else {
       this.setData({
         mycurrentTime :formatTime(new Date()),
-        hollowList : []
+        myhollowList : []
       })
       console.log(this.data.mycurrentTime)
       this.getMyList(this.data.mycurrentTime)

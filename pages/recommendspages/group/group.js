@@ -124,40 +124,109 @@ Page({
   showDetailsR:function(event){
     console.log(event.target.dataset.recordid)
     var idShow = event.target.dataset.recordid
+    var urln = ipv4 + "/group/image?groupId=" + idShow
+    var that = this
+    
     this.data.randomList.forEach(element => {
       if(element.groupId == idShow){
-        this.setData({
-          showGroup : element,
-          showGroupTag : true
-        })
+        if(element.qrCode.split(":")[0]!="http"){
+          wx.downloadFile({
+            url: urln, //仅为示例，并非真实的资源
+            header: {
+              'content-type': 'application/json' 
+            },
+            success (res) {
+              // 只要服务器有响应数据，就会把响应内容写入文件并进入 success 回调，业务需要自行判断是否下载到了想要的内容
+              console.log(res);
+              element.qrCode = res.tempFilePath
+              that.setData({
+                showGroup : element,
+                showGroupTag : true
+              })
+            }
+            
+          })
+        }else{
+          that.setData({
+            showGroup : element,
+            showGroupTag : true
+          })
+        }
       }
     });
+    $digest(this)
   },
 
   showDetailsS:function(event){
     console.log(event.target.dataset.recordid)
     var idShow = event.target.dataset.recordid
+    var urln = ipv4 + "/group/image?groupId=" + idShow
+    var that = this
+    
     this.data.searchList.forEach(element => {
       if(element.groupId == idShow){
-        this.setData({
-          showGroup : element,
-          showGroupTag : true
-        })
+        if(element.qrCode.split(":")[0]!="http"){
+          wx.downloadFile({
+            url: urln, //仅为示例，并非真实的资源
+            header: {
+              'content-type': 'application/json' 
+            },
+            success (res) {
+              // 只要服务器有响应数据，就会把响应内容写入文件并进入 success 回调，业务需要自行判断是否下载到了想要的内容
+              console.log(res);
+              element.qrCode = res.tempFilePath
+              that.setData({
+                showGroup : element,
+                showGroupTag : true
+              })
+            }
+            
+          })
+        }else{
+          that.setData({
+            showGroup : element,
+            showGroupTag : true
+          })
+        }
       }
     });
+    $digest(this)
   },
 
   showDetailsA:function(event){
     console.log(event.target.dataset.recordid)
     var idShow = event.target.dataset.recordid
+    var urln = ipv4 + "/group/image?groupId=" + idShow
+    var that = this
+    
     this.data.allList.forEach(element => {
       if(element.groupId == idShow){
-        this.setData({
-          showGroup : element,
-          showGroupTag : true
-        })
+        if(element.qrCode.split(":")[0]!="http"){
+          wx.downloadFile({
+            url: urln, //仅为示例，并非真实的资源
+            header: {
+              'content-type': 'application/json' 
+            },
+            success (res) {
+              // 只要服务器有响应数据，就会把响应内容写入文件并进入 success 回调，业务需要自行判断是否下载到了想要的内容
+              console.log(res);
+              element.qrCode = res.tempFilePath
+              that.setData({
+                showGroup : element,
+                showGroupTag : true
+              })
+            }
+            
+          })
+        }else{
+          that.setData({
+            showGroup : element,
+            showGroupTag : true
+          })
+        }
       }
     });
+    $digest(this)
   },
 
   showDetailsM:function(event){
@@ -283,7 +352,7 @@ Page({
   },
 
   getMyList : function(){
-    var userId = app.globalData.userID
+    var userId = app.globalData.userId
     console.log(userId)
     var that = this; 
     var searchUrl = ipv4 + "/user/findGroup"
