@@ -1,4 +1,15 @@
 /* pages/recommendspages/add-group/addGroup.wxss */
+page{
+  --backlight:rgb(243, 243, 245);
+  --lighter:  rgb(240, 230, 140);
+  --light:    rgb(255, 215, 0);
+  --normal:   rgb(218, 165, 32);
+  --darker:   rgb(153, 101, 21);
+  --dark:     rgb(207, 181, 59);
+  --title-grad:linear-gradient(to right, var(--darker) , var(--lighter),rgba(255,255,255,1));
+  background-color: rgb(243, 243, 245);
+}
+
 .xrow{
   height: 70rpx;
   width: 100%;
@@ -19,6 +30,7 @@
 
 .textbefore{
   height: 40rpx;
+  margin-left:10px;
   width: 20%;
   background:rgba(255, 255, 255, 1);
   padding: 5rpx 5rpx;
@@ -53,14 +65,15 @@
 }
 
 .btn{
-  width:10%;
-  height:120rpx;
+  height: 15%;
+  width: 100%;
   font-size:32rpx;
   font-family:SourceHanSansCN-Medium;
-  font-weight:500;
-  color:rgba(255,255,255,1);
-  background:#3B49E0;
+  font-weight:normal;
+  color: var(--darker);
+  border: 2px double var(--darker);
   border-radius:10px;
+  padding:3rpx 4rpx 3rpx 4rpx;
 }
 
 .content {
@@ -68,6 +81,7 @@ font-size: 30rpx;
 color: #666;
 width: 100%;
 height: 100%;
+margin-left: 10px;
 
 }
 
@@ -112,6 +126,6 @@ height: 100%;
   height: 20%;
   font-size: large;
   font-weight: bold;
-  color:green;
+  color: var(--normal);
   text-size-adjust:0.8 ;
 }
