@@ -50,7 +50,9 @@ Component({
 
 
     ],
-  }
+  },
+
+
 })
 
 //备选样式(颜色) 按钮背景在 WXLifeAssistant\app.wxss   line-29

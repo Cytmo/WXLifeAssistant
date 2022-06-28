@@ -3,6 +3,7 @@
 @import "/components/colorui/icon.wxss";
 @import "/assets/iconfont/iconfont.wxss";
 
+
 .container {
   height: 100%;
   display: flex;
