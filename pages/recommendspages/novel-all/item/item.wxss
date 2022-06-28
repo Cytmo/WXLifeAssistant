@@ -315,3 +315,10 @@
       color: #42bd56;
       cursor: pointer;
     }
+
+    .agreesNovel{
+      position: relative;
+      height: 250rpx;
+      width:  250rpx;
+      margin-right: 20rpx;
+    }

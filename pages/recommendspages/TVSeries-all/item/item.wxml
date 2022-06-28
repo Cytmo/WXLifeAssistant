@@ -29,8 +29,8 @@
             <view>
               <image src="/images/homepagephoto/agree.png" bind:tap="agreeDefault" class="agrees" wx:if="{{!attitudeFor}}"></image>
               <image src="/images/homepagephoto/agree1.png" bind:tap="agreeYes"class="agrees" wx:if="{{attitudeFor&&!attitudeAgainst}}"></image>
-              <image src="/images/homepagephoto/agree.png" bind:tap="disagreeDefault" class="agrees"wx:if="{{!attitudeAgainst}}"></image>
-              <image src="/images/homepagephoto/disagree.png" bind:tap="disagreeNo" class="agrees"wx:if="{{!attitudeFor&&attitudeAgainst}}"></image>
+              <image src="/images/homepagephoto/agree.png" bind:tap="disagreeDefault" class="agrees"wx:if="{{!attitudeAgainst}}" style="transform: rotate(180deg)"style="transform: rotate(180deg)"></image>
+              <image src="/images/homepagephoto/agree1.png" bind:tap="disagreeNo" class="agrees"wx:if="{{!attitudeFor&&attitudeAgainst}}" style="transform: rotate(180deg)"></image>
             </view>
           </view>
         </view>

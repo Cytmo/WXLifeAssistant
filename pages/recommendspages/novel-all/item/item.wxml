@@ -24,23 +24,22 @@
         </view>
         <view class="clearfix"></view>
         <view class="btn-group">
-
             <view wx:if="{{!attitudeFor}}" bind:tap="agreeDefault" class="addToList">
-                <image src="/images/homepagephoto/agree.png" class="agrees1"></image>
+                <image src="/images/homepagephoto/agree.png" class="agreesNovel"></image>
                 <text style="font-size: 35rpx;position: relative; margin-left: 10rpx;">支持</text>
             </view>
             <view wx:if="{{attitudeFor&&!attitudeAgainst}}" bind:tap="agreeYes" class="addToList">
-                <image src="/images/homepagephoto/agree1.png" class="agrees1"></image>
+                <image src="/images/homepagephoto/agree1.png" class="agreesNovel"></image>
                 <text style="font-size: 35rpx;position: relative; margin-left: 10rpx;">支持</text>
 
             </view>
 
             <view wx:if="{{!attitudeAgainst}}" bind:tap="disagreeDefault" class="read">
-                <image src="/images/homepagephoto/agree.png" class="agrees"></image>
+                <image src="/images/homepagephoto/agree.png" class="agreesNovel"style="transform: rotate(180deg)"></image>
                 <text style="font-size: 35rpx; position: relative; margin-left: 10rpx;">反对</text>
             </view>
             <view wx:if="{{!attitudeFor&&attitudeAgainst}}" bind:tap="disagreeNo" class="read">
-                <image src="/images/homepagephoto/disagree.png" class="agrees"></image>
+                <image src="/images/homepagephoto/agree1.png" class="agreesNovel" style="transform: rotate(180deg)"></image>
                 <text style="font-size: 35rpx; position: relative; margin-left: 10rpx;">反对</text>
             </view>
 
