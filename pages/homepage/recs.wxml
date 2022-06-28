@@ -14,6 +14,19 @@
 </i-notice-bar>
 <view class="notice2">
 </view>
+<view class="cu-modal {{modalName=='Modal'?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content"> {{notification[0].title }}</view>
+      <view class="action" bindtap="hideModal" data-type="2">
+        <text class="cuIcon-close text-red"></text>
+      </view>
+    </view>
+    <view class="padding-xl">
+      {{notification[0].content}}
+    </view>
+  </view>
+</view>
 <basics wx:if="{{PageCur=='basics'}}"></basics>
 <component wx:if="{{PageCur=='component'}}"></component>
 <plugin wx:if="{{PageCur=='plugin'}}"></plugin>

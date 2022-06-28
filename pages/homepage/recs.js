@@ -225,18 +225,17 @@ Page({
   },
   showNotice:function () {
 
-    wx.showModal({
-      title: app.globalData.notification[0].title,
-      content:  app.globalData.notification[0].content,
-      success (res) {
-        if (res.confirm) {
-          console.log('用户点击确定')
-        } else if (res.cancel) {
-          console.log('用户点击取消')
-        }
-      }
+     this.setData({
+      modalName: "Modal"
     })
     
+  },
+
+   hideModal(e) {
+    this.setData({
+      modalName: null
+    })
+
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
