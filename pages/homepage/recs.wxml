@@ -9,9 +9,9 @@
 </swiper>
 <view class="notice">
 </view>
-<!--<i-notice-bar icon="systemprompt" closable loop >-->
-<!--核酸检测:接学校通知，将于5月29-30日开展一轮扩面核酸检测-->
-<!--</i-notice-bar>-->
+<i-notice-bar icon="systemprompt" closable loop  bindtap="showNotice">
+  {{notification[0].title }} : {{notification[0].content}}
+</i-notice-bar>
 <view class="notice2">
 </view>
 <basics wx:if="{{PageCur=='basics'}}"></basics>
