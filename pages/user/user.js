@@ -141,12 +141,17 @@ Page({
           that.registerAndLogin()
         }else{
           console.log(res)
-          loadFailed("注册失败")
         }
         
       },
       fail: function (error) {
         console.log(error)
+        wx.showToast({
+          title: '登陆失败，请检查网络',
+          icon:"error"
+        })
+        app.globalData.userInfo=[]
+        wx.setStorageSync('userInfo', "");
       }
     })
   },
