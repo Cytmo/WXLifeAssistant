@@ -93,10 +93,6 @@ Page({
           'content-type': 'application/json'
         },
         success: function (res) {
-          if (res.data.code == 12) {
-            that.userRegister()
-          }
-          console.log(res.data)
           if(res.data.code == 0){
             token = res.data.token
             wx.setStorageSync('token', token)

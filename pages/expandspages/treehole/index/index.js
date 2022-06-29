@@ -31,7 +31,17 @@ Page({
     scrollHeight : 200,
 
     against:null,
-    hollownameset:null
+    hollownameset:null,
+    headImage:["https://img2.woyaogexing.com/2022/06/27/02c6eea9b2b9af34!400x400.jpg",
+    "https://img2.woyaogexing.com/2022/06/27/1e9cf0147d4a23d9!400x400.jpg",
+    "https://img2.woyaogexing.com/2022/06/27/57696ee7e83b976b!400x400.jpg",
+    "https://img2.woyaogexing.com/2022/06/26/1080cc26f5fc3b3f!400x400.jpg",
+    "https://img2.woyaogexing.com/2022/06/26/6d019b8dc2ff0222!400x400.jpg",
+    "https://img2.woyaogexing.com/2022/06/25/f1c65f91de8c977b!400x400.jpg",
+    "https://img2.woyaogexing.com/2022/06/25/be9df2afb66ebd1c!400x400.jpg",
+    "https://img2.woyaogexing.com/2022/06/23/00c4153f4f06fa63!400x400.jpg",
+    "https://img2.woyaogexing.com/2022/06/21/4cacc77b103fd157!400x400.jpg",
+    "https://img2.woyaogexing.com/2022/06/21/393892e08a17a77c!400x400.jpg"]
 
   },
 
@@ -108,7 +118,7 @@ Page({
     this.hollownameset = this.selectComponent("#hollownameset")
     var that = this;
     console.log("是否有树洞昵称：" + app.globalData.userInformation.hollow_name)
-    if(app.globalData.userInformation.hollow_name == null){
+    if(app.globalData.userInformation.hollow_name == null || app.globalData.userInformation.hollow_name == ""){
       console.log("进入到树洞的昵称填写阶段")
       that.hollownameset.setId(app.globalData.userId)
       that.hollownameset.toShow()

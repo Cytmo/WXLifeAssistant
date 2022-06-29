@@ -19,7 +19,7 @@
           <image class="userimg" src="{{item.image}}"></image>
         </view> -->
         <view class="useravatar" catchtap='gotoTopicDetials' data-recordid='{{item.hollowId}}'>
-          <image class="userimg" src="../../../../images/0030.jpg"></image>
+          <image class="userimg" src="{{headImage[item.belong_to%10]}}"></image>
         </view>
         <view class="userinformation">
           <view class="information_top" catchtap='gotoTopicDetials' data-recordid='{{item.hollowId}}'>
@@ -61,7 +61,7 @@
           <image class="userimg" src="{{item.image}}"></image>
         </view> -->
         <view class="useravatar" catchtap='gotoTopicDetials' data-recordid='{{item.hollowId}}'>
-          <image class="userimg" src="../../../../images/0030.jpg"></image>
+          <image class="userimg" src="{{headImage[item.belong_to%10]}}"></image>
         </view>
         <view class="userinformation">
           <view class="information_top" catchtap='gotoTopicDetials' data-recordid='{{item.hollowId}}'>
