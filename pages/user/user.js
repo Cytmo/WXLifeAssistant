@@ -141,17 +141,25 @@ Page({
           that.registerAndLogin()
         }else{
           console.log(res)
+        //    wx.showToast({
+        //   title: '登陆失败，请检查网络',
+        //   icon:"error"
+        // })
+        app.globalData.userInfo=[]
+        wx.setStorageSync('userInfo', "");
         }
         
       },
       fail: function (error) {
-        console.log(error)
-        wx.showToast({
+         console.log(res)
+           wx.showToast({
           title: '登陆失败，请检查网络',
           icon:"error"
         })
         app.globalData.userInfo=[]
         wx.setStorageSync('userInfo', "");
+
+       
       }
     })
   },
