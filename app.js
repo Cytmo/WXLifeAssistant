@@ -26,7 +26,7 @@ App(
       userID: '0',
       userId:'0',
       openId: '',
-      url: "http://172.25.220.231:8007",
+      url: "https://47.101.146.68:8007",
       novelShow: {},
       tvsHighRanks: {},
       token:""
@@ -76,12 +76,12 @@ App(
         console.log("成功读取本地token")
         console.log(res.data)
         var token = res.data
-        that.setData({
-          token:res.data
-        },()=>{
-          that.userId = app.globalData.userId
-          that.authorization(token)
-        })
+        // that.setData({
+        //   token:res.data
+        // },()=>{
+        //   that.userId = app.globalData.userId
+        //   that.authorization(token)
+        // })
         
     },
     fail(res){

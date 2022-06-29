@@ -143,6 +143,10 @@ Page({
         // })
         app.globalData.userInfo=[]
         wx.setStorageSync('userInfo', "");
+        this.setData({
+          userInfo: [],
+          hasUserInfo: false,
+        })
         }
         
       },
