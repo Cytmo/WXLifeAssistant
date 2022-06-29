@@ -66,6 +66,20 @@ Page({
                 console.log("userId 为: " + res.data.openid);
                 that.registerAndLogin()
   
+              },
+              fail:(res)=>{
+                 console.log("失败，清空用户信息")
+           wx.showToast({
+          title: '失败，检查网络',
+          icon:"error"
+        })
+        app.globalData.userInfo=[]
+        wx.setStorageSync('userInfo', "");
+        that.setData({
+          userInfo: [],
+          hasUserInfo: false,
+          userID: ""
+        })
               }
             })
   
@@ -136,7 +150,7 @@ Page({
           console.log(res)
           that.registerAndLogin()
         }else{
-          console.log(res)
+          console.log('登陆失败，请检查网络')
         //    wx.showToast({
         //   title: '登陆失败，请检查网络',
         //   icon:"error"
@@ -153,12 +167,15 @@ Page({
       fail: function (error) {
          console.log(res)
            wx.showToast({
-          title: '登陆失败，请检查网络',
+          title: '失败，请检查网络',
           icon:"error"
         })
         app.globalData.userInfo=[]
         wx.setStorageSync('userInfo', "");
-
+        this.setData({
+          userInfo: [],
+          hasUserInfo: false,
+        })
        
       }
     })

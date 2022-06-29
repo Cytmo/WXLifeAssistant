@@ -7,11 +7,12 @@
     </view>
   </swiper-item>
 </swiper>
-<view class="notice">
-</view>
-<i-notice-bar icon="systemprompt" closable loop  bindtap="showNotice">
+<view class="notice" hidden="{{ifHidden}}">
+
+<i-notice-bar icon="systemprompt" closable loop  bindtap="showNotice" >
   {{notification[0].title }} : {{notification[0].content}}
 </i-notice-bar>
+</view>
 <view class="notice2">
 </view>
 <view class="cu-modal {{modalName=='Modal'?'show':''}}">

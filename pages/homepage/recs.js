@@ -24,7 +24,8 @@ Page({
       type: 'image',
       url: 'https://img2.baidu.com/it/u=4229575606,1399481933&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=281'
     }],
-    PageCur: 'basics'
+    PageCur: 'basics',
+    ifHidden:true
   },
   NavChange(e) {
     this.setData({
@@ -219,6 +220,7 @@ Page({
     }
     this.setData({
       notification: objects,
+      ifHidden:false
     });
     app.globalData.notification = objects;
 
