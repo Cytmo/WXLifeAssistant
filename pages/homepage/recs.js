@@ -133,6 +133,7 @@ Page({
 
   },
   onTabItemTap(){
+    return
    var that =this
   if(app.globalData.userId=="0"&&app.globalData.userID=="0"){
       wx.showToast({
