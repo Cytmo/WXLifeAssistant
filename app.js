@@ -26,7 +26,7 @@ App(
       userID: '0',
       userId:'0',
       openId: '',
-      url: "https://47.101.146.68:8007",
+      url: "http://10.131.167.11:8081",
       novelShow: {},
       tvsHighRanks: {},
       token:""

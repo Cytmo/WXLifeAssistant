@@ -12,7 +12,7 @@ export default class AppIMDelegate {
 
     onShow(options) {
       console.log("创建ws连接")
-        this.iIMHandler.createConnection({options: {url: 'wss://47.101.146.68:8007/chat'}});
+        this.iIMHandler.createConnection({options: {url: 'ws://10.131.167.11:8081/chat'}});
     }
 
     onHide() {

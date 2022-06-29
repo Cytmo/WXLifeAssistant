@@ -4,5 +4,6 @@
   },
   "navigationBarBackgroundColor": "#3B49E0",
   "enablePullDownRefresh": true,
-  "onReachBottomDistance": 50
+  "onReachBottomDistance": 50,
+  "navigationBarTitleText": "详情"
 }
