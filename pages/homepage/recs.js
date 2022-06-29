@@ -10,19 +10,19 @@ Page({
     swiperList: [{
       id: 0,
       type: 'image',
-      url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84001.jpg'
+      url: 'https://cdn-hz.skypixel.com/uploads/cn_files/photo/image/d465bec0-667c-41a1-91e0-cb09677b7f18.jpg@!1920'
     }, {
       id: 1,
         type: 'image',
-        url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84001.jpg',
+        url: 'https://img1.baidu.com/it/u=1798290659,959328327&fm=253&fmt=auto&app=138&f=JPEG?w=750&h=500',
     }, {
       id: 2,
       type: 'image',
-      url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big39000.jpg'
+      url: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fp1-tt.byteimg.com%2Forigin%2Fdfic-imagehandler%2F0b02e8b2-8b2f-4a1d-b291-31763080fc69%3Ffrom%3Dpc&refer=http%3A%2F%2Fp1-tt.byteimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1659077364&t=02b9855e77e2e266a2a6a7b908ef720e'
     }, {
       id: 3,
       type: 'image',
-      url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg'
+      url: 'https://img2.baidu.com/it/u=4229575606,1399481933&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=281'
     }],
     PageCur: 'basics'
   },
