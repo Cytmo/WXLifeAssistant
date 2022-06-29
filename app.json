@@ -50,7 +50,7 @@
         "selectedIconPath": "images/icon/tabbar_map_selected.png",
         "iconPath": "images/icon/tabbar_map.png",
         "pagePath": "pages/epidemicpages/map/map",
-        "text": "疫区"
+        "text": "疫情"
       },
       {
         "selectedIconPath": "images/icon/tarbar_me_selected.png",
