@@ -134,7 +134,7 @@ Page({
   },
   onTabItemTap(){
    var that =this
-  if(app.globalData.userId=="1"&&app.globalData.userID=="1"){
+  if(app.globalData.userId=="0"&&app.globalData.userID=="0"){
       wx.showToast({
           title: '请先登录',
           icon:"error",

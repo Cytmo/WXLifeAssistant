@@ -23,8 +23,8 @@ App(
       tvHot: {},
       //userID为 openid
       userInformation:{},
-      userID: '1',
-      userId:'1',
+      userID: '0',
+      userId:'0',
       openId: '',
       url: "http://10.131.167.11:8081",
       novelShow: {},
@@ -70,34 +70,34 @@ App(
       this.appIMDelegate.onShow(options);
        var that =this
 
-  //   wx.getStorage({
-  //     key:'token',
-  //     success(res){
-  //       console.log("成功读取本地token")
-  //       console.log(res.data)
-  //       var token = res.data
-  //       that.setData({
-  //         token:res.data
-  //       },()=>{
-  //         that.userId = app.globalData.userId
-  //         that.authorization(token)
-  //       })
+    wx.getStorage({
+      key:'token',
+      success(res){
+        console.log("成功读取本地token")
+        console.log(res.data)
+        var token = res.data
+        that.setData({
+          token:res.data
+        },()=>{
+          that.userId = app.globalData.userId
+          that.authorization(token)
+        })
         
-  //   },
-  //   fail(res){
-  //       wx.showToast({
-  //         title: '请先登录',
-  //         icon:"error",
-  //         duration:2000
-  //       })
-  //       wx.setStorageSync('ifShowWarn',1)
-  //         wx.switchTab({
+    },
+    fail(res){
+        wx.showToast({
+          title: '请先登录',
+          icon:"error",
+          duration:2000
+        })
+        wx.setStorageSync('ifShowWarn',1)
+          wx.switchTab({
             
-  //           url: '/pages/user/user',
-  //         })
+            url: '/pages/user/user',
+          })
         
-  //   }
-  // })
+    }
+  })
     },
 
     registerAndLogin: function () {

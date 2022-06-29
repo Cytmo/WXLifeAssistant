@@ -19,10 +19,41 @@
 </view> -->
 <view class="line"></view>
 
-<view class='item'>
-  <picker catchtouchmove="true" class="title" mode="selector" range="{{array}}" value="{{index}}" bindchange="bindPickerChange">MBTI设置</picker>
+
+  <picker class="title" mode="selector" range="{{array}}" value="{{index}}" bindchange="bindPickerChange">MBTI设置</picker>
   <view class="detail2">
-    <text>></text>
+    <text></text>
+  </view>
+
+
+
+
+<view class="cu-modal {{modalNoticeName=='Modal'?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content"> {{notification[0].title }}</view>
+      <view class="action" bindtap="hideNotice" data-type="2">
+        <text class="cuIcon-close text-red"></text>
+      </view>
+    </view>
+    <view class="padding-xl">
+      {{notification[0].content}}
+    </view>
+  </view>
+</view>
+
+<view class="cu-modal {{ modalFeedbackName=='Modal'?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content"> 意见反馈</view>
+      <view class="action" bindtap="hideFeedback" data-type="2">
+        <text class="cuIcon-close text-red"></text>
+      </view>
+    </view>
+    <view class="padding-xl">
+      邮箱：cytmo@qq.com
+
+    </view>
   </view>
 </view>
 
@@ -35,14 +66,14 @@
 </view> 
 
 <view class="hr"></view>
-<view class="item">
+<view class="item" bindtap="showNotice">
   <view class="title">通知</view>
   <view class="detail2">
     <text> ></text>
   </view>
 </view>
 <view class="line"></view>
-<view class="item">
+<view class="item" bindtap="showFeedback">
   <view class="title">意见反馈</view>
   <view class="detail2">
     <text> ></text>
@@ -50,9 +81,9 @@
 </view>
 <view class="line"></view>
 <view class="item">
-  <view class="title">设置</view>
+  <view class="title">版本号</view>
   <view class="detail2">
-    <text> ></text>
+    <text> 1.2.4</text>
   </view>
 </view>
 <view class="hr"></view>

@@ -13,6 +13,7 @@ Page({
       'ISTJ-物流师', 'ISFJ-守卫者', 'ESTJ-总经理', 'ESFJ执政官',
       'ISTP-鉴赏家', 'ISFP-探险家', 'ESTP-企业家', 'ESFP-表演者'
     ],
+    notifications:[],
       index:''
 
   },
@@ -152,6 +153,9 @@ Page({
 
   // 事件处理函数
   onShow: function () {
+    this.setData({
+      notification:app.globalData.notification
+    })
     var that = this;
     if (app.globalData.userInfo.avatarUrl != null) {
       console.log("已获取到本地信息，隐藏登录按钮");
@@ -188,7 +192,6 @@ Page({
           token:res.data
         },()=>{
           that.userId = app.globalData.userId
-          that.authorization(token)
         })
         
     },
@@ -198,15 +201,16 @@ Page({
           icon:"error",
           duration:2000
         })
+    
         wx.setStorageSync('ifShowWarn',1)
           wx.switchTab({
             
             url: '/pages/user/user',
           })
-        
+              return
     }
   })
-  return
+
     this.setData({
       index: e.detail.value
     })
@@ -253,6 +257,34 @@ Page({
     wx.navigateTo({
       url: './MBTI',
     })
+  },
+  showNotice:function () {
+
+     this.setData({
+      modalNoticeName: "Modal"
+    })
+    
+  },
+
+   hideNotice(e) {
+    this.setData({
+      modalNoticeName: null
+    })
+
+  },
+    showFeedback:function () {
+
+     this.setData({
+      modalFeedbackName: "Modal"
+    })
+    
+  },
+
+   hideFeedback(e) {
+    this.setData({
+      modalFeedbackName: null
+    })
+
   },
   onLoad: function (options) {
     var that = this;
