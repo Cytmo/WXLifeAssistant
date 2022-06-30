@@ -83,7 +83,7 @@
 <view class="item">
   <view class="title">版本号</view>
   <view class="detail2">
-    <text> 1.2.4</text>
+    <text> 1.2.5</text>
   </view>
 </view>
 <view class="hr"></view>
